@@ -1,11 +1,11 @@
 # EE.js
-**this EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)**
-A kubeJS script that elegantly unifies ores and materials
+**this EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
+- A kubeJS script that elegantly unifies ores and materials
 
 ## Features
-- Customizable Strata/Materials
-- Nice compatibility
-- Convenient to modify
+- Customizable Strata/Materials 
+- Nice compatibility 
+- Convenient to modify 
 
 ## How to use
 Copy & paste😋
