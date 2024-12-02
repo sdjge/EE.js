@@ -464,7 +464,7 @@ const EE_MATERIALS = [
 		color: ["#e4e6eb", "#9ea0a3", "#818185", "#454552", "#31313b"],
 	},
 	// Mod: Ad Astra
-	/* {
+	{
 		name: "desh",
 		type: "metal",
 		baseItem: "ingot",
@@ -484,7 +484,7 @@ const EE_MATERIALS = [
 		baseItem: "ingot",
 		processedTypes: ["dust", "gear", "rod", "mekanism", "bloodmagic", "crushed"],
 		color: ["#dc6c5b", "#c94d4e", "#9c1f3e", "#691533", "#691533"],
-	}, */
+	},
 	// Mod: Ocultism
 	{
 		name: "iesnium",
@@ -494,7 +494,7 @@ const EE_MATERIALS = [
 		color: ["#b7e8e6", "#64b0bf", "#38748b", "#2c526b", "#233b56"],
 	},
 	// Mod: Blue Skies
-	/* {
+	{
 		name: "falsite",
 		type: "metal",
 		baseItem: "ingot",
@@ -514,130 +514,38 @@ const EE_MATERIALS = [
 		baseItem: "ingot",
 		processedTypes: ["dust", "plate", "gear", "rod", "mekanism", "bloodmagic", "crushed"],
 		color: ["#fcbe6c", "#fcab39", "#fc6d28", "#ae2d15", "#9c3100"],
-	}, */
-	/* Mod: Omniworld
-    {
-        name: 'orichalcum',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['ore', 'raw', 'ingot', 'nugget', 'dust', 'plate', 'gear', 'rod', 'storage_block', 'bloodmagic', 'mekanism', 'crushed'],
-        harvestLevel: 'stone',
-        strata: ['deepslate'],
-        // color: ['#effbea', '#bedb8b', '#a3bf68', '#5f7d31', '#44601c'],
-        smallStorageBlock: false,
-        drop: {
-            item: 'emendatusenigmatica:raw_orichalcum',
-            min: 1,
-            max: 1
-        },
-        toolProperties: {
-            damage: 9,
-            durability: 1800,
-            harvestLevel: 4,
-            enchantValue: 24,
-            miningSpeed: 12
-        },
-        armorProperties: {
-            durability: 1000,
-            durabilityMultiplier: 70,
-            slotProtections: [4, 7, 9, 4],
-            equipSound: 'minecraft:item.armor.equip_iron',
-            toughness: 3.5,
-            knockbackResistance: 0
-        }
-    },
-    {
-        name: 'mithril',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['ore', 'raw', 'ingot', 'nugget', 'dust', 'plate', 'gear', 'rod', 'storage_block', 'bloodmagic', 'mekanism', 'crushed'],
-        harvestLevel: 'stone',
-        strata: ['netherrack'],
-        // color: ['#fefffb', '#c6ffdd', '#6bcdbb', '#316c89', '#264a66'],
-        smallStorageBlock: false,
-        drop: {
-            item: 'emendatusenigmatica:raw_mithril',
-            min: 1,
-            max: 1
-        },
-        toolProperties: {
-            damage: 12,
-            durability: 2100,
-            harvestLevel: 4,
-            enchantValue: 28,
-            miningSpeed: 16
-        },
-        armorProperties: {
-            durability: 1200,
-            durabilityMultiplier: 60,
-            slotProtections: [4, 8, 10, 4],
-            equipSound: 'minecraft:item.armor.equip_iron',
-            toughness: 4.5,
-            knockbackResistance: 0.15
-        }
-    },
-    {
-        name: 'adamantite',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['ore', 'raw', 'ingot', 'nugget', 'dust', 'plate', 'gear', 'rod', 'storage_block', 'bloodmagic', 'mekanism', 'crushed'],
-        harvestLevel: 'stone',
-        strata: ['end_stone'],
-        // color: ['#fff7f7', '#ffc4d1', '#f2595c', '#b91e1e', '#9f181a'],
-        smallStorageBlock: false,
-        drop: {
-            item: 'emendatusenigmatica:raw_adamantite',
-            min: 1,
-            max: 1
-        },
-        toolProperties: {
-            damage: 15,
-            durability: 2700,
-            harvestLevel: 4,
-            enchantValue: 32,
-            miningSpeed: 20
-        },
-        armorProperties: {
-            durability: 1500,
-            durabilityMultiplier: 120,
-            slotProtections: [5, 9, 11, 5],
-            equipSound: 'minecraft:item.armor.equip_iron',
-            toughness: 5.5,
-            knockbackResistance: 0.25
-        }
-    }, */
-	/* Mod: GregTech
-    {
-        name: 'cobalt',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['mekanism', 'crushed', 'dust'],
-        color: ['#58a4ec', '#2375da', '#0752b6', '#003691', '#00286c']
-    }, */
-	/* {
-        name: 'naquadah',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['mekanism'],
-        color: ['#53534f', '#494949', '#262626', '#1f1f1f', '#121212']
-    } */
-
-	/* Mod: Draconic Evolution
-    {
-        name: 'draconium',
-        type: 'metal',
-        baseItem: 'ingot',
-        processedTypes: ['mekanism', 'crushed', 'bloodmagic', 'plate', 'gear', 'rod'],
-        color: ['#e1cde5', '#ac6fe9', '#711ebc', '#4c1280', '#331052'],
-        oreToDustMultiplier: 3
-    },
-    {
-        name: 'draconium_awakened',
-        type: 'alloy',
-        baseItem: 'ingot',
-        processedTypes: ['plate', 'gear', 'rod'],
-        color: ['#f6fc92', '#fcca00', '#fc9a00', '#c23d00', '#950000']
-    } */
+	},
+	// Mod: GregTech
+	{
+		name: "cobalt",
+		type: "metal",
+		baseItem: "ingot",
+		processedTypes: ["mekanism", "crushed", "dust"],
+		color: ["#58a4ec", "#2375da", "#0752b6", "#003691", "#00286c"],
+	},
+	{
+		name: "naquadah",
+		type: "metal",
+		baseItem: "ingot",
+		processedTypes: ["mekanism"],
+		color: ["#53534f", "#494949", "#262626", "#1f1f1f", "#121212"],
+	},
+	//Mod: Draconic Evolution
+	{
+		name: "draconium",
+		type: "metal",
+		baseItem: "ingot",
+		processedTypes: ["mekanism", "crushed", "bloodmagic", "plate", "gear", "rod"],
+		color: ["#e1cde5", "#ac6fe9", "#711ebc", "#4c1280", "#331052"],
+		oreToDustMultiplier: 3,
+	},
+	{
+		name: "draconium_awakened",
+		type: "alloy",
+		baseItem: "ingot",
+		processedTypes: ["plate", "gear", "rod"],
+		color: ["#f6fc92", "#fcca00", "#fc9a00", "#c23d00", "#950000"],
+	},
 ];
 
 global.EE_MATERIALS = EE_MATERIALS;
