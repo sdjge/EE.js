@@ -18,7 +18,7 @@
 - Customizable Strata/Materials 
 - Convenient to modify 
 - Nice compatibility  
-  - Compatible with Vanilla, Create, Mekanism, Eloodmagic, Embers 
+  - Compatible with Vanilla, Create, Mekanism, Bloodmagic, Embers 
 
 ## How to use 
 
