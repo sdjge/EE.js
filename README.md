@@ -12,16 +12,16 @@ Copy & paste😋
 ### for custom strata
 **Add new definitions to `EE_STRATAS` in `strata.js`.** 
 ```js
-stone: { 
-    name: "stone", // name your strata
+stone: {
+	name: "stone", // name your strata
 	texture: "minecraft:block/stone", // strata texure
 	fill: "minecraft:stone",
 	hardness: 1.5, // ore block hardness
 	resistance: 6, // ore block resistance
 	tool: "pickaxe", // tool type
-    }
+}
 ```
-**Add or modify definition at the top of `material_def.js`.**
+**Add or modify definition at the top of `material_def.js`.** 
 e.g.
 ```js
 let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
