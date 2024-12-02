@@ -5,10 +5,14 @@
 
 ## Require 
 
-`minecraft => 1.20.1` 
-`(NEO)Forge => any` 
-`KubeJS => 6` 
-`LootJS => any` 
+- `minecraft => 1.20.1` 
+
+- `(NEO)Forge => any` 
+
+- `KubeJS => 6` 
+
+- `LootJS => any` 
+
 
 ## Features 
 - Customizable Strata/Materials 
