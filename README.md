@@ -12,8 +12,9 @@
 
 ## Features 
 - Customizable Strata/Materials 
-- Nice compatibility 
 - Convenient to modify 
+- Nice compatibility  
+  - Compatible with Vanilla, Create, Mekanism, Eloodmagic, Embers 
 
 ## How to use 
 
