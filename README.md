@@ -3,9 +3,9 @@
 A kubeJS script that elegantly unifies ores and materials
 
 ## Features
-Customizable Strata/Materials
-Nice compatibility
-Convenient to modify
+- Customizable Strata/Materials
+- Nice compatibility
+- Convenient to modify
 
 ## How to use
 Copy & paste😋
@@ -38,7 +38,8 @@ const EE_MATERIALS = [
 name: "coal", // name your material
 type: "dust", // your material type -- ("dust","metal","gem")
 baseItem: "dust", //*base item is
-processedTypes: ["dust"], //*processed types -- ("ore","raw","ingot","nugget","dust","plate","gear","rod""storage_block","mekanism","bloodmagic","aspectus")
+processedTypes: ["dust"], //*processed types -- 
+//("ore","raw","ingot","nugget","dust","plate","gear","rod""storage_block","mekanism","bloodmagic","aspectus")
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*need 5 colors
 burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*
