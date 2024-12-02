@@ -1,16 +1,27 @@
-# EE.js
-**this EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
-- A kubeJS script that elegantly unifies ores and materials
+# EE.js 
 
-## Features
+**this EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
+- A kubeJS script that elegantly unifies ores and materials 
+
+## Require 
+
+`minecraft => 1.20.1` 
+`(NEO)Forge => any` 
+`KubeJS => 6` 
+`LootJS => any` 
+
+## Features 
 - Customizable Strata/Materials 
 - Nice compatibility 
 - Convenient to modify 
 
-## How to use
-Copy & paste😋
-### for custom strata
-**Add new definitions to `EE_STRATAS` in `strata.js`.** 
+## How to use 
+
+Copy & paste😋 
+
+### for custom strata 
+
+**Add new definitions to `EE_STRATAS` in `strata.js`.**  
 ```js
 stone: {
 	name: "stone", // name your strata
@@ -20,7 +31,7 @@ stone: {
 	resistance: 6, // ore block resistance
 	tool: "pickaxe", // tool type
 }
-```
+``` 
 **Add or modify definition at the top of `material_def.js`.** 
 e.g.
 ```js
@@ -28,18 +39,19 @@ let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
 ...
 const EE_MATERIALS = [
     ...
-]
-```
-### for custom materials
-**Add new definition to `EE_MATERIALS` in `material_def.js`.**
-`*` *stands for optional*
-```js
-{
+] 
+``` 
+### for custom materials 
+**Add new definition to `EE_MATERIALS` in `material_def.js`.** 
+`*` *stands for optional* 
+```js 
+{ 
 name: "coal", // name your material
 type: "dust", // your material type -- ("dust","metal","gem")
 baseItem: "dust", //*base item is
 processedTypes: ["dust"], //*processed types -- 
-//("ore","raw","ingot","nugget","dust","plate","gear","rod""storage_block","mekanism","bloodmagic","aspectus")
+//("ore","raw","ingot","nugget","dust","plate","gear", 
+//"rod""storage_block","mekanism","bloodmagic","aspectus") 
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*need 5 colors
 burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*
@@ -62,6 +74,7 @@ equipSound: 'minecraft:item.armor.equip_iron', // sound
 toughness: 3.5, // toughness
 knockbackResistance: 0 // knockback resistance
 }}
-```
-### for recipes
-**haha WIP😩**
+``` 
+### for recipes 
+
+**haha WIP😩** 
