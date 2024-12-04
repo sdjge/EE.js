@@ -41,7 +41,7 @@ EntityEvents.spawned("minecraft:item", (e) => {
 	}
 });
 
-PlayerEvents.inventoryChanged((e) => {
+/* PlayerEvents.inventoryChanged((e) => {
 	if (!e.player.isPlayer() || e.player.isFake()) return;
 	if (e.item.id.includes("emendatusenigmatica")) return;
 
@@ -80,6 +80,140 @@ PlayerEvents.inventoryChanged((e) => {
 				break;
 			}
 		}
+	}
+}); */
+
+ServerEvents.recipes((event) => {
+	// remove if mod loaded
+	const embersLoaded = Platform.isLoaded("embers");
+	const mekaLoaded = Platform.isLoaded("mekanism");
+	const bloodLoaded = Platform.isLoaded("bloodmagic");
+	const createLoaded = Platform.isLoaded("create");
+	if ((embersLoaded = true)) {
+		let recipeIdRemove = [
+			[`embers:lead_block_to_ingot`],
+			[`embers:lead_nugget_to_ingot`],
+			[`embers:lead_ingot_from_blasting_lead_ore`],
+			[`embers:lead_ingot_from_blasting_deepslate_lead_ore`],
+			[`embers:lead_ingot_from_blasting_raw_lead`],
+			[`embers:lead_ingot_from_smelting_deepslate_lead_ore`],
+			[`embers:lead_ingot_from_smelting_lead_ore`],
+			[`embers:lead_ingot_from_smelting_raw_lead`],
+			[`embers:silver_nugget_to_ingot`],
+			[`embers:silver_raw_to_raw_block`],
+			[`embers:lead_raw_to_raw_block`],
+			[`embers:silver_ingot_from_blasting_deepslate_silver_ore`],
+			[`embers:silver_ingot_from_blasting_silver_ore`],
+			[`embers:silver_ingot_from_blasting_raw_silver`],
+			[`embers:silver_ingot_from_smelting_raw_silver`],
+			[`embers:silver_ingot_from_smelting_deepslate_silver_ore`],
+			[`embers:silver_ingot_from_smelting_silver_ore`],
+			[`embers:silver_block_to_ingot`],
+			[`embers:silver_raw_block_to_raw`],
+			[`embers:silver_ingot_to_block`],
+			[`embers:lead_ingot_to_block`],
+			[`embers:lead_raw_block_to_raw`],
+			[`embers:lead_ingot_to_nugget`],
+			[`embers:silver_ingot_to_nugget`],
+		];
+		recipeIdRemove.forEach(([recipeId]) => {
+			event.remove({ id: recipeId });
+		});
+	}
+	if ((mekaLoaded = true)) {
+		let recipeIdRemove = [
+			["mekanism:storage_blocks/bronze"],
+			["mekanism:storage_blocks/steel"],
+			[`mekanism:processing/tin/ingot/from_ore_blasting`],
+			[`mekanism:processing/tin/ingot/from_ore_smelting`],
+			[`mekanism:processing/tin/ingot/from_raw_blasting`],
+			[`mekanism:processing/tin/ingot/from_raw_smelting`],
+			[`mekanism:processing/tin/ingot/from_dust_blasting`],
+			[`mekanism:processing/tin/ingot/from_nuggets`],
+			[`mekanism:processing/tin/ingot/from_block`],
+			[`mekanism:processing/tin/ingot/from_dust_smelting`],
+			[`mekanism:processing/tin/ingot/from_ore_smelting`],
+			[`mekanism:processing/tin/storage_blocks/from_ingots`],
+			[`mekanism:processing/uranium/ingot/from_ore_blasting`],
+			[`mekanism:processing/uranium/ingot/from_ore_smelting`],
+			[`mekanism:processing/uranium/ingot/from_raw_blasting`],
+			[`mekanism:processing/uranium/ingot/from_raw_smelting`],
+			[`mekanism:processing/uranium/ingot/from_dust_blasting`],
+			[`mekanism:processing/uranium/ingot/from_nuggets`],
+			[`mekanism:processing/uranium/ingot/from_block`],
+			[`mekanism:processing/uranium/ingot/from_dust_smelting`],
+			[`mekanism:processing/uranium/ingot/from_ore_smelting`],
+			[`mekanism:processing/uranium/storage_blocks/from_ingots`],
+			[`mekanism:processing/osmium/ingot/from_ore_blasting`],
+			[`mekanism:processing/osmium/ingot/from_ore_smelting`],
+			[`mekanism:processing/osmium/ingot/from_raw_blasting`],
+			[`mekanism:processing/osmium/ingot/from_raw_smelting`],
+			[`mekanism:processing/osmium/ingot/from_dust_blasting`],
+			[`mekanism:processing/osmium/ingot/from_nuggets`],
+			[`mekanism:processing/osmium/ingot/from_block`],
+			[`mekanism:processing/osmium/ingot/from_dust_smelting`],
+			[`mekanism:processing/osmium/ingot/from_ore_smelting`],
+			[`mekanism:processing/osmium/storage_blocks/from_ingots`],
+			[`mekanism:processing/lead/ingot/from_ore_blasting`],
+			[`mekanism:processing/lead/ingot/from_ore_smelting`],
+			[`mekanism:processing/lead/ingot/from_raw_blasting`],
+			[`mekanism:processing/lead/ingot/from_raw_smelting`],
+			[`mekanism:processing/lead/ingot/from_dust_blasting`],
+			[`mekanism:processing/lead/ingot/from_nuggets`],
+			[`mekanism:processing/lead/ingot/from_block`],
+			[`mekanism:processing/lead/ingot/from_dust_smelting`],
+			[`mekanism:processing/lead/ingot/from_ore_smelting`],
+			[`mekanism:processing/lead/storage_blocks/from_ingots`],
+			[`mekanism:processing/osmium/raw_storage_blocks/from_raw`],
+			[`mekanism:processing/tin/raw_storage_blocks/from_raw`],
+			[`mekanism:processing/lead/raw_storage_blocks/from_raw`],
+			[`mekanism:storage_blocks/fluorite`],
+			[`mekanism:processing/bronze/ingot/from_dust_smelting`],
+			[`mekanism:processing/bronze/ingot/from_dust_blasting`],
+			[`mekanism:processing/steel/ingot/from_dust_blasting`],
+			[`mekanism:processing/steel/ingot/from_dust_smelting`],
+		];
+		recipeIdRemove.forEach(([recipeId]) => {
+			event.remove({ id: recipeId });
+		});
+	}
+	if ((createLoaded = true)) {
+		let recipeIdRemove = [
+			[`create:crafting/materials/raw_zinc`],
+			[`create:crafting/materials/zinc_ingot_from_compacting`],
+			[`create:crafting/materials/zinc_ingot_from_decompacting`],
+			[`create:blasting/zinc_ingot_from_raw_ore`],
+			[`create:blasting/zinc_ingot_from_ore`],
+			[`create:smelting/zinc_ingot_from_ore`],
+			[`create:smelting/zinc_ingot_from_raw_ore`],
+			[`create:crafting/materials/copper_nugget`],
+			[`create:crafting/materials/zinc_nugget_from_decompacting`],
+			[`create:crafting/materials/brass_nugget_from_decompacting`],
+			[`create:pressing/copper_ingot`],
+			[`create:pressing/brass_ingot`],
+			[`create:pressing/iron_ingot`],
+			[`create:pressing/gold_ingot`],
+		];
+		recipeIdRemove.forEach(([removeRecipeId]) => {
+			event.remove({ id: removeRecipeId });
+		});
+
+		/* let recipeReplace = [
+			["create:brass_nugget", "emendatusenigmatica:brass_nugget"],
+			["create:zinc_nugget", "emendatusenigmatica:zinc_nugget"],
+			["create:copper_nugget", "emendatusenigmatica:copper_nugget"],
+			["create:brass_ingot", "emendatusenigmatica:brass_ingot"],
+			["create:zinc_ingot", "emendatusenigmatica:zinc_ingot"],
+		]; */
+		/* recipeReplace.forEach((replace, to) => {
+			event.replaceOutput({ mod: "create" }, replace, to);
+		}); */
+	}
+	if ((bloodLoaded = true)) {
+		let recipeIdRemove = [];
+		recipeIdRemove.forEach(([recipeId]) => {
+			event.remove({ id: recipeId });
+		});
 	}
 });
 

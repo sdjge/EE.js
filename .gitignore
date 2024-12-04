@@ -2,8 +2,3 @@
 *
 !.gitignore
 !kubejs/
-!defaultconfigs
-!emi.json
-!config
-!ldlib
-!global_packs

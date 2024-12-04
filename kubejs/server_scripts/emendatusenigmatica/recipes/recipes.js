@@ -345,14 +345,14 @@ ServerEvents.recipes((e) => {
 					`#forge:gems/${name}`
 				);
 			}
-			/* if (checkedTypes.gem) {
+			if (checkedTypes.gem) {
 				// Immersive Engineering
 				if (checkedTypes.ore && !blacklist.immersiveengineering.crusher.includes(name)) {
 					e.custom(ImmersiveEngineering.crusher(`2x #forge:gems/${name}`, `#forge:ores/${name}`, 6000)).id(
 						`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`
 					);
 				}
-			} */
+			}
 			if (checkedTypes.gear) {
 				if (types.includes("ingot") || mat.type == "alloy" || mat.type == "metal" || mat.baseItem == "ingot")
 					e.shaped(processedItems.gear, [" i ", "ini", " i "], {
@@ -447,7 +447,7 @@ ServerEvents.recipes((e) => {
 					}
 				}
 			}
-			/* if (types.includes("mekanism")) {
+			if (types.includes("mekanism")) {
 				// console.log('- Mekanism')
 				/*
 				 * @typedef {'mekanism:injecting' | 'mekanism:purifying'} MekanismReipeType
@@ -457,7 +457,7 @@ ServerEvents.recipes((e) => {
 				 * @param {string} ingredient
 				 * @param {Internal.Item} output
 				 * @returns
-				 *
+				 */
 				let mekanismProcessRecipeJson = (type, gas, amount, ingredient, output) => ({
 					type: type,
 					chemicalInput: {
@@ -575,8 +575,8 @@ ServerEvents.recipes((e) => {
 						output: Item.of(`${2 * oreToDustMultiplier}x ${processedItems.dust}`).toJson(),
 					}).id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_ore`);
 				}
-			} */
-			/* if (types.includes("bloodmagic")) {
+			}
+			if (types.includes("bloodmagic")) {
 				// console.log('- Blood Magic')
 				if (isIngredientExist(`#forge:ores/${name}`)) {
 					e.custom({
@@ -689,7 +689,7 @@ ServerEvents.recipes((e) => {
 						tag: "bloodmagic:arc/cuttingfluid",
 					},
 				}).id(`emendatusenigmatica:bloodmagic/arc/${name}_dust_from_gravel`);
-			} */
+			}
 			if (isIngredientExist(`#create:crushed_raw_materials/${name}`)) {
 				// console.log('- Create')
 				if (blacklist.create.includes(name)) return;

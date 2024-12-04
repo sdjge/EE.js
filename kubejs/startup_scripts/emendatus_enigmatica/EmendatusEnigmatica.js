@@ -1,10 +1,14 @@
-// priority: 99
+// priority: 299
 
-const embersLoaded = Platform.isLoaded("embers");
-const mekaLoaded = Platform.isLoaded("mekanism");
-const bloodLoaded = Platform.isLoaded("bloodmagic");
-const createLoaded = Platform.isLoaded("create");
-console.info(`embers${embersLoaded},meka${mekaLoaded},blood${bloodLoaded},create${createLoaded}`);
+const LoadedMOD = {
+	create: Platform.isLoaded("create"),
+	bloodmagic: Platform.isLoaded("bloodmagic"),
+	mekanism: Platform.isLoaded("mekanism"),
+	embers: Platform.isLoaded("embers"),
+};
+console.info(
+	`embers${LoadedMOD.embers},meka${LoadedMOD.mekanism},blood${LoadedMOD.bloodmagic},create${LoadedMOD.create}`
+);
 StartupEvents.registry("creative_mode_tab", (e) => {
 	e.create("emendatusenigmatica", "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
 });
@@ -398,8 +402,9 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 				removeInTab(`emendatusenigmatica:${name}_aspectus`);
-				if (embersLoaded != true) return;
-				addToTab(`emendatusenigmatica:${name}_aspectus`);
+				if (LoadedMOD.embers) {
+					addToTab(`emendatusenigmatica:${name}_aspectus`);
+				}
 			}
 			if (type == "mekanism") {
 				StartupEvents.registry("item", (e) => {
@@ -474,11 +479,12 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`emendatusenigmatica:${name}_shard`);
 				removeInTab(`emendatusenigmatica:${name}_clump`);
 				removeInTab(`emendatusenigmatica:${name}_dirty_dust`);
-				if (mekaLoaded != true) return;
-				addToTab(`emendatusenigmatica:${name}_crystal`);
-				addToTab(`emendatusenigmatica:${name}_shard`);
-				addToTab(`emendatusenigmatica:${name}_clump`);
-				addToTab(`emendatusenigmatica:${name}_dirty_dust`);
+				if (LoadedMOD.mekanism) {
+					addToTab(`emendatusenigmatica:${name}_crystal`);
+					addToTab(`emendatusenigmatica:${name}_shard`);
+					addToTab(`emendatusenigmatica:${name}_clump`);
+					addToTab(`emendatusenigmatica:${name}_dirty_dust`);
+				}
 
 				// StartupEvents.registry('mekanism:slurry', e => {
 				//     e.create(`emendatusenigmatica:dirty_${name}`, ChemicalType.SLURRY.serializedName).color(parseInt('0x' + this.color[3].slice(1), 16))
@@ -524,9 +530,10 @@ EmendatusEnigmaticaJS.prototype = {
 				});
 				removeInTab(`emendatusenigmatica:${name}_fragment`);
 				removeInTab(`emendatusenigmatica:${name}_gravel`);
-				if (bloodLoaded != true) return;
-				addToTab(`emendatusenigmatica:${name}_fragment`);
-				addToTab(`emendatusenigmatica:${name}_gravel`);
+				if (LoadedMOD.bloodmagic) {
+					addToTab(`emendatusenigmatica:${name}_fragment`);
+					addToTab(`emendatusenigmatica:${name}_gravel`);
+				}
 			}
 			if (type == "crushed") {
 				StartupEvents.registry("item", (e) => {
@@ -549,8 +556,9 @@ EmendatusEnigmaticaJS.prototype = {
 							.color(4, this.color[4]);
 				});
 				removeInTab(`emendatusenigmatica:${name}_crushed_ore`);
-				if (createLoaded != true) return;
-				addToTab(`emendatusenigmatica:${name}_crushed_ore`);
+				if (LoadedMOD.create) {
+					addToTab(`emendatusenigmatica:${name}_crushed_ore`);
+				}
 			}
 		});
 		if (this.toolProperties) {

@@ -1,4 +1,4 @@
-// priority: 90
+// priority: 298
 
 let commonStratas = ["stone", "deepslate", "netherrack", "end_stone", "andesite", "diorite", "granite"];
 let vanillaComplementStratas = ["netherrack", "end_stone", "andesite", "diorite", "granite"];
@@ -527,7 +527,7 @@ const EE_MATERIALS = [
 		name: "naquadah",
 		type: "metal",
 		baseItem: "ingot",
-		processedTypes: ["mekanism"],
+		processedTypes: ["mekanism", "dust"],
 		color: ["#53534f", "#494949", "#262626", "#1f1f1f", "#121212"],
 	},
 	//Mod: Draconic Evolution
@@ -535,7 +535,7 @@ const EE_MATERIALS = [
 		name: "draconium",
 		type: "metal",
 		baseItem: "ingot",
-		processedTypes: ["mekanism", "crushed", "bloodmagic", "plate", "gear", "rod"],
+		processedTypes: ["mekanism", "crushed", "bloodmagic", "plate", "gear", "rod", "dust"],
 		color: ["#e1cde5", "#ac6fe9", "#711ebc", "#4c1280", "#331052"],
 		oreToDustMultiplier: 3,
 	},
@@ -543,7 +543,7 @@ const EE_MATERIALS = [
 		name: "draconium_awakened",
 		type: "alloy",
 		baseItem: "ingot",
-		processedTypes: ["plate", "gear", "rod"],
+		processedTypes: ["plate", "gear", "rod", "dust"],
 		color: ["#f6fc92", "#fcca00", "#fc9a00", "#c23d00", "#950000"],
 	},
 ];
