@@ -137,19 +137,7 @@ ServerEvents.recipes((e) => {
 				"constantan",
 				"steel",
 			],
-			hammerCrushing: [
-				"iron",
-				"copper",
-				"gold",
-				"aluminum",
-				"osmium",
-				"lead",
-				"nickel",
-				"silver",
-				"tin",
-				"uranium",
-				"zinc",
-			],
+			hammerCrushing: ["iron", "copper", "gold", "aluminum", "osmium", "lead", "nickel", "silver", "tin", "uranium", "zinc"],
 			crusher: [
 				"copper",
 				"aluminum",
@@ -177,6 +165,7 @@ ServerEvents.recipes((e) => {
 
 	let loadedMods = {
 		create: Platform.isLoaded("create"),
+		createadditions: Platform.isLoaded("createaddition"),
 		immersiveengineering: Platform.isLoaded("immersiveengineering"),
 	};
 
@@ -271,13 +260,7 @@ ServerEvents.recipes((e) => {
 			}
 			if (checkedTypes.raw) {
 				if (checkedTypes.rawBlock) {
-					compactRecipe(
-						false,
-						processedItems.rawBlock,
-						`#forge:storage_blocks/raw_${name}`,
-						processedItems.raw,
-						`#forge:raw_materials/${name}`
-					);
+					compactRecipe(false, processedItems.rawBlock, `#forge:storage_blocks/raw_${name}`, processedItems.raw, `#forge:raw_materials/${name}`);
 				}
 				if (checkedTypes.ore && Platform.isLoaded("integrateddynamics")) {
 					if (!["copper", "iron", "gold"].includes(name)) {
@@ -368,11 +351,7 @@ ServerEvents.recipes((e) => {
 				if (loadedMods.immersiveengineering) {
 					if (!blacklist.immersiveengineering.metalPress.includes(name))
 						e.custom(
-							ImmersiveEngineering.metalPress(
-								`#forge:gears/${name}`,
-								`4x #forge:${mat.baseItem}s/${name}`,
-								ImmersiveEngineering.MOLDS.GEAR
-							)
+							ImmersiveEngineering.metalPress(`#forge:gears/${name}`, `4x #forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.GEAR)
 						).id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_gear`);
 				}
 			}
@@ -381,16 +360,18 @@ ServerEvents.recipes((e) => {
 					e.shaped(`2x ${processedItems.rod}`, ["i", "i"], {
 						i: `#forge:ingots/${name}`,
 					}).id(`emendatusenigmatica:${name}_rod`);
-					/* e.custom({
-						type: "createaddition:rolling",
-						input: {
-							tag: `forge:ingots/${name}`,
-						},
-						result: {
-							item: processedItems.rod,
-							count: 2,
-						},
-					}).id(`emendatusenigmatica:createaddition/rolling/${name}_ingot`); */
+					if (loadedMods.createadditions) {
+						e.custom({
+							type: "createaddition:rolling",
+							input: {
+								tag: `forge:ingots/${name}`,
+							},
+							result: {
+								item: processedItems.rod,
+								count: 2,
+							},
+						}).id(`emendatusenigmatica:createaddition/rolling/${name}_ingot`);
+					}
 				} else if (checkedTypes.gem) {
 					e.shaped(`2x ${processedItems.rod}`, ["i", "i"], {
 						i: `#forge:gems/${name}`,
@@ -399,13 +380,9 @@ ServerEvents.recipes((e) => {
 
 				if (loadedMods.immersiveengineering) {
 					if (!blacklist.immersiveengineering.metalPress.includes(name))
-						e.custom(
-							ImmersiveEngineering.metalPress(
-								`2x #forge:rods/${name}`,
-								`#forge:${mat.baseItem}s/${name}`,
-								ImmersiveEngineering.MOLDS.ROD
-							)
-						).id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`);
+						e.custom(ImmersiveEngineering.metalPress(`2x #forge:rods/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.ROD)).id(
+							`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`
+						);
 				}
 			}
 			if (checkedTypes.plate) {
@@ -430,19 +407,12 @@ ServerEvents.recipes((e) => {
 				if (loadedMods.immersiveengineering) {
 					if (blacklist.immersiveengineering.metalPress.includes(name) == false) {
 						e.custom(
-							ImmersiveEngineering.metalPress(
-								`#forge:plates/${name}`,
-								`#forge:${mat.baseItem}s/${name}`,
-								ImmersiveEngineering.MOLDS.PLATE
-							)
+							ImmersiveEngineering.metalPress(`#forge:plates/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.PLATE)
 						).id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_plate`);
 					}
 					if (blacklist.immersiveengineering.hammerCraft.includes(name) == false) {
 						e.recipes.minecraft
-							.crafting_shapeless(processedItems.plate, [
-								`#forge:${mat.baseItem}s/${name}`,
-								"#immersiveengineering:tools/hammers",
-							])
+							.crafting_shapeless(processedItems.plate, [`#forge:${mat.baseItem}s/${name}`, "#immersiveengineering:tools/hammers"])
 							.id(`emendatusenigmatica:minecraft/crafting/${name}_plate`);
 					}
 				}
@@ -481,13 +451,7 @@ ServerEvents.recipes((e) => {
 					)
 				).id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_crystal`);
 				e.custom(
-					mekanismProcessRecipeJson(
-						"mekanism:purifying",
-						"mekanism:oxygen",
-						1,
-						`#mekanism:shards/${name}`,
-						`emendatusenigmatica:${name}_clump`
-					)
+					mekanismProcessRecipeJson("mekanism:purifying", "mekanism:oxygen", 1, `#mekanism:shards/${name}`, `emendatusenigmatica:${name}_clump`)
 				).id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_shard`);
 				e.custom({
 					type: "mekanism:crushing",
@@ -697,27 +661,17 @@ ServerEvents.recipes((e) => {
 					if (checkedTypes.ore) {
 						e.custom(
 							createCrushingRecipeJson(
-								[
-									`${oreToDustMultiplier} ${processedItems.crushed}`,
-									`${processedItems.crushed} 0.75`,
-									"create:experience_nugget 0.75",
-								],
+								[`${oreToDustMultiplier} ${processedItems.crushed}`, `${processedItems.crushed} 0.75`, "create:experience_nugget 0.75"],
 								`#forge:ores/${name}`
 							)
 						).id(`emendatusenigmatica:create/crushing/${name}_ore`);
 					}
 					if (checkedTypes.raw) {
+						e.custom(createCrushingRecipeJson([processedItems.crushed, "create:experience_nugget 0.75"], `#forge:raw_materials/${name}`)).id(
+							`emendatusenigmatica:create/crushing/${name}_raw_ore`
+						);
 						e.custom(
-							createCrushingRecipeJson(
-								[processedItems.crushed, "create:experience_nugget 0.75"],
-								`#forge:raw_materials/${name}`
-							)
-						).id(`emendatusenigmatica:create/crushing/${name}_raw_ore`);
-						e.custom(
-							createCrushingRecipeJson(
-								[`9 ${processedItems.crushed}`, "9 create:experience_nugget 0.75"],
-								`#forge:storage_blocks/raw_${name}`
-							)
+							createCrushingRecipeJson([`9 ${processedItems.crushed}`, "9 create:experience_nugget 0.75"], `#forge:storage_blocks/raw_${name}`)
 						).id(`emendatusenigmatica:create/crushing/${name}_raw_ore_block`);
 					}
 					e.recipes.minecraft

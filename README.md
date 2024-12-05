@@ -1,11 +1,13 @@
 # EE.js 
 
-**this EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
-- A kubeJS script that elegantly unifies ores and materials 
+**This EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s part of modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
+
+A kubeJS script that elegantly unifies ores and materials 
+**Recommended for use with almost unified** 
 
 ## Require 
 
-- `minecraft => 1.20.1` 
+- `minecraft => 1.20.1` <font size="1"> maybe not only 1.20.1 </font> 
 
 - `(NEO)Forge => any` 
 
@@ -13,12 +15,34 @@
 
 - `LootJS => any` 
 
+- `KubeJS Mekanism` <font size="1">**if has Mekanism** </font> 
+  
+- `KubeJS Immersive Engineering` <font size="1">**if has Immersive Enginnering** </font> 
+  
+- `KubeJS Create` <font size="1">**if has Create** </font> 
+  
+- `KubeJS Blood Magic` <font size="1">**if has Blood Magic** </font> 
+  
+- `KubeJS Thermal` <font size="1">**if has Thermal Series** </font> 
 
 ## Features 
 - Customizable Strata/Materials 
 - Convenient to modify 
 - Nice compatibility  
-  - Compatible with Vanilla, Create, Mekanism, Bloodmagic, Embers 
+  - Compatible with Vanilla, Create, Mekanism, Bloodmagic, Embers,and more... 
+
+## TODO 
+- [x] Registration of the material with its processed types 
+- [ ] Automatically matches recipes and removes most duplicates 
+  - [x] Mekanism 
+  - [x] Immersive Engineering 
+  - [x] Create 
+    - [ ] Create Crafts & Additions 
+  - [x] Bloodmagic 
+  - [ ] Integrated Dynamics 
+  - [x] Embers Rekindled 
+- [ ] Worldgen modified to generate ores 
+  - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
 ## How to use 
 
@@ -83,3 +107,7 @@ knockbackResistance: 0 // knockback resistance
 ### for recipes 
 
 **haha WIP😩** 
+
+### for worldgen part 
+
+**haha WIP😩😩** 
