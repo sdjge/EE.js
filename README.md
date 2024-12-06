@@ -3,6 +3,7 @@
 **This EEJS is a fork from [N-Withe](https://github.com/N-Wither)'s part of modpack -- [Omniworld-R](https://github.com/N-Wither/Omniworld-R)** 
 
 A kubeJS script that elegantly unifies ores and materials 
+
 **Recommended for use with almost unified** 
 
 ## Require 
@@ -37,10 +38,11 @@ A kubeJS script that elegantly unifies ores and materials
   - [x] Mekanism 
   - [x] Immersive Engineering 
   - [x] Create 
-    - [ ] Create Crafts & Additions 
+    - [x] Create Crafts & Additions 
   - [x] Bloodmagic 
-  - [ ] Integrated Dynamics 
+  - [x] Integrated Dynamics 
   - [x] Embers Rekindled 
+  - [ ] And more, please tell me!!!
 - [ ] Worldgen modified to generate ores 
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
@@ -48,6 +50,7 @@ A kubeJS script that elegantly unifies ores and materials
 
 Copy & paste😋 
 
+## Registration part 
 ### for custom strata 
 
 **Add new definitions to `EE_STRATAS` in `strata.js`.**  
@@ -104,10 +107,12 @@ toughness: 3.5, // toughness
 knockbackResistance: 0 // knockback resistance
 }}
 ``` 
+## Recipe part 
 ### for recipes 
 
 **haha WIP😩** 
 
+## WorldGen part 
 ### for worldgen part 
 
 **haha WIP😩😩** 

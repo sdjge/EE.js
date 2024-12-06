@@ -260,7 +260,13 @@ ServerEvents.recipes((e) => {
 			}
 			if (checkedTypes.raw) {
 				if (checkedTypes.rawBlock) {
-					compactRecipe(false, processedItems.rawBlock, `#forge:storage_blocks/raw_${name}`, processedItems.raw, `#forge:raw_materials/${name}`);
+					compactRecipe(
+						false,
+						processedItems.rawBlock,
+						`#forge:storage_blocks/raw_${name}`,
+						processedItems.raw,
+						`#forge:raw_materials/${name}`
+					);
 				}
 				if (checkedTypes.ore && Platform.isLoaded("integrateddynamics")) {
 					if (!["copper", "iron", "gold"].includes(name)) {
@@ -331,9 +337,9 @@ ServerEvents.recipes((e) => {
 			if (checkedTypes.gem) {
 				// Immersive Engineering
 				if (checkedTypes.ore && !blacklist.immersiveengineering.crusher.includes(name)) {
-					e.custom(ImmersiveEngineering.crusher(`2x #forge:gems/${name}`, `#forge:ores/${name}`, 6000)).id(
-						`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`
-					);
+					e.recipes.immersiveengineering
+						.crusher(`2x #forge:gems/${name}`, `#forge:ores/${name}`)
+						.id(`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`);
 				}
 			}
 			if (checkedTypes.gear) {
@@ -350,9 +356,9 @@ ServerEvents.recipes((e) => {
 
 				if (loadedMods.immersiveengineering) {
 					if (!blacklist.immersiveengineering.metalPress.includes(name))
-						e.custom(
-							ImmersiveEngineering.metalPress(`#forge:gears/${name}`, `4x #forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.GEAR)
-						).id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_gear`);
+						e.recipes.immersiveengineering
+							.metal_press(`#forge:gears/${name}`, `4x #forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.GEAR)
+							.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_gear`);
 				}
 			}
 			if (checkedTypes.rod) {
@@ -380,35 +386,22 @@ ServerEvents.recipes((e) => {
 
 				if (loadedMods.immersiveengineering) {
 					if (!blacklist.immersiveengineering.metalPress.includes(name))
-						e.custom(ImmersiveEngineering.metalPress(`2x #forge:rods/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.ROD)).id(
-							`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`
-						);
+						e.recipes.immersiveengineering
+							.metal_press(`2x #forge:rods/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.ROD)
+							.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`);
 				}
 			}
 			if (checkedTypes.plate) {
-				/**
-				 * @todo Wait for KubeJS Create
-				 */
 				if (loadedMods.create) {
-					e.custom({
-						type: "create:pressing",
-						ingredients: [
-							{
-								tag: `forge:${mat.baseItem}s/${name}`,
-							},
-						],
-						results: [
-							{
-								item: processedItems.plate,
-							},
-						],
-					}).id(`emendatusenigmatica:create/pressing/${name}_plate`);
+					e.recipes.create
+						.pressing(processedItems.plate, `#forge:${mat.baseItem}s/${name}`)
+						.id(`emendatusenigmatica:create/pressing/${name}_plate`);
 				}
 				if (loadedMods.immersiveengineering) {
 					if (blacklist.immersiveengineering.metalPress.includes(name) == false) {
-						e.custom(
-							ImmersiveEngineering.metalPress(`#forge:plates/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.PLATE)
-						).id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_plate`);
+						e.recipes.immersiveengineering
+							.metal_press(`#forge:plates/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.PLATE)
+							.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_plate`);
 					}
 					if (blacklist.immersiveengineering.hammerCraft.includes(name) == false) {
 						e.recipes.minecraft
@@ -419,125 +412,52 @@ ServerEvents.recipes((e) => {
 			}
 			if (types.includes("mekanism")) {
 				// console.log('- Mekanism')
-				/*
-				 * @typedef {'mekanism:injecting' | 'mekanism:purifying'} MekanismReipeType
-				 * @param {MekanismReipeType} type
-				 * @param {string} gas
-				 * @param {number} amount 1 = 200mb
-				 * @param {string} ingredient
-				 * @param {Internal.Item} output
-				 * @returns
-				 */
-				let mekanismProcessRecipeJson = (type, gas, amount, ingredient, output) => ({
-					type: type,
-					chemicalInput: {
-						amount: amount,
-						gas: gas,
-					},
-					itemInput: {
-						amount: parseInt(destructItem(ingredient)[1]) || 1,
-						ingredient: Ingredient.of(destructItem(ingredient)[0]).toJson(),
-					},
-					output: Item.of(output).toJson(),
-				});
-
-				e.custom(
-					mekanismProcessRecipeJson(
-						"mekanism:injecting",
-						"mekanism:hydrogen_chloride",
-						1,
-						`#mekanism:crystals/${name}`,
-						`emendatusenigmatica:${name}_shard`
-					)
-				).id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_crystal`);
-				e.custom(
-					mekanismProcessRecipeJson("mekanism:purifying", "mekanism:oxygen", 1, `#mekanism:shards/${name}`, `emendatusenigmatica:${name}_clump`)
-				).id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_shard`);
-				e.custom({
-					type: "mekanism:crushing",
-					input: { ingredient: { tag: `mekanism:clumps/${name}` } },
-					output: Item.of(`emendatusenigmatica:${name}_dirty_dust`).toJson(),
-				}).id(`emendatusenigmatica:mekanism/puryfing/${name}_dirty_dust_from_clump`);
-				e.custom({
-					type: "mekanism:enriching",
-					input: { ingredient: { tag: `mekanism:dirty_dusts/${name}` } },
-					output: Item.of(processedItems.dust).toJson(),
-				}).id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_dirty_dust`);
+				e.recipes.mekanism // crystal to shard
+					.injecting(`emendatusenigmatica:${name}_shard`, `#mekanism:crystals/${name}`, (1, "mekanism:hydrogen_chloride"))
+					.id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_crystal`);
+				e.recipes.mekanism // shard to clump
+					.purifying(`emendatusenigmatica:${name}_clump`, `#mekanism:shards/${name}`, (1, "mekanism:oxygen"))
+					.id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_shard`);
+				e.recipes.mekanism // clumps to dirty_dust
+					.crushing(`emendatusenigmatica:${name}_dirty_dust`, `#mekanism:clumps/${name}`)
+					.id(`emendatusenigmatica:mekanism/puryfing/${name}_dirty_dust_from_clump`);
+				e.recipes.mekanism // dirty_dusts to dust
+					.enriching(`emendatusenigmatica:${name}_dust`, `#mekanism:dirty_dusts/${name}`)
+					.id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_dirty_dust`);
 				if (isIngredientExist(`#forge:raw_materials/${name}`)) {
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:injecting",
-							"mekanism:hydrogen_chloride",
-							1,
-							`3x #forge:raw_materials/${name}`,
-							`8x emendatusenigmatica:${name}_shard`
-						)
-					).id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_raw_ore`);
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:injecting",
-							"mekanism:hydrogen_chloride",
-							2,
-							`#forge:storage_blocks/raw_${name}`,
-							`24x emendatusenigmatica:${name}_shard`
-						)
-					).id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_raw_ore_block`);
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:purifying",
-							"mekanism:oxygen",
-							1,
-							`#forge:raw_materials/${name}`,
-							`2x emendatusenigmatica:${name}_clump`
-						)
-					).id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_raw_ore`);
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:purifying",
-							"mekanism:oxygen",
-							1,
-							`#forge:storage_blocks/raw_${name}`,
-							`18x emendatusenigmatica:${name}_clump`
-						)
-					).id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_raw_ore_block`);
-					e.custom({
-						type: "mekanism:enriching",
-						input: {
-							ingredient: { tag: `forge:raw_materials/${name}` },
-							amount: 3,
-						},
-						output: Item.of(`4x ${processedItems.dust}`).toJson(),
-					}).id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_raw_ore`);
-					e.custom({
-						type: "mekanism:enriching",
-						input: { ingredient: { tag: `forge:storage_blocks/raw_${name}` } },
-						output: Item.of(`12x ${processedItems.dust}`).toJson(),
-					}).id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_raw_ore_block`);
+					e.recipes.mekanism // raw to shard
+						.injecting(`8x emendatusenigmatica:${name}_shard`, `3x #forge:raw_materials/${name}`, (1, "mekanism:hydrogen_chloride"))
+						.id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_raw_ore`);
+					e.recipes.mekanism // raw_block to shard
+						.injecting(`24x emendatusenigmatica:${name}_shard`, `#forge:storage_blocks/raw_${name}`, (2, "mekanism:hydrogen_chloride"))
+						.id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_raw_ore_block`);
+					e.recipes.mekanism // raw to clump
+						.purifying(`2x emendatusenigmatica:${name}_clump`, `#forge:raw_materials/${name}`, (1, "mekanism:oxygen"))
+						.id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_raw_ore`);
+					e.recipes.mekanism // raw_block to clump
+						.purifying(`18x emendatusenigmatica:${name}_clump`, `#forge:storage_blocks/raw_${name}`, (1, "mekanism:oxygen"))
+						.id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_raw_ore_block`);
+					e.recipes.mekanism // raw to dust
+						.enriching(`4x emendatusenigmatica:${name}_dust`, Item.of(`#forge:raw_materials/${name}`, 3))
+						.id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_raw_ore`);
+					e.recipes.mekanism // raw_block to dust
+						.enriching(`12x emendatusenigmatica:${name}_dust`, `#forge:storage_blocks/raw_${name}`)
+						.id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_raw_ore_block`);
 				}
 				if (isIngredientExist(`#forge:ores/${name}`)) {
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:injecting",
-							"mekanism:hydrogen_chloride",
-							1,
+					e.recipes.mekanism // raw to shard
+						.injecting(
+							`${4 * oreToDustMultiplier}x emendatusenigmatica:${name}_shard`,
 							`#forge:ores/${name}`,
-							`${4 * oreToDustMultiplier}x emendatusenigmatica:${name}_shard`
+							(1, "mekanism:hydrogen_chloride")
 						)
-					).id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_ore`);
-					e.custom(
-						mekanismProcessRecipeJson(
-							"mekanism:purifying",
-							"mekanism:oxygen",
-							1,
-							`#forge:ores/${name}`,
-							`${3 * oreToDustMultiplier}x emendatusenigmatica:${name}_clump`
-						)
-					).id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_ore`);
-					e.custom({
-						type: "mekanism:enriching",
-						input: { ingredient: { tag: `forge:ores/${name}` } },
-						output: Item.of(`${2 * oreToDustMultiplier}x ${processedItems.dust}`).toJson(),
-					}).id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_ore`);
+						.id(`emendatusenigmatica:mekanism/injecting/${name}_shard_from_ore`);
+					e.recipes.mekanism // raw to clump
+						.purifying(`${3 * oreToDustMultiplier}x emendatusenigmatica:${name}_clump`, `#forge:ores/${name}`, (1, "mekanism:oxygen"))
+						.id(`emendatusenigmatica:mekanism/puryfing/${name}_clump_from_ore`);
+					e.recipes.mekanism // raw to dust
+						.enriching(Item.of(`${2 * oreToDustMultiplier}x ${processedItems.dust}`), `#forge:ores/${name}`)
+						.id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_ore`);
 				}
 			}
 			if (types.includes("bloodmagic")) {
@@ -620,24 +540,15 @@ ServerEvents.recipes((e) => {
 						tag: "bloodmagic:arc/resonator",
 					},
 				}).id(`emendatusenigmatica:bloodmagic/arc/${name}_gravel`);
-				e.custom({
-					type: "bloodmagic:alchemytable",
-					input: [
-						{
-							tag: `bloodmagic:fragments/${name}`,
-						},
-						{
-							item: "bloodmagic:corrupted_dust",
-						},
-					],
-					output: {
-						count: 2,
-						item: `emendatusenigmatica:${name}_gravel`,
-					},
-					syphon: 100,
-					ticks: 50,
-					upgradeLevel: 3,
-				}).id(`emendatusenigmatica:bloodmagic/alchemytable/${name}_gravel`);
+				e.recipes.bloodmagic
+					.alchemytable(Item.of(`emendatusenigmatica:${name}_gravel`, 2), [
+						`#bloodmagic:fragments/${name}`,
+						"bloodmagic:corrupted_dust",
+					])
+					.syphon(100)
+					.ticks(50)
+					.upgradeLevel(3)
+					.id(`emendatusenigmatica:bloodmagic/alchemytable/${name}_gravel`);
 				e.custom({
 					type: "bloodmagic:arc",
 					consumeingredient: false,
@@ -659,20 +570,24 @@ ServerEvents.recipes((e) => {
 				if (blacklist.create.includes(name)) return;
 				if (checkedTypes.ingot) {
 					if (checkedTypes.ore) {
-						e.custom(
-							createCrushingRecipeJson(
-								[`${oreToDustMultiplier} ${processedItems.crushed}`, `${processedItems.crushed} 0.75`, "create:experience_nugget 0.75"],
+						e.recipes.create
+							.crushing(
+								[
+									`${oreToDustMultiplier} ${processedItems.crushed}`,
+									`${processedItems.crushed} 0.75`,
+									"create:experience_nugget 0.75",
+								],
 								`#forge:ores/${name}`
 							)
-						).id(`emendatusenigmatica:create/crushing/${name}_ore`);
+							.id(`emendatusenigmatica:create/crushing/${name}_ore`);
 					}
 					if (checkedTypes.raw) {
-						e.custom(createCrushingRecipeJson([processedItems.crushed, "create:experience_nugget 0.75"], `#forge:raw_materials/${name}`)).id(
-							`emendatusenigmatica:create/crushing/${name}_raw_ore`
-						);
-						e.custom(
-							createCrushingRecipeJson([`9 ${processedItems.crushed}`, "9 create:experience_nugget 0.75"], `#forge:storage_blocks/raw_${name}`)
-						).id(`emendatusenigmatica:create/crushing/${name}_raw_ore_block`);
+						e.recipes.create
+							.crushing([processedItems.crushed, "create:experience_nugget 0.75"], `#forge:raw_materials/${name}`)
+							.id(`emendatusenigmatica:create/crushing/${name}_raw_ore`);
+						e.recipes.create
+							.crushing([`9 ${processedItems.crushed}`, "9 create:experience_nugget 0.75"], `#forge:storage_blocks/raw_${name}`)
+							.id(`emendatusenigmatica:create/crushing/${name}_raw_ore_block`);
 					}
 					e.recipes.minecraft
 						.smelting(processedItems.ingot, processedItems.crushed)
@@ -682,13 +597,353 @@ ServerEvents.recipes((e) => {
 						.blasting(processedItems.ingot, processedItems.crushed)
 						.xp(0.1)
 						.id(`emendatusenigmatica:minecraft/blasting/${name}_ingot_from_crushed`);
-					e.custom({
-						type: "create:splashing",
-						ingredients: [{ tag: `create:crushed_raw_materials/${name}` }],
-						results: [parseChanceItem(`9 ${processedItems.nugget}`)],
-					}).id(`emendatusenigmatica:create/splashing/crushed_${name}`);
+					e.recipes.create
+						.splashing([parseChanceItem(`9 ${processedItems.nugget}`)], [{ tag: `create:crushed_raw_materials/${name}` }])
+						.id(`emendatusenigmatica:create/splashing/crushed_${name}`);
 				}
 			}
 		}
 	);
+});
+ServerEvents.recipes((event) => {
+	// remove if mod loaded
+	const LoadedMOD = {
+		create: Platform.isLoaded("create"),
+		mekanism: Platform.isLoaded("mekanism"),
+		embers: Platform.isLoaded("embers"),
+		immersiveengineering: Platform.isLoaded("immersiveengineering"),
+		thermalfoundation: Platform.isLoaded("thermal_foundation"),
+	};
+
+	if (LoadedMOD.embers) {
+		let recipeIdRemove = [
+			[`embers:lead_block_to_ingot`],
+			[`embers:lead_nugget_to_ingot`],
+			[`embers:lead_ingot_from_blasting_lead_ore`],
+			[`embers:lead_ingot_from_blasting_deepslate_lead_ore`],
+			[`embers:lead_ingot_from_blasting_raw_lead`],
+			[`embers:lead_ingot_from_smelting_deepslate_lead_ore`],
+			[`embers:lead_ingot_from_smelting_lead_ore`],
+			[`embers:lead_ingot_from_smelting_raw_lead`],
+			[`embers:silver_nugget_to_ingot`],
+			[`embers:silver_raw_to_raw_block`],
+			[`embers:lead_raw_to_raw_block`],
+			[`embers:silver_ingot_from_blasting_deepslate_silver_ore`],
+			[`embers:silver_ingot_from_blasting_silver_ore`],
+			[`embers:silver_ingot_from_blasting_raw_silver`],
+			[`embers:silver_ingot_from_smelting_raw_silver`],
+			[`embers:silver_ingot_from_smelting_deepslate_silver_ore`],
+			[`embers:silver_ingot_from_smelting_silver_ore`],
+			[`embers:silver_block_to_ingot`],
+			[`embers:silver_raw_block_to_raw`],
+			[`embers:silver_ingot_to_block`],
+			[`embers:lead_ingot_to_block`],
+			[`embers:lead_raw_block_to_raw`],
+			[`embers:lead_ingot_to_nugget`],
+			[`embers:silver_ingot_to_nugget`],
+		];
+		recipeIdRemove.forEach(([recipeId]) => {
+			event.remove({ id: recipeId });
+		});
+	}
+
+	if (LoadedMOD.mekanism) {
+		let recipeIdRemove = [
+			["mekanism:storage_blocks/bronze"],
+			["mekanism:storage_blocks/steel"],
+			[`mekanism:processing/tin/ingot/from_ore_blasting`],
+			[`mekanism:processing/tin/ingot/from_ore_smelting`],
+			[`mekanism:processing/tin/ingot/from_raw_blasting`],
+			[`mekanism:processing/tin/ingot/from_raw_smelting`],
+			[`mekanism:processing/tin/ingot/from_dust_blasting`],
+			[`mekanism:processing/tin/ingot/from_nuggets`],
+			[`mekanism:processing/tin/ingot/from_block`],
+			[`mekanism:processing/tin/ingot/from_dust_smelting`],
+			[`mekanism:processing/tin/ingot/from_ore_smelting`],
+			[`mekanism:processing/tin/storage_blocks/from_ingots`],
+			[`mekanism:processing/uranium/ingot/from_ore_blasting`],
+			[`mekanism:processing/uranium/ingot/from_ore_smelting`],
+			[`mekanism:processing/uranium/ingot/from_raw_blasting`],
+			[`mekanism:processing/uranium/ingot/from_raw_smelting`],
+			[`mekanism:processing/uranium/ingot/from_dust_blasting`],
+			[`mekanism:processing/uranium/ingot/from_nuggets`],
+			[`mekanism:processing/uranium/ingot/from_block`],
+			[`mekanism:processing/uranium/ingot/from_dust_smelting`],
+			[`mekanism:processing/uranium/ingot/from_ore_smelting`],
+			[`mekanism:processing/uranium/storage_blocks/from_ingots`],
+			[`mekanism:processing/osmium/ingot/from_ore_blasting`],
+			[`mekanism:processing/osmium/ingot/from_ore_smelting`],
+			[`mekanism:processing/osmium/ingot/from_raw_blasting`],
+			[`mekanism:processing/osmium/ingot/from_raw_smelting`],
+			[`mekanism:processing/osmium/ingot/from_dust_blasting`],
+			[`mekanism:processing/osmium/ingot/from_nuggets`],
+			[`mekanism:processing/osmium/ingot/from_block`],
+			[`mekanism:processing/osmium/ingot/from_dust_smelting`],
+			[`mekanism:processing/osmium/ingot/from_ore_smelting`],
+			[`mekanism:processing/osmium/storage_blocks/from_ingots`],
+			[`mekanism:processing/lead/ingot/from_ore_blasting`],
+			[`mekanism:processing/lead/ingot/from_ore_smelting`],
+			[`mekanism:processing/lead/ingot/from_raw_blasting`],
+			[`mekanism:processing/lead/ingot/from_raw_smelting`],
+			[`mekanism:processing/lead/ingot/from_dust_blasting`],
+			[`mekanism:processing/lead/ingot/from_nuggets`],
+			[`mekanism:processing/lead/ingot/from_block`],
+			[`mekanism:processing/lead/ingot/from_dust_smelting`],
+			[`mekanism:processing/lead/ingot/from_ore_smelting`],
+			[`mekanism:processing/lead/storage_blocks/from_ingots`],
+			[`mekanism:processing/osmium/raw_storage_blocks/from_raw`],
+			[`mekanism:processing/tin/raw_storage_blocks/from_raw`],
+			[`mekanism:processing/lead/raw_storage_blocks/from_raw`],
+			[`mekanism:storage_blocks/fluorite`],
+			[`mekanism:processing/bronze/ingot/from_dust_smelting`],
+			[`mekanism:processing/bronze/ingot/from_dust_blasting`],
+			[`mekanism:processing/steel/ingot/from_dust_blasting`],
+			[`mekanism:processing/steel/ingot/from_dust_smelting`],
+		];
+		recipeIdRemove.forEach(([recipeId]) => {
+			event.remove({ id: recipeId });
+		});
+	}
+
+	if (LoadedMOD.create) {
+		let recipeIdRemove = [
+			[`create:crafting/materials/raw_zinc`],
+			[`create:crafting/materials/zinc_ingot_from_compacting`],
+			[`create:crafting/materials/zinc_ingot_from_decompacting`],
+			[`create:blasting/zinc_ingot_from_raw_ore`],
+			[`create:blasting/zinc_ingot_from_ore`],
+			[`create:smelting/zinc_ingot_from_ore`],
+			[`create:smelting/zinc_ingot_from_raw_ore`],
+			[`create:crafting/materials/copper_nugget`],
+			[`create:crafting/materials/zinc_nugget_from_decompacting`],
+			[`create:crafting/materials/brass_nugget_from_decompacting`],
+			[`create:pressing/copper_ingot`],
+			[`create:pressing/brass_ingot`],
+			[`create:pressing/iron_ingot`],
+			[`create:pressing/gold_ingot`],
+		];
+		recipeIdRemove.forEach(([removeRecipeId]) => {
+			event.remove({ id: removeRecipeId });
+		});
+	}
+
+	if (LoadedMOD.immersiveengineering) {
+		let recipeIdRemove = [
+			[`immersiveengineering:crafting/copper_ingot_to_nugget_copper`],
+			[`immersiveengineering:crafting/nugget_aluminum_to_ingot_aluminum`],
+			[`immersiveengineering:crafting/storage_aluminum_to_ingot_aluminum`],
+			[`immersiveengineering:smelting/ingot_aluminum_from_blasting`],
+			[`immersiveengineering:smelting/ingot_aluminum_from_blasting2`],
+			[`immersiveengineering:smelting/ingot_aluminum_from_blasting3`],
+			[`immersiveengineering:smelting/ingot_aluminum3`],
+			[`immersiveengineering:smelting/ingot_aluminum2`],
+			[`immersiveengineering:smelting/ingot_aluminum`],
+			[`immersiveengineering:smelting/ingot_aluminum_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_aluminum_from_dust`],
+			[`immersiveengineering:crafting/ingot_aluminum_to_nugget_aluminum`],
+			[`immersiveengineering:crafting/raw_block_aluminum_to_raw_aluminum`],
+			[`immersiveengineering:crafting/storage_lead_to_ingot_lead`],
+			[`immersiveengineering:crafting/nugget_lead_to_ingot_lead`],
+			[`immersiveengineering:smelting/ingot_lead_from_blasting3`],
+			[`immersiveengineering:smelting/ingot_lead_from_blasting2`],
+			[`immersiveengineering:smelting/ingot_lead_from_blasting`],
+			[`immersiveengineering:smelting/ingot_lead3`],
+			[`immersiveengineering:smelting/ingot_lead2`],
+			[`immersiveengineering:smelting/ingot_lead`],
+			[`immersiveengineering:crafting/raw_block_lead_to_raw_lead`],
+			[`immersiveengineering:smelting/ingot_lead_from_dust`],
+			[`immersiveengineering:crafting/nugget_silver_to_ingot_silver`],
+			[`immersiveengineering:crafting/storage_silver_to_ingot_silver`],
+			[`immersiveengineering:smelting/ingot_silver_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_silver_from_blasting3`],
+			[`immersiveengineering:smelting/ingot_silver_from_blasting`],
+			[`immersiveengineering:smelting/ingot_silver_from_blasting2`],
+			[`immersiveengineering:smelting/ingot_silver_from_dust`],
+			[`immersiveengineering:smelting/ingot_silver`],
+			[`immersiveengineering:smelting/ingot_silver3`],
+			[`immersiveengineering:smelting/ingot_silver2`],
+			[`immersiveengineering:crafting/raw_block_silver_to_raw_silver`],
+			[`immersiveengineering:crafting/nugget_nickel_to_ingot_nickel`],
+			[`immersiveengineering:crafting/storage_nickel_to_ingot_nickel`],
+			[`immersiveengineering:smelting/ingot_nickel_from_blasting`],
+			[`immersiveengineering:smelting/ingot_nickel_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_nickel_from_blasting2`],
+			[`immersiveengineering:smelting/ingot_nickel_from_blasting3`],
+			[`immersiveengineering:smelting/ingot_nickel`],
+			[`immersiveengineering:smelting/ingot_nickel2`],
+			[`immersiveengineering:smelting/ingot_nickel3`],
+			[`immersiveengineering:smelting/ingot_nickel_from_dust`],
+			[`immersiveengineering:crafting/ingot_nickel_to_nugget_nickel`],
+			[`immersiveengineering:crafting/raw_block_nickel_to_raw_nickel`],
+			[`immersiveengineering:crafting/storage_uranium_to_ingot_uranium`],
+			[`immersiveengineering:crafting/nugget_uranium_to_ingot_uranium`],
+			[`immersiveengineering:smelting/ingot_uranium_from_blasting`],
+			[`immersiveengineering:smelting/ingot_uranium_from_blasting3`],
+			[`immersiveengineering:smelting/ingot_uranium_from_blasting2`],
+			[`immersiveengineering:smelting/ingot_uranium_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_uranium`],
+			[`immersiveengineering:smelting/ingot_uranium_from_dust`],
+			[`immersiveengineering:smelting/ingot_uranium3`],
+			[`immersiveengineering:smelting/ingot_uranium2`],
+			[`immersiveengineering:crafting/ingot_uranium_to_nugget_uranium`],
+			[`immersiveengineering:crafting/raw_block_uranium_to_raw_uranium`],
+			[`immersiveengineering:crafting/storage_constantan_to_ingot_constantan`],
+			[`immersiveengineering:crafting/nugget_constantan_to_ingot_constantan`],
+			[`immersiveengineering:smelting/ingot_constantan_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_constantan_from_dust`],
+			[`immersiveengineering:crafting/ingot_constantan_to_nugget_constantan`],
+			[`immersiveengineering:crafting/nugget_electrum_to_ingot_electrum`],
+			[`immersiveengineering:crafting/storage_electrum_to_ingot_electrum`],
+			[`immersiveengineering:smelting/ingot_electrum_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_electrum_from_dust`],
+			[`immersiveengineering:crafting/ingot_electrum_to_nugget_electrum`],
+			[`immersiveengineering:crafting/storage_steel_to_ingot_steel`],
+			[`immersiveengineering:crafting/nugget_steel_to_ingot_steel`],
+			[`immersiveengineering:smelting/ingot_steel_from_dust_from_blasting`],
+			[`immersiveengineering:smelting/ingot_steel_from_dust`],
+			[`immersiveengineering:crafting/ingot_steel_to_nugget_steel`],
+			[`immersiveengineering:crafting/raw_aluminum_to_raw_block_aluminum`],
+			[`immersiveengineering:crafting/ingot_aluminum_to_storage_aluminum`],
+			[`immersiveengineering:crafting/raw_lead_to_raw_block_lead`],
+			[`immersiveengineering:crafting/ingot_lead_to_storage_lead`],
+			[`immersiveengineering:crafting/raw_silver_to_raw_block_silver`],
+			[`immersiveengineering:crafting/ingot_silver_to_storage_silver`],
+			[`immersiveengineering:crafting/raw_nickel_to_raw_block_nickel`],
+			[`immersiveengineering:crafting/ingot_nickel_to_storage_nickel`],
+			[`immersiveengineering:crafting/raw_uranium_to_raw_block_uranium`],
+			[`immersiveengineering:crafting/ingot_uranium_to_storage_uranium`],
+			[`immersiveengineering:crafting/ingot_constantan_to_storage_constantan`],
+			[`immersiveengineering:crafting/ingot_electrum_to_storage_electrum`],
+			[`immersiveengineering:crafting/ingot_steel_to_storage_steel`],
+			[`immersiveengineering:crafting/coal_coke_to_coke`],
+		];
+		recipeIdRemove.forEach(([removeRecipeId]) => {
+			event.remove({ id: removeRecipeId });
+		});
+	}
+
+	if (LoadedMOD.thermalfoundation) {
+		let recipeIdRemove = [
+			[`thermal:storage/niter_block`],
+			[`thermal:storage/sulfur_block`],
+			[`thermal:storage/coal_coke_block`],
+			[`thermal:storage/raw_tin_block`],
+			[`thermal:storage/raw_lead_block`],
+			[`thermal:storage/raw_silver_block`],
+			[`thermal:storage/raw_nickel_block`],
+			[`thermal:storage/tin_block`],
+			[`thermal:storage/lead_block`],
+			[`thermal:storage/silver_block`],
+			[`thermal:storage/nickel_block`],
+			[`thermal:storage/bronze_block`],
+			[`thermal:storage/electrum_block`],
+			[`thermal:storage/invar_block`],
+			[`thermal:storage/constantan_block`],
+			[`thermal:storage/signalum_block`],
+			[`thermal:storage/lumium_block`],
+			[`thermal:storage/enderium_block`],
+			[`thermal:storage/niter_from_block`],
+			[`thermal:storage/sulfur_from_block`],
+			[`thermal:storage/coal_coke_from_block`],
+			[`thermal:storage/copper_nugget_from_ingot`],
+			[`thermal:storage/netherite_nugget_from_ingot`],
+			[`thermal:storage/raw_tin_from_block`],
+			[`thermal:storage/tin_ingot_from_block`],
+			[`thermal:storage/tin_ingot_from_nuggets`],
+			[`thermal:smelting/tin_ingot_from_deepslate_ore_blasting`],
+			[`thermal:smelting/tin_ingot_from_raw_blasting`],
+			[`thermal:smelting/tin_ingot_from_dust_blasting`],
+			[`thermal:smelting/tin_ingot_from_ore_blasting`],
+			[`thermal:smelting/tin_ingot_from_raw_smelting`],
+			[`thermal:smelting/tin_ingot_from_dust_smelting`],
+			[`thermal:smelting/tin_ingot_from_deepslate_ore_smelting`],
+			[`thermal:smelting/tin_ingot_from_ore_smelting`],
+			[`thermal:storage/tin_nugget_from_ingot`],
+			[`thermal:storage/raw_lead_from_block`],
+			[`thermal:storage/lead_ingot_from_block`],
+			[`thermal:storage/lead_ingot_from_nuggets`],
+			[`thermal:smelting/lead_ingot_from_ore_blasting`],
+			[`thermal:smelting/lead_ingot_from_dust_blasting`],
+			[`thermal:smelting/lead_ingot_from_raw_blasting`],
+			[`thermal:smelting/lead_ingot_from_deepslate_ore_blasting`],
+			[`thermal:smelting/lead_ingot_from_deepslate_ore_smelting`],
+			[`thermal:smelting/lead_ingot_from_raw_smelting`],
+			[`thermal:smelting/lead_ingot_from_ore_smelting`],
+			[`thermal:smelting/lead_ingot_from_dust_smelting`],
+			[`thermal:storage/lead_nugget_from_ingot`],
+			[`thermal:storage/raw_silver_from_block`],
+			[`thermal:storage/silver_ingot_from_block`],
+			[`thermal:storage/silver_ingot_from_nuggets`],
+			[`thermal:smelting/silver_ingot_from_dust_blasting`],
+			[`thermal:smelting/silver_ingot_from_ore_blasting`],
+			[`thermal:smelting/silver_ingot_from_raw_blasting`],
+			[`thermal:smelting/silver_ingot_from_deepslate_ore_blasting`],
+			[`thermal:smelting/silver_ingot_from_ore_smelting`],
+			[`thermal:smelting/silver_ingot_from_raw_smelting`],
+			[`thermal:smelting/silver_ingot_from_deepslate_ore_smelting`],
+			[`thermal:smelting/silver_ingot_from_dust_smelting`],
+			[`thermal:storage/silver_nugget_from_ingot`],
+			[`thermal:storage/raw_nickel_from_block`],
+			[`thermal:storage/nickel_ingot_from_block`],
+			[`thermal:storage/nickel_ingot_from_nuggets`],
+			[`thermal:smelting/nickel_ingot_from_ore_blasting`],
+			[`thermal:smelting/nickel_ingot_from_deepslate_ore_blasting`],
+			[`thermal:smelting/nickel_ingot_from_raw_blasting`],
+			[`thermal:smelting/nickel_ingot_from_dust_blasting`],
+			[`thermal:smelting/nickel_ingot_from_raw_smelting`],
+			[`thermal:smelting/nickel_ingot_from_ore_smelting`],
+			[`thermal:smelting/nickel_ingot_from_deepslate_ore_smelting`],
+			[`thermal:smelting/nickel_ingot_from_dust_smelting`],
+			[`thermal:storage/nickel_nugget_from_ingot`],
+			[`thermal:storage/bronze_ingot_from_nuggets`],
+			[`thermal:storage/bronze_ingot_from_block`],
+			[`thermal:smelting/bronze_ingot_from_dust_blasting`],
+			[`thermal:smelting/bronze_ingot_from_dust_smelting`],
+			[`thermal:storage/bronze_nugget_from_ingot`],
+			[`thermal:storage/electrum_ingot_from_nuggets`],
+			[`thermal:storage/electrum_ingot_from_block`],
+			[`thermal:smelting/electrum_ingot_from_dust_blasting`],
+			[`thermal:smelting/electrum_ingot_from_dust_smelting`],
+			[`thermal:storage/invar_ingot_from_nuggets`],
+			[`thermal:storage/invar_ingot_from_block`],
+			[`thermal:smelting/invar_ingot_from_dust_blasting`],
+			[`thermal:smelting/invar_ingot_from_dust_smelting`],
+			[`thermal:storage/invar_nugget_from_ingot`],
+			[`thermal:storage/constantan_ingot_from_nuggets`],
+			[`thermal:storage/constantan_ingot_from_block`],
+			[`thermal:smelting/constantan_ingot_from_dust_blasting`],
+			[`thermal:smelting/constantan_ingot_from_dust_smelting`],
+			[`thermal:storage/constantan_nugget_from_ingot`],
+			[`thermal:storage/signalum_ingot_from_nuggets`],
+			[`thermal:storage/signalum_ingot_from_block`],
+			[`thermal:smelting/signalum_ingot_from_dust_blasting`],
+			[`thermal:smelting/signalum_ingot_from_dust_smelting`],
+			[`thermal:storage/signalum_nugget_from_ingot`],
+			[`thermal:storage/lumium_ingot_from_block`],
+			[`thermal:storage/lumium_ingot_from_nuggets`],
+			[`thermal:smelting/lumium_ingot_from_dust_blasting`],
+			[`thermal:smelting/lumium_ingot_from_dust_smelting`],
+			[`thermal:storage/lumium_nugget_from_ingot`],
+			[`thermal:storage/enderium_ingot_from_nuggets`],
+			[`thermal:storage/enderium_ingot_from_block`],
+			[`thermal:smelting/enderium_ingot_from_dust_blasting`],
+			[`thermal:smelting/enderium_ingot_from_dust_smelting`],
+			[`thermal:storage/enderium_nugget_from_ingot`],
+		];
+		recipeIdRemove.forEach(([removeRecipeId]) => {
+			event.remove({ id: removeRecipeId });
+		});
+	}
+});
+
+ServerEvents.tags("item", (event) => {
+	let itemTagsAdd = [
+		["forge:gems", ["thermal:coal_coke", "immersiveengineering:coal_coke"]],
+		["forge:gems/coal_coke", ["thermal:coal_coke", "immersiveengineering:coal_coke"]],
+		["forge:coal_coke", "emendatusenigmatica:coal_coke_gem"],
+		["minecraft:coals", "emendatusenigmatica:coal_coke_gem"],
+	];
+	itemTagsAdd.forEach(([itemTags, items]) => {
+		event.add(itemTags, [items]);
+	});
 });
