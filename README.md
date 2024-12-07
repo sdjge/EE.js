@@ -43,7 +43,7 @@ A kubeJS script that elegantly unifies ores and materials
   - [x] **Integrated Dynamics** 
   - [x] **Embers Rekindled** 
   - [x] **Thermal Series** -- ***without*** `Dynamo numismatic` *recipes* 
-  - [ ] **Botanica**
+  - [ ] **Botania**
   - [ ] **And more, please tell me!!!** 
 - [ ] Worldgen modified to generate ores 
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
