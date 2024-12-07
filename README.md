@@ -35,14 +35,16 @@ A kubeJS script that elegantly unifies ores and materials
 ## TODO 
 - [x] Registration of the material with its processed types 
 - [ ] Automatically matches recipes and removes most duplicates 
-  - [x] Mekanism 
-  - [x] Immersive Engineering 
-  - [x] Create 
-    - [x] Create Crafts & Additions 
-  - [x] Bloodmagic 
-  - [x] Integrated Dynamics 
-  - [x] Embers Rekindled 
-  - [ ] And more, please tell me!!!
+  - [x] **Mekanism** 
+  - [x] **Immersive Engineering** 
+  - [x] **Create** 
+    - [x] **Create Crafts & Additions** 
+  - [x] **Bloodmagic** 
+  - [x] **Integrated Dynamics** 
+  - [x] **Embers Rekindled** 
+  - [x] **Thermal Series** -- ***without*** `Dynamo numismatic` *recipes* 
+  - [ ] **Botanica**
+  - [ ] **And more, please tell me!!!** 
 - [ ] Worldgen modified to generate ores 
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
@@ -83,7 +85,7 @@ type: "dust", // your material type -- ("dust","metal","gem")
 baseItem: "dust", //*base item is
 processedTypes: ["dust"], //*processed types -- 
 //("ore","raw","ingot","nugget","dust","plate","gear", 
-//"rod""storage_block","mekanism","bloodmagic","aspectus") 
+//"rod""storage_block","mekanism","bloodmagic","embers","thermal") 
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*need 5 colors
 burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*

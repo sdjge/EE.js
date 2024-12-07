@@ -38,11 +38,9 @@ ServerEvents.recipes((e) => {
 			};
 
 			if (Platform.isLoaded("thermal") && blacklist.thermal.press.includes(name) == false && checkedTypes.gear) {
-				e.custom(
-					Thermal.press(processedItems.gear, [`4x #forge:${mat.baseItem}s/${name}`, "thermal:press_gear_die"]).energy(
-						2400
-					)
-				).id(`emendatusenigmatica:thermal/press/${name}_gear`);
+				e.custom(Thermal.press(processedItems.gear, [`4x #forge:${mat.baseItem}s/${name}`, "thermal:press_gear_die"]).energy(2400)).id(
+					`emendatusenigmatica:thermal/press/${name}_gear`
+				);
 			}
 		}
 	);

@@ -5,9 +5,10 @@ const LoadedMOD = {
 	bloodmagic: Platform.isLoaded("bloodmagic"),
 	mekanism: Platform.isLoaded("mekanism"),
 	embers: Platform.isLoaded("embers"),
+	thermal: Platform.isLoaded("thermal_foundation"),
 };
 console.info(
-	`embers${LoadedMOD.embers},meka${LoadedMOD.mekanism},blood${LoadedMOD.bloodmagic},create${LoadedMOD.create}`
+	`embers${LoadedMOD.embers},meka${LoadedMOD.mekanism},blood${LoadedMOD.bloodmagic},create${LoadedMOD.create},thermal_f${LoadedMOD.thermal}`
 );
 StartupEvents.registry("creative_mode_tab", (e) => {
 	e.create("emendatusenigmatica", "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
@@ -36,12 +37,13 @@ StartupEvents.modifyCreativeTab("kubejs:emendatusenigmatica", (e) => {
 			"{display:{Name:'{\"text\":\"Use .content(showRestrictedItems => [\\'kubejs:example\\']) to add more items!\"}'}}"
 		)
 	);
-	e.setIcon("emendatusenigmatica:iron_gear");
+	e.setIcon("emendatusenigmatica:copper_gear");
 });
 
 const paths = {
 	models: {
 		block: "./kubejs/assets/emendatusenigmatica/models/block/",
+		// item: "./kubejs/assets/emendatusenigmatica/models/item/",
 	},
 	textures: {
 		block: "./kubejs/assets/emendatusenigmatica/textures/block/",
@@ -158,10 +160,7 @@ EmendatusEnigmaticaJS.prototype = {
 			}
 			if (type == "raw") {
 				StartupEvents.registry("item", (e) => {
-					let builder = e
-						.create(`emendatusenigmatica:raw_${name}`)
-						.tag("forge:raw_materials")
-						.tag(`forge:raw_materials/${name}`);
+					let builder = e.create(`emendatusenigmatica:raw_${name}`).tag("forge:raw_materials").tag(`forge:raw_materials/${name}`);
 
 					if (this.color)
 						builder
@@ -276,10 +275,7 @@ EmendatusEnigmaticaJS.prototype = {
 			}
 			if (type == "nugget") {
 				StartupEvents.registry("item", (e) => {
-					let builder = e
-						.create(`emendatusenigmatica:${name}_nugget`)
-						.tag("forge:nuggets")
-						.tag(`forge:nuggets/${name}`);
+					let builder = e.create(`emendatusenigmatica:${name}_nugget`).tag("forge:nuggets").tag(`forge:nuggets/${name}`);
 
 					if (this.color)
 						builder
@@ -380,12 +376,9 @@ EmendatusEnigmaticaJS.prototype = {
 					removeInTab(`emendatusenigmatica:${name}_block`);
 				}
 			}
-			if (type == "aspectus") {
+			if (type == "embers") {
 				StartupEvents.registry("item", (e) => {
-					let registry = e
-						.create(`emendatusenigmatica:${name}_aspectus`)
-						.tag("embers:aspectus")
-						.tag(`embers:aspectus/${name}`);
+					let registry = e.create(`emendatusenigmatica:${name}_aspectus`).tag("embers:aspectus").tag(`embers:aspectus/${name}`);
 
 					if (this.color) {
 						registry
@@ -406,20 +399,33 @@ EmendatusEnigmaticaJS.prototype = {
 					addToTab(`emendatusenigmatica:${name}_aspectus`);
 				}
 			}
+			if (type == "thermal") {
+				StartupEvents.registry("item", (e) => {
+					let registry = e.create(`emendatusenigmatica:${name}_coin`).tag("forge:coins").tag(`forge:coins/${name}`);
+					if (this.color) {
+						registry
+							.texture("layer0", "emendatusenigmatica:item/templates/coin/00")
+							.texture("layer1", "emendatusenigmatica:item/templates/coin/01")
+							.texture("layer2", "emendatusenigmatica:item/templates/coin/02")
+							.texture("layer3", "emendatusenigmatica:item/templates/coin/03")
+							.texture("layer4", "emendatusenigmatica:item/templates/coin/04")
+							.color(0, this.color[0])
+							.color(1, this.color[1])
+							.color(2, this.color[2])
+							.color(3, this.color[3])
+							.color(4, this.color[4]);
+					}
+				});
+				removeInTab(`emendatusenigmatica:${name}_coin`);
+				if (LoadedMOD.thermal) {
+					addToTab(`emendatusenigmatica:${name}_coin`);
+				}
+			}
 			if (type == "mekanism") {
 				StartupEvents.registry("item", (e) => {
-					let crystal = e
-						.create(`emendatusenigmatica:${name}_crystal`)
-						.tag("mekanism:crystals")
-						.tag(`mekanism:crystals/${name}`);
-					let shard = e
-						.create(`emendatusenigmatica:${name}_shard`)
-						.tag("mekanism:shards")
-						.tag(`mekanism:shards/${name}`);
-					let clump = e
-						.create(`emendatusenigmatica:${name}_clump`)
-						.tag("mekanism:clumps")
-						.tag(`mekanism:clumps/${name}`);
+					let crystal = e.create(`emendatusenigmatica:${name}_crystal`).tag("mekanism:crystals").tag(`mekanism:crystals/${name}`);
+					let shard = e.create(`emendatusenigmatica:${name}_shard`).tag("mekanism:shards").tag(`mekanism:shards/${name}`);
+					let clump = e.create(`emendatusenigmatica:${name}_clump`).tag("mekanism:clumps").tag(`mekanism:clumps/${name}`);
 					let dirtyDust = e
 						.create(`emendatusenigmatica:${name}_dirty_dust`)
 						.tag("mekanism:dirty_dusts")
@@ -497,10 +503,7 @@ EmendatusEnigmaticaJS.prototype = {
 						.create(`emendatusenigmatica:${name}_fragment`)
 						.tag("bloodmagic:fragments")
 						.tag(`bloodmagic:fragments/${name}`);
-					let gravel = e
-						.create(`emendatusenigmatica:${name}_gravel`)
-						.tag("bloodmagic:gravels")
-						.tag(`bloodmagic:gravels/${name}`);
+					let gravel = e.create(`emendatusenigmatica:${name}_gravel`).tag("bloodmagic:gravels").tag(`bloodmagic:gravels/${name}`);
 
 					if (this.color) {
 						fragment
