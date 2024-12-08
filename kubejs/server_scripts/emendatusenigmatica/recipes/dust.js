@@ -2,19 +2,7 @@ ServerEvents.recipes((e) => {
 	let blacklist = {
 		create: ["iron", "gold", "copper", "zinc", "osmium", "tin", "lead", "uranium"],
 		immersiveengineering: {
-			hammerCrushing: [
-				"iron",
-				"copper",
-				"gold",
-				"aluminum",
-				"osmium",
-				"lead",
-				"nickel",
-				"silver",
-				"tin",
-				"uranium",
-				"zinc",
-			],
+			hammerCrushing: ["iron", "copper", "gold", "aluminum", "osmium", "lead", "nickel", "silver", "tin", "uranium", "zinc"],
 			crusher: [
 				"copper",
 				"aluminum",
@@ -118,13 +106,9 @@ ServerEvents.recipes((e) => {
 						);
 					}
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(
-							ImmersiveEngineering.crusher(
-								`${2 * oreToDustMultiplier}x #forge:dusts/${name}`,
-								`#forge:ores/${name}`,
-								6000
-							)
-						).id(`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`);
+						e.custom(ImmersiveEngineering.crusher(`${2 * oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:ores/${name}`, 6000)).id(
+							`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`
+						);
 					}
 				}
 				if (checkedTypes.raw && mat.baseItem == "ingot") {
@@ -135,12 +119,9 @@ ServerEvents.recipes((e) => {
 					}
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
 						e.custom(
-							ImmersiveEngineering.crusher(
-								`${oreToDustMultiplier}x #forge:dusts/${name}`,
-								`#forge:raw_materials/${name}`,
-								6000,
-								[`#forge:dusts/${name} 0.33`]
-							)
+							ImmersiveEngineering.crusher(`${oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:raw_materials/${name}`, 6000, [
+								`#forge:dusts/${name} 0.33`,
+							])
 						).id(`emendatusenigmatica:immersiveengineering/crusher/${name}_raw`);
 					}
 				}
@@ -222,10 +203,7 @@ ServerEvents.recipes((e) => {
 					if (checkedTypes.ore && mat.baseItem == "ingot") {
 						e.custom(
 							Thermal.pulverizer(
-								[
-									Item.of(processedItems.dust).withChance(2 * oreToDustMultiplier),
-									Item.of("minecraft:gravel").withChance(0.2),
-								],
+								[Item.of(processedItems.dust).withChance(2 * oreToDustMultiplier), Item.of("minecraft:gravel").withChance(0.2)],
 								`#forge:ores/${name}`
 							)
 								.xp(0.2)
@@ -244,9 +222,7 @@ ServerEvents.recipes((e) => {
 					}
 					if (checkedTypes.raw) {
 						e.custom(
-							Thermal.pulverizer(Item.of(processedItems.dust).withChance(1.25), `#forge:raw_materials/${name}`)
-								.xp(0.1)
-								.energy(4000)
+							Thermal.pulverizer(Item.of(processedItems.dust).withChance(1.25), `#forge:raw_materials/${name}`).xp(0.1).energy(4000)
 						).id(`emendatusenigmatica:thermal/pulverizer/raw_${name}`);
 					}
 					if (checkedTypes.ingot) {

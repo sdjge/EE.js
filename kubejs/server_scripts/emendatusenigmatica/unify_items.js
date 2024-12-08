@@ -80,6 +80,15 @@ PlayerEvents.inventoryChanged((e) => {
 		}
 	}
 });
+ServerEvents.tags("item", (event) => {
+	let itemTagsAdd = [
+		["forge:ingots/gaia", ["botania:gaia_ingot"]],
+		["forge:ingots", ["botania:gaia_ingot"]],
+	];
+	itemTagsAdd.forEach(([itemTags, items]) => {
+		event.add(itemTags, [items]);
+	});
+});
 
 PlayerEvents.loggedOut((e) => {
 	JsonIO.write("./conversion_map.json", conversionMap);

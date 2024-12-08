@@ -523,6 +523,49 @@ const EE_MATERIALS = [
 		processedTypes: ["plate", "gear", "rod", "dust", "thermal"],
 		color: ["#f6fc92", "#fcca00", "#fc9a00", "#c23d00", "#950000"],
 	},
+	// Mod: Botania
+	{
+		name: "dragonstone",
+		type: "gem",
+		baseItem: "gem",
+		processedTypes: ["dust", "gear", "plate", "rod"],
+		color: ["#FCE7DF", "#F09FAA", "#E782B2", "#E266BA", "#5B2474"],
+	},
+	{
+		name: "mana_diamond",
+		type: "gem",
+		baseItem: "gem",
+		processedTypes: ["dust", "gear", "plate", "rod"],
+		color: ["#FCFCFC", "#a1fbe8", "#80F0F1", "#00B2C2", "#004A66"],
+	},
+	{
+		name: "manasteel",
+		type: "alloy",
+		baseItem: "ingot",
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		color: ["#66B7EB", "#B3FCF9", "#66B7EB", "#2375da", "#1F20B7"],
+	},
+	{
+		name: "elementium",
+		type: "alloy",
+		baseItem: "ingot",
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		color: ["#FCE7DF", "#DD82A3", "#C342A6", "#791890", "#3E0765"],
+	},
+	{
+		name: "terrasteel",
+		type: "alloy",
+		baseItem: "ingot",
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		color: ["#CAFCB3", "#69E561", "#2AB73A", "#0C7127", "#043B1C"],
+	},
+	{
+		name: "gaia",
+		type: "alloy",
+		baseItem: "ingot",
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		color: ["#CAFCB3", "#DD82A3", "#66B7EB", "#791890", "#1F20B7"],
+	},
 ];
 
 global.EE_MATERIALS = EE_MATERIALS;
