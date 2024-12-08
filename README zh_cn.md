@@ -30,6 +30,8 @@
 
 - `KubeJS-EnderIO` <font size="1">**如果有Ender IO** </font> 
 
+- `Occultism KubeJS` <font size="1">**如果有Occultism** </font> 
+
 ## Features 
 - 可自定义的容矿岩/材料 
 - 便于编辑 
@@ -47,9 +49,10 @@
   - [x] **Integrated Dynamics** 
   - [x] **Embers Rekindled** 
   - [x] **Thermal Series** -- ***除了*** `Dynamo numismatic` *的发电配方* 
-  - [x] **Botania**
-  - [x] **Ad Astra**
-  - [x] **Ender IO**
+  - [x] **Botania** 
+  - [x] **Ad Astra** 
+  - [x] **Ender IO** 
+  - [x] **Occultism** 
   - [ ] **也许更多，快告诉我还有啥!!** 
 - [ ] 世界生成矿物 
   - 我懒了，你可以自己干或者给项目发PR🥺 

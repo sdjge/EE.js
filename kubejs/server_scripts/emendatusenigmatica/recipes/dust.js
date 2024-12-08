@@ -69,6 +69,43 @@ ServerEvents.recipes((e) => {
 				"quartz",
 			],
 		},
+		occultism: [
+			"zinc",
+			"ruby",
+			"redstone",
+			"lead",
+			"silver",
+			"emerald",
+			"diamond",
+			"iron",
+			"invar",
+			"quartz",
+			"tin",
+			"osmium",
+			"cinnabar",
+			"end_stone",
+			"aluminum",
+			"nickel",
+			"iesnium",
+			"copper",
+			"uranium",
+			"electrum",
+			"netherite",
+			"lapis",
+			"coal",
+			"sapphire",
+			"sulfur",
+			"enderium",
+			"fluorite",
+			"bronze",
+			"apatite",
+			"constantan",
+			"signalum",
+			"lumium",
+			"brass",
+			"obisdian",
+			"steel",
+		],
 	};
 
 	global.EE_MATERIALS.forEach(
@@ -240,6 +277,34 @@ ServerEvents.recipes((e) => {
 							`emendatusenigmatica:thermal/pulverizer/${name}_gem`
 						);
 					}
+				}
+			}
+			if (Platform.isLoaded("occultism")) {
+				if (blacklist.occultism.includes(name)) return;
+				if (checkedTypes.ingot) {
+					e.recipes.occultism
+						.crushing(processedItems.dust, `#forge:ingots/${name}`)
+						.id(`emendatusenigmatica:occultism/crushing/${name}_ingot`);
+				}
+				if (checkedTypes.gem) {
+					e.recipes.occultism
+						.crushing(processedItems.dust, `#forge:gems/${name}`)
+						.id(`emendatusenigmatica:occultism/crushing/${name}_gem`);
+				}
+				if (checkedTypes.raw) {
+					e.recipes.occultism
+						.crushing(`2x ${processedItems.dust}`, `#forge:raw_materials/${name}`)
+						.id(`emendatusenigmatica:occultism/crushing/${name}_raw`);
+				}
+				if (checkedTypes.rawBlock) {
+					e.recipes.occultism
+						.crushing(`18x ${processedItems.dust}`, `#forge:storage_blocks/raw_${name}`)
+						.id(`emendatusenigmatica:occultism/crushing/${name}_raw_block`);
+				}
+				if (checkedTypes.ore) {
+					e.recipes.occultism
+						.crushing(`4x ${processedItems.dust}`, `#forge:ores/${name}`)
+						.id(`emendatusenigmatica:occultism/crushing/${name}_ore`);
 				}
 			}
 		}
