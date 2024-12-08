@@ -1,5 +1,6 @@
 # folder 
 *
+!README zh_cn.md
 !.gitignore
 !kubejs/
 !config/

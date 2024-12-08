@@ -6,6 +6,8 @@ A kubeJS script that elegantly unifies ores and materials
 
 **Recommended for use with almost unified** 
 
+## [**中文**](https://github.com/sdjge/EE.js/blob/main/README-zh_cn.md)
+
 ## Require 
 
 - `minecraft => 1.20.1` <font size="1"> maybe not only 1.20.1 </font> 
@@ -32,7 +34,7 @@ A kubeJS script that elegantly unifies ores and materials
 - Customizable Strata/Materials 
 - Convenient to modify 
 - Nice compatibility  
-  - Compatible with Vanilla, Create, Mekanism, Bloodmagic, Embers,and more... 
+  - Compatible with `Vanilla`, `Create`, `Mekanism`, `Bloodmagic`, `Embers`,and more... 
 
 ## TODO 
 - [x] Registration of the material with its processed types 
