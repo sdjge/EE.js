@@ -6,7 +6,7 @@ A kubeJS script that elegantly unifies ores and materials
 
 **Recommended for use with almost unified** 
 
-## [**中文**](https://github.com/sdjge/EE.js/blob/main/README-zh_cn.md)
+## [**中文**](https://github.com/sdjge/EE.js/blob/main/README%20zh_cn.md)
 
 ## Require 
 
