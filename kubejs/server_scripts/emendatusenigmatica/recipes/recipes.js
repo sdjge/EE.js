@@ -390,7 +390,7 @@ ServerEvents.recipes((e) => {
 			}
 			if (checkedTypes.gem) {
 				// Immersive Engineering
-				if (checkedTypes.ore && !blacklist.immersiveengineering.crusher.includes(name)) {
+				if (checkedTypes.ore && !blacklist.immersiveengineering.crusher.includes(name) && loadedMods.immersiveengineering) {
 					e.recipes.immersiveengineering
 						.crusher(`2x #forge:gems/${name}`, `#forge:ores/${name}`)
 						.id(`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`);
@@ -472,6 +472,7 @@ ServerEvents.recipes((e) => {
 				}
 			}
 			if (types.includes("mekanism")) {
+				if (!loadedMods.mekanism) return;
 				// console.log('- Mekanism')
 				e.recipes.mekanism // crystal to shard
 					.injecting(`emendatusenigmatica:${name}_shard`, `#mekanism:crystals/${name}`, (1, "mekanism:hydrogen_chloride"))
@@ -522,6 +523,7 @@ ServerEvents.recipes((e) => {
 				}
 			}
 			if (types.includes("bloodmagic")) {
+				if (!loadedMods.bloodmagic) return;
 				// console.log('- Blood Magic')
 				if (isIngredientExist(`#forge:ores/${name}`)) {
 					e.custom({
