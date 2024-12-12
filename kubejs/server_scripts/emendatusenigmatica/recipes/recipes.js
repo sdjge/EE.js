@@ -1,4 +1,19 @@
-// priority: 5
+// priority: 95
+
+/**
+ * @param {boolean} boolean
+ */
+let recipesSwich = {
+	create: true,
+	cca: true, // Create Crafts & Additions
+	thermal: true,
+	mekanism: true,
+	immersiveengineering: true, // Immersive Engineering
+	bloodmagic: true,
+	enderio: true,
+	adastra: true,
+	integrateddynamics: true, // Integrated Dynamics
+};
 
 /**
  * @param {string} tag
@@ -161,6 +176,8 @@ ServerEvents.recipes((e) => {
 		createadditions: Platform.isLoaded("createaddition"),
 		immersiveengineering: Platform.isLoaded("immersiveengineering"),
 		thermalfoundation: Platform.isLoaded("thermal_foundation"),
+		mekanism: Platform.isLoaded("mekanism"),
+		embers: Platform.isLoaded("embers"),
 	};
 
 	global.EE_MATERIALS.forEach(
@@ -214,7 +231,7 @@ ServerEvents.recipes((e) => {
 			}
 			if (isIngredientExist(`#forge:ingots/${name}`)) {
 				if (isIngredientExist(`#forge:nuggets/${name}`) && loadedMods.thermalfoundation) {
-					if (blacklist.thermal.press.includes(name) == false) {
+					if (recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
 						e.recipes.thermal
 							.press(processedItems.ingot, [`9x #forge:nuggets/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
 							.id(`emendatusenigmatica:thermal/press/packing3x3/${name}_ingot_3x3_packing`);
@@ -232,12 +249,10 @@ ServerEvents.recipes((e) => {
 						`emendatusenigmatica:${name}_ingot`,
 						`#forge:ingots/${name}`
 					);
-					if (loadedMods.thermalfoundation) {
-						if (blacklist.thermal.press.includes(name) == false) {
-							e.recipes.thermal
-								.press(`emendatusenigmatica:${name}_block`, [`9x #forge:ingots/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
-								.id(`emendatusenigmatica:thermal/press/packing3x3/${name}_block_3x3_packing`);
-						}
+					if (loadedMods.thermalfoundation && recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
+						e.recipes.thermal
+							.press(`emendatusenigmatica:${name}_block`, [`9x #forge:ingots/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
+							.id(`emendatusenigmatica:thermal/press/packing3x3/${name}_block_3x3_packing`);
 					}
 				}
 				if (types.includes("ore")) {
@@ -250,7 +265,7 @@ ServerEvents.recipes((e) => {
 						.xp(0.7)
 						.id(`emendatusenigmatica:minecraft/blasting/${name}_ingot_from_ore`);
 					if (loadedMods.thermalfoundation) {
-						if (blacklist.thermal.press.includes(name) == false) {
+						if (recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
 							e.recipes.thermal
 								.smelter(processedItems.ingot, `#forge:ores/${name}`, 0.5, 3200)
 								.id(`emendatusenigmatica:thermal/smelter/smelter_${name}_ore`);
@@ -284,12 +299,10 @@ ServerEvents.recipes((e) => {
 						.xp(0.7)
 						.id(`emendatusenigmatica:minecraft/blasting/${name}_ingot_from_dust`);
 				}
-				if (loadedMods.thermalfoundation) {
-					if (blacklist.thermal.press.includes(name) == false) {
-						e.recipes.thermal
-							.smelter(processedItems.ingot, `#forge:dusts/${name}`, 0, 1600)
-							.id(`emendatusenigmatica:thermal/smelter/smelter_${name}_dust`);
-					}
+				if (loadedMods.thermalfoundation && recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
+					e.recipes.thermal
+						.smelter(processedItems.ingot, `#forge:dusts/${name}`, 0, 1600)
+						.id(`emendatusenigmatica:thermal/smelter/smelter_${name}_dust`);
 				}
 			}
 			if (checkedTypes.raw) {
@@ -301,18 +314,16 @@ ServerEvents.recipes((e) => {
 						processedItems.raw,
 						`#forge:raw_materials/${name}`
 					);
-					if (loadedMods.thermalfoundation) {
-						if (blacklist.thermal.press.includes(name) == false) {
-							e.recipes.thermal
-								.press(processedItems.rawBlock, [`9x #forge:raw_materials/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
-								.id(`emendatusenigmatica:thermal/press/packing3x3/raw_${name}_block_3x3_packing`);
-							e.recipes.thermal
-								.press(processedItems.raw, [`#forge:storage_blocks/raw_${name}`, "thermal:press_unpacking_die"], 0, 400)
-								.id(`emendatusenigmatica:thermal/press/unpacking/raw_${name}_block_unpacking`);
-						}
+					if (loadedMods.thermalfoundation && recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
+						e.recipes.thermal
+							.press(processedItems.rawBlock, [`9x #forge:raw_materials/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
+							.id(`emendatusenigmatica:thermal/press/packing3x3/raw_${name}_block_3x3_packing`);
+						e.recipes.thermal
+							.press(processedItems.raw, [`#forge:storage_blocks/raw_${name}`, "thermal:press_unpacking_die"], 0, 400)
+							.id(`emendatusenigmatica:thermal/press/unpacking/raw_${name}_block_unpacking`);
 					}
 				}
-				if (checkedTypes.ore && Platform.isLoaded("integrateddynamics")) {
+				if (recipesSwich.integrateddynamics && checkedTypes.ore && Platform.isLoaded("integrateddynamics")) {
 					if (!["copper", "iron", "gold"].includes(name)) {
 						e.custom({
 							type: "integrateddynamics:mechanical_squeezer",
@@ -377,20 +388,23 @@ ServerEvents.recipes((e) => {
 					`emendatusenigmatica:${name}_gem`,
 					`#forge:gems/${name}`
 				);
-				if (loadedMods.thermalfoundation) {
-					if (blacklist.thermal.press.includes(name) == false) {
-						e.recipes.thermal
-							.press(`emendatusenigmatica:${name}_block`, [`9x #forge:gems/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
-							.id(`emendatusenigmatica:thermal/press/packing3x3/${name}_block_3x3_packing`);
-						e.recipes.thermal
-							.press(`9x emendatusenigmatica:${name}_gem`, [`#forge:storage_blocks/${name}`, "thermal:press_unpacking_die"], 0, 400)
-							.id(`emendatusenigmatica:thermal/press/unpacking/${name}_block_unpacking`);
-					}
+				if (loadedMods.thermalfoundation && recipesSwich.thermal && blacklist.thermal.press.includes(name) == false) {
+					e.recipes.thermal
+						.press(`emendatusenigmatica:${name}_block`, [`9x #forge:gems/${name}`, "thermal:press_packing_3x3_die"], 0, 400)
+						.id(`emendatusenigmatica:thermal/press/packing3x3/${name}_block_3x3_packing`);
+					e.recipes.thermal
+						.press(`9x emendatusenigmatica:${name}_gem`, [`#forge:storage_blocks/${name}`, "thermal:press_unpacking_die"], 0, 400)
+						.id(`emendatusenigmatica:thermal/press/unpacking/${name}_block_unpacking`);
 				}
 			}
 			if (checkedTypes.gem) {
 				// Immersive Engineering
-				if (checkedTypes.ore && !blacklist.immersiveengineering.crusher.includes(name) && loadedMods.immersiveengineering) {
+				if (
+					recipesSwich.immersiveengineering &&
+					checkedTypes.ore &&
+					!blacklist.immersiveengineering.crusher.includes(name) &&
+					loadedMods.immersiveengineering
+				) {
 					e.recipes.immersiveengineering
 						.crusher(`2x #forge:gems/${name}`, `#forge:ores/${name}`)
 						.id(`emendatusenigmatica:immersiveengineering/crusher/${name}_ore`);
@@ -407,20 +421,21 @@ ServerEvents.recipes((e) => {
 						i: `#forge:gems/${name}`,
 						n: "#forge:nuggets/iron",
 					}).id(`emendatusenigmatica:${name}_gear`);
-
-				if (loadedMods.immersiveengineering) {
-					if (!blacklist.immersiveengineering.metalPress.includes(name))
-						e.recipes.immersiveengineering
-							.metal_press(`#forge:gears/${name}`, `4x #forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.GEAR)
-							.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_gear`);
-				}
+				if (
+					recipesSwich.immersiveengineering &&
+					loadedMods.immersiveengineering &&
+					!blacklist.immersiveengineering.metalPress.includes(name)
+				)
+					e.recipes.immersiveengineering
+						.metal_press(`#forge:gears/${name}`, `4x #forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.GEAR)
+						.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_gear`);
 			}
 			if (checkedTypes.rod) {
 				if (checkedTypes.ingot) {
 					e.shaped(`2x ${processedItems.rod}`, ["i", "i"], {
 						i: `#forge:ingots/${name}`,
 					}).id(`emendatusenigmatica:${name}_rod`);
-					if (loadedMods.createadditions) {
+					if (recipesSwich.cca && loadedMods.createadditions) {
 						e.custom({
 							type: "createaddition:rolling",
 							input: {
@@ -430,28 +445,29 @@ ServerEvents.recipes((e) => {
 								item: processedItems.rod,
 								count: 2,
 							},
-						}).id(`emendatusenigmatica:createaddition/rolling/${name}_ingot`);
+						}).id(`emendatusenigmatica:cca/rolling/${name}_ingot`);
 					}
 				} else if (checkedTypes.gem) {
 					e.shaped(`2x ${processedItems.rod}`, ["i", "i"], {
 						i: `#forge:gems/${name}`,
 					}).id(`emendatusenigmatica:${name}_rod`);
 				}
-
-				if (loadedMods.immersiveengineering) {
-					if (!blacklist.immersiveengineering.metalPress.includes(name))
-						e.recipes.immersiveengineering
-							.metal_press(`2x #forge:rods/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.ROD)
-							.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`);
-				}
+				if (
+					recipesSwich.immersiveengineering &&
+					loadedMods.immersiveengineering &&
+					!blacklist.immersiveengineering.metalPress.includes(name)
+				)
+					e.recipes.immersiveengineering
+						.metal_press(`2x #forge:rods/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.ROD)
+						.id(`emendatusenigmatica:immersiveengineering/metal_press/${name}_rod`);
 			}
 			if (checkedTypes.plate) {
-				if (loadedMods.create) {
+				if (recipesSwich.create && loadedMods.create) {
 					e.recipes.create
 						.pressing(processedItems.plate, `#forge:${mat.baseItem}s/${name}`)
 						.id(`emendatusenigmatica:create/pressing/${name}_plate`);
 				}
-				if (loadedMods.immersiveengineering) {
+				if (recipesSwich.immersiveengineering && loadedMods.immersiveengineering) {
 					if (blacklist.immersiveengineering.metalPress.includes(name) == false) {
 						e.recipes.immersiveengineering
 							.metal_press(`#forge:plates/${name}`, `#forge:${mat.baseItem}s/${name}`, ImmersiveEngineering.MOLDS.PLATE)
@@ -463,7 +479,7 @@ ServerEvents.recipes((e) => {
 							.id(`emendatusenigmatica:minecraft/crafting/${name}_plate`);
 					}
 				}
-				if (loadedMods.thermalfoundation) {
+				if (recipesSwich.thermal && loadedMods.thermalfoundation) {
 					if (blacklist.thermal.press.includes(name) == false) {
 						e.recipes.thermal
 							.smelter(processedItems.ingot, processedItems.plate, 0, 1600)
@@ -471,7 +487,7 @@ ServerEvents.recipes((e) => {
 					}
 				}
 			}
-			if (types.includes("mekanism")) {
+			if (types.includes("mekanism") && recipesSwich.mekanism) {
 				if (!loadedMods.mekanism) return;
 				// console.log('- Mekanism')
 				e.recipes.mekanism // crystal to shard
@@ -522,7 +538,7 @@ ServerEvents.recipes((e) => {
 						.id(`emendatusenigmatica:mekanism/enriching/${name}_dust_from_ore`);
 				}
 			}
-			if (types.includes("bloodmagic")) {
+			if (types.includes("bloodmagic") && recipesSwich.bloodmagic) {
 				if (!loadedMods.bloodmagic) return;
 				// console.log('- Blood Magic')
 				if (isIngredientExist(`#forge:ores/${name}`)) {
@@ -628,7 +644,7 @@ ServerEvents.recipes((e) => {
 					},
 				}).id(`emendatusenigmatica:bloodmagic/arc/${name}_dust_from_gravel`);
 			}
-			if (isIngredientExist(`#create:crushed_raw_materials/${name}`)) {
+			if (isIngredientExist(`#create:crushed_raw_materials/${name}`) && recipesSwich.create) {
 				// console.log('- Create')
 				if (blacklist.create.includes(name)) return;
 				if (checkedTypes.ingot) {
@@ -665,7 +681,7 @@ ServerEvents.recipes((e) => {
 						.id(`emendatusenigmatica:create/splashing/crushed_${name}`);
 				}
 			}
-			if (types.includes("thermal")) {
+			if (types.includes("thermal") && recipesSwich.thermal) {
 				if (blacklist.thermal.press.includes(name)) return;
 				if (loadedMods.thermalfoundation) {
 					e.recipes.thermal
@@ -682,15 +698,16 @@ ServerEvents.recipes((e) => {
 
 ServerEvents.recipes((event) => {
 	// remove if mod loaded
-	const LoadedMOD = {
+	let loadedMods = {
 		create: Platform.isLoaded("create"),
-		mekanism: Platform.isLoaded("mekanism"),
-		embers: Platform.isLoaded("embers"),
+		createadditions: Platform.isLoaded("createaddition"),
 		immersiveengineering: Platform.isLoaded("immersiveengineering"),
 		thermalfoundation: Platform.isLoaded("thermal_foundation"),
+		mekanism: Platform.isLoaded("mekanism"),
+		embers: Platform.isLoaded("embers"),
 	};
 
-	if (LoadedMOD.embers) {
+	if (loadedMods.embers) {
 		let recipeIdRemove = [
 			[`embers:lead_block_to_ingot`],
 			[`embers:lead_nugget_to_ingot`],
@@ -722,7 +739,7 @@ ServerEvents.recipes((event) => {
 		});
 	}
 
-	if (LoadedMOD.mekanism) {
+	if (loadedMods.mekanism) {
 		let recipeIdRemove = [
 			["mekanism:storage_blocks/bronze"],
 			["mekanism:storage_blocks/steel"],
@@ -780,7 +797,7 @@ ServerEvents.recipes((event) => {
 		});
 	}
 
-	if (LoadedMOD.create) {
+	if (loadedMods.create) {
 		let recipeIdRemove = [
 			[`create:crafting/materials/raw_zinc`],
 			[`create:crafting/materials/zinc_ingot_from_compacting`],
@@ -802,7 +819,7 @@ ServerEvents.recipes((event) => {
 		});
 	}
 
-	if (LoadedMOD.immersiveengineering) {
+	if (loadedMods.immersiveengineering) {
 		let recipeIdRemove = [
 			[`immersiveengineering:crafting/copper_ingot_to_nugget_copper`],
 			[`immersiveengineering:crafting/nugget_aluminum_to_ingot_aluminum`],
@@ -897,7 +914,7 @@ ServerEvents.recipes((event) => {
 		});
 	}
 
-	if (LoadedMOD.thermalfoundation) {
+	if (loadedMods.thermalfoundation) {
 		let recipeIdRemove = [
 			[`thermal:storage/niter_block`],
 			[`thermal:storage/sulfur_block`],

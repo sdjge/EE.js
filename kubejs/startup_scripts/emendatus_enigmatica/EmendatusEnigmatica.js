@@ -1,6 +1,6 @@
 // priority: 299
 
-const LoadedMOD = {
+const loadedMods = {
 	create: Platform.isLoaded("create"),
 	bloodmagic: Platform.isLoaded("bloodmagic"),
 	mekanism: Platform.isLoaded("mekanism"),
@@ -8,7 +8,7 @@ const LoadedMOD = {
 	thermal: Platform.isLoaded("thermal_foundation"),
 };
 console.info(
-	`embers${LoadedMOD.embers},meka${LoadedMOD.mekanism},blood${LoadedMOD.bloodmagic},create${LoadedMOD.create},thermal_f${LoadedMOD.thermal}`
+	`embers${loadedMods.embers},meka${loadedMods.mekanism},blood${loadedMods.bloodmagic},create${loadedMods.create},thermal_f${loadedMods.thermal}`
 );
 StartupEvents.registry("creative_mode_tab", (e) => {
 	e.create("emendatusenigmatica", "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
@@ -395,7 +395,7 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 				removeInTab(`emendatusenigmatica:${name}_aspectus`);
-				if (LoadedMOD.embers) {
+				if (loadedMods.embers) {
 					addToTab(`emendatusenigmatica:${name}_aspectus`);
 				}
 			}
@@ -417,7 +417,7 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 				removeInTab(`emendatusenigmatica:${name}_coin`);
-				if (LoadedMOD.thermal) {
+				if (loadedMods.thermal) {
 					addToTab(`emendatusenigmatica:${name}_coin`);
 				}
 			}
@@ -485,7 +485,7 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`emendatusenigmatica:${name}_shard`);
 				removeInTab(`emendatusenigmatica:${name}_clump`);
 				removeInTab(`emendatusenigmatica:${name}_dirty_dust`);
-				if (LoadedMOD.mekanism) {
+				if (loadedMods.mekanism) {
 					addToTab(`emendatusenigmatica:${name}_crystal`);
 					addToTab(`emendatusenigmatica:${name}_shard`);
 					addToTab(`emendatusenigmatica:${name}_clump`);
@@ -533,7 +533,7 @@ EmendatusEnigmaticaJS.prototype = {
 				});
 				removeInTab(`emendatusenigmatica:${name}_fragment`);
 				removeInTab(`emendatusenigmatica:${name}_gravel`);
-				if (LoadedMOD.bloodmagic) {
+				if (loadedMods.bloodmagic) {
 					addToTab(`emendatusenigmatica:${name}_fragment`);
 					addToTab(`emendatusenigmatica:${name}_gravel`);
 				}
@@ -559,7 +559,7 @@ EmendatusEnigmaticaJS.prototype = {
 							.color(4, this.color[4]);
 				});
 				removeInTab(`emendatusenigmatica:${name}_crushed_ore`);
-				if (LoadedMOD.create) {
+				if (loadedMods.create) {
 					addToTab(`emendatusenigmatica:${name}_crushed_ore`);
 				}
 			}

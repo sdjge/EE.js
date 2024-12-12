@@ -121,7 +121,7 @@ knockbackResistance: 0 // 击退减免
 ## 配方部分 
 ### 配方 
 
-**哈哈 还没做完😩** 
+**你可以在`我省略了哈哈\recipes\recipes.js`的`recipesSwich`里调已有 Mod 的布尔值来确定对应 Mod 的配方会不会生成😎** 
 
 ## 世界生成部分 
 ### 世界生成 

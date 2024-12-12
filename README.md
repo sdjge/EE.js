@@ -121,7 +121,7 @@ knockbackResistance: 0 // knockback resistance
 ## Recipe part 
 ### for recipes 
 
-**haha WIP😩** 
+**You can simply adjust the value of `recipesSwich` in `recipes\recipes.js` to determine if a matching recipe exists for the corresponding Mod😎** 
 
 ## WorldGen part 
 ### for worldgen part 

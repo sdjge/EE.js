@@ -1,3 +1,5 @@
+// priority: 93
+
 ServerEvents.recipes((e) => {
 	let blacklist = {
 		thermal: {

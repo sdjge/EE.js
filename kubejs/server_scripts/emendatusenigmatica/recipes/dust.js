@@ -1,3 +1,5 @@
+// priority: 91
+
 ServerEvents.recipes((e) => {
 	let blacklist = {
 		create: ["iron", "gold", "copper", "zinc", "osmium", "tin", "lead", "uranium"],

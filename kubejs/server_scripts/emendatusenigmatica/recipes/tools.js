@@ -1,3 +1,5 @@
+// priority: 94
+
 ServerEvents.recipes((e) => {
 	global.EE_MATERIALS.forEach(
 		/**
@@ -29,18 +31,14 @@ ServerEvents.recipes((e) => {
 				}).id(`emendatusenigmatica:${name}_sword`);
 			}
 			if (mat.armorProperties != undefined) {
-				e.shaped(`emendatusenigmatica:${name}_helmet`, ["mmm", "m m"], { m: material }).id(
-					`emendatusenigmatica:${name}_helmet`
-				);
+				e.shaped(`emendatusenigmatica:${name}_helmet`, ["mmm", "m m"], { m: material }).id(`emendatusenigmatica:${name}_helmet`);
 				e.shaped(`emendatusenigmatica:${name}_chestplate`, ["m m", "mmm", "mmm"], { m: material }).id(
 					`emendatusenigmatica:${name}_chestplate`
 				);
 				e.shaped(`emendatusenigmatica:${name}_leggings`, ["mmm", "m m", "m m"], { m: material }).id(
 					`emendatusenigmatica:${name}_leggings`
 				);
-				e.shaped(`emendatusenigmatica:${name}_boots`, ["m m", "m m"], { m: material }).id(
-					`emendatusenigmatica:${name}_boots`
-				);
+				e.shaped(`emendatusenigmatica:${name}_boots`, ["m m", "m m"], { m: material }).id(`emendatusenigmatica:${name}_boots`);
 			}
 		}
 	);

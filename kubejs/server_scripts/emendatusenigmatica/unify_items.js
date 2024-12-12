@@ -48,7 +48,6 @@ PlayerEvents.inventoryChanged((e) => {
 	let count = e.item.count;
 	let nbt = e.item.nbt;
 	let tags = e.item.tags.toArray().map((tag) => tag.toString().replace("TagKey[minecraft:item / ", "").replace("]", ""));
-	let slot = e.slot;
 
 	let setItem = (targetItem) => {
 		e.player.inventory.clear(e.item);

@@ -1,4 +1,4 @@
-// priority: 10
+// priority: 99
 
 const RecipeTypeUtils = {
 	/**
@@ -313,6 +313,3 @@ Thermal._ThermalRecipe.prototype = {
 		return this;
 	},
 };
-
-// console.log(RecipeTypeUtils.parseIngredient(Ingredient.of('#forge:gems/ruby', 4)));
-// console.log(RecipeTypeUtils.parseIngredient(Fluid.of('minecraft:water', 1000)));
