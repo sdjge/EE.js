@@ -446,5 +446,10 @@
 	"item.emendatusenigmatica.naquadah_coin": "硅岩币",
 	"item.emendatusenigmatica.draconium_coin": "龙币",
 	"item.emendatusenigmatica.draconium_awakened_coin": "觉醒龙币",
+	"singularity.avaritia.mana_diamond": "Mana Diamond",
+	"singularity.avaritia.manasteel": "Manasteel",
+	"singularity.avaritia.elementium": "Elementium",
+	"singularity.avaritia.terrasteel": "Terrasteel",
+	"singularity.avaritia.gaia": "Gaia",
 	"tabs.emendatusenigmatica.tab_name": "Emendatus Enigmatica"
 }

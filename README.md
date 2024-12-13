@@ -8,6 +8,8 @@ A kubeJS script that elegantly unifies ores and materials
 
 ## [**中文**](https://github.com/sdjge/EE.js/blob/main/README%20zh_cn.md)
 
+---
+
 ## Require 
 
 - `minecraft => 1.20.1` <font size="1"> maybe not only 1.20.1 </font> 
@@ -38,6 +40,7 @@ A kubeJS script that elegantly unifies ores and materials
 - Nice compatibility  
   - Compatible with `Vanilla`, `Create`, `Mekanism`, `Bloodmagic`, `Embers`,and more... 
 
+---
 ## TODO 
 - [x] Registration of the material with its processed types 
 - [ ] Automatically matches recipes and removes most duplicates 
@@ -57,6 +60,7 @@ A kubeJS script that elegantly unifies ores and materials
 - [ ] Worldgen modified to generate ores 
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
+---
 ## How to use 
 
 Copy & paste😋 
@@ -87,14 +91,13 @@ const EE_MATERIALS = [
 ### for custom materials 
 **Add new definition to `EE_MATERIALS` in `material_def.js`.** 
 `*` *stands for optional* 
+[1^]ProcessedTypes
 ```js 
 { 
 name: "coal", // name your material
 type: "dust", // your material type -- ("dust","metal","gem")
 baseItem: "dust", //*base item is
-processedTypes: ["dust"], //*processed types -- 
-//("ore","raw","ingot","nugget","dust","plate","gear", 
-//"rod""storage_block","mekanism","bloodmagic","embers","thermal") 
+processedTypes: ["dust"], //*processed types in the table below 
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*need 5 colors
 burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*
@@ -118,6 +121,29 @@ toughness: 3.5, // toughness
 knockbackResistance: 0 // knockback resistance
 }}
 ``` 
+
+---
+[1^]:ProcessedTypes
+#### **ProcessedTypes**
+| Types           | Require     | Registry Types                       | TIPS                                      |
+| --------------- | ----------- | ------------------------------------ | ----------------------------------------- |
+| "ore"           | None        | OreBlocks                            | None                                      |
+| "raw"           | None        | RawOres, OreBlocks                   | None                                      |
+| "ingot"         | None        | Ingots                               | None                                      |
+| "nugget"        | None        | Niggets                              | None                                      |
+| "dust"          | None        | Dusts                                | None                                      |
+| "plate"         | None        | Plates                               | None                                      |
+| "gear"          | None        | Gears                                | None                                      |
+| "rod"           | None        | Rods                                 | None                                      |
+| "storage_block" | None        | StorgeBlocks                         | None                                      |
+| "crushed"       | Create      | CrushedOres                          | None                                      |
+| "mekanism"      | Mekanism    | Crystals, Shards, Clumps, DirtyDusts | None                                      |
+| "bloodmagic"    | Bloodmagic  | Fragments, Gravels                   | None                                      |
+| "embers"        | Embers      | Aspectus                             | None                                      |
+| "thermal"       | Thermal     | Coins                                | None                                      |
+| "re:avaritia"   | Re:Avaritia | Singularities                        | Won't appear within the EEJS CreativeTabs |
+
+------
 ## Recipe part 
 ### for recipes 
 

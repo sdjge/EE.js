@@ -1,5 +1,7 @@
 // priority: 299
 
+const singularGen = { Singular: true, count: 1000, times: 240 };
+
 const loadedMods = {
 	create: Platform.isLoaded("create"),
 	bloodmagic: Platform.isLoaded("bloodmagic"),
@@ -51,6 +53,7 @@ const paths = {
 	loots: {
 		block: "./kubejs/data/emendatusenigmatica/loot_tables/blocks/",
 	},
+	avaritia: { singular: "./config/avaritia/singularities/" },
 };
 
 const OreModelJson = (base, overlay) => ({
@@ -75,6 +78,16 @@ const OreModelJson = (base, overlay) => ({
 	textures: {
 		particle: base,
 	},
+});
+
+const SingularJson = (base, color) => ({
+	name: `singularity.avaritia.${base}`,
+	colors: color,
+	timeRequired: singularGen.times,
+	conditions: [{ type: "forge:not", value: { tag: `forge:ingots/${base}`, type: "forge:tag_empty" } }],
+	ingredient: { tag: `forge:ingots/${base}` },
+	enabled: singularGen.Singular,
+	recipeDisabled: singularGen.Singular,
 });
 
 /**
@@ -158,6 +171,7 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 			}
+
 			if (type == "raw") {
 				StartupEvents.registry("item", (e) => {
 					let builder = e.create(`emendatusenigmatica:raw_${name}`).tag("forge:raw_materials").tag(`forge:raw_materials/${name}`);
@@ -561,6 +575,19 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`emendatusenigmatica:${name}_crushed_ore`);
 				if (loadedMods.create) {
 					addToTab(`emendatusenigmatica:${name}_crushed_ore`);
+				}
+			}
+			if (type == "re:avaritia" && Platform.isLoaded("avaritia")) {
+				let singularGener = JsonIO.read(`${paths.avaritia.singular}${name}.json`) || {};
+				if (singularGener.parent == undefined) {
+					console.log(`No singular found, creating new: ${name}.json`);
+					JsonIO.write(
+						`${paths.avaritia.singular}${name}.json`,
+						SingularJson(name, [
+							this.color[2].replace("#", "").toLowerCase().trim(),
+							this.color[3].replace("#", "").toLowerCase().trim(),
+						])
+					);
 				}
 			}
 		});

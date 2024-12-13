@@ -327,54 +327,20 @@ ServerEvents.recipes((e) => {
 					if (!["copper", "iron", "gold"].includes(name)) {
 						e.custom({
 							type: "integrateddynamics:mechanical_squeezer",
-							item: {
-								tag: `forge:ores/${name}`,
-							},
+							item: { tag: `forge:ores/${name}` },
 							result: {
 								items: [
-									{
-										item: {
-											item: processedItems.raw,
-											count: 3,
-										},
-									},
-									{
-										item: {
-											item: processedItems.raw,
-											count: 2,
-										},
-										chance: 0.5,
-									},
-									{
-										item: {
-											item: processedItems.raw,
-											count: 2,
-										},
-										chance: 0.5,
-									},
+									{ item: { item: processedItems.raw, count: 3 } },
+									{ item: { item: processedItems.raw, count: 2 }, chance: 0.5 },
+									{ item: { item: processedItems.raw, count: 2 }, chance: 0.5 },
 								],
 							},
 							duration: 40,
 						});
 						e.custom({
 							type: "integrateddynamics:squeezer",
-							item: {
-								tag: `forge:ores/${name}`,
-							},
-							result: {
-								items: [
-									{
-										item: {
-											item: processedItems.raw,
-											count: 2,
-										},
-									},
-									{
-										item: processedItems.raw,
-										chance: 0.75,
-									},
-								],
-							},
+							item: { tag: `forge:ores/${name}` },
+							result: { items: [{ item: { item: processedItems.raw, count: 2 } }, { item: processedItems.raw, chance: 0.75 }] },
 							duration: 40,
 						});
 					}
@@ -691,6 +657,12 @@ ServerEvents.recipes((e) => {
 						.press(`emendatusenigmatica:${name}_coin`, [`3x #forge:nuggets/${name}`, "thermal:press_coin_die"], 0, 800)
 						.id(`emendatusenigmatica:thermal/press/${name}_coin_from_nuggets`);
 				}
+			}
+			if (types.includes("re:avaritia") && Platform.isLoaded("avaritia")) {
+				e.recipes.avaritia
+					.compressor(`#forge:ingots/${name}`, Item.of("avaritia:singularity", `{Id:"avaritia:${name}"}`))
+					.inputCount(1000)
+					.timeCost(240);
 			}
 		}
 	);

@@ -8,6 +8,8 @@
 
 ## [**EN**](https://github.com/sdjge/EE.js/blob/main/README.md)
 
+---
+
 ## 需求 
 
 - `minecraft => 1.20.1` <font size="1"> 也许不止1.20.1 </font> 
@@ -38,6 +40,7 @@
 - 不错的兼容性  
   - 与`Vanilla`, `Create`, `Mekanism`, `Bloodmagic`, `Embers` 或更多情况下兼容性良好 
 
+---
 ## 待办 
 - [x] 注册材料与其制品 
 - [ ] 自动匹配大部分配方与删除大部分重复配方 
@@ -57,6 +60,7 @@
 - [ ] 世界生成矿物 
   - 我懒了，你可以自己干或者给项目发PR🥺 
 
+---
 ## How to use?? 
 
 成为C&V工程师！😋 
@@ -87,14 +91,13 @@ const EE_MATERIALS = [
 ### 自定义材料 
 **添加新的定义在 `EE_MATERIALS` ，它在 `material_def.js`里** 
 `*` *代表非必须* 
+[1^]ProcessedTypes
 ```js 
 { 
 name: "coal", // 命名材料
 type: "dust", // 你的材料分类 -- ("dust","metal","gem")
 baseItem: "dust", //*基础类型是？
-processedTypes: ["dust"], //*处理物种类 -- 
-//("ore","raw","ingot","nugget","dust","plate","gear", 
-//"rod""storage_block","mekanism","bloodmagic","embers","thermal") 
+processedTypes: ["dust"], //*处理物种类在下面的表格
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*你需要5种颜色才能正常生成材质
 burnTime: 1600, //*如果可以烧 / 时间单位是 tick
 strata: vanillaComplementStratas, //*容矿岩种类 -- *如果你加了"ore"类型，你需要有这条*
@@ -118,6 +121,30 @@ toughness: 3.5, // 护甲抗性
 knockbackResistance: 0 // 击退减免
 }}
 ``` 
+
+---
+[1^]:ProcessedTypes
+#### **ProcessedTypes**
+| 种类            | 需求        | 注册种类               | TIPS                         |
+| --------------- | ----------- | ---------------------- | ---------------------------- |
+| "ore"           | None        | 矿石方块               | None                         |
+| "raw"           | None        | 原矿、原矿块           | None                         |
+| "gem"           | None        | 宝石                   | None                         |
+| "ingot"         | None        | 锭                     | None                         |
+| "nugget"        | None        | 粒                     | None                         |
+| "dust"          | None        | 粉                     | None                         |
+| "plate"         | None        | 板                     | None                         |
+| "gear"          | None        | 齿轮                   | None                         |
+| "rod"           | None        | 棒                     | None                         |
+| "storage_block" | None        | 矿物块                 | None                         |
+| "crushed"       | Create      | 粉碎矿石               | None                         |
+| "mekanism"      | Mekanism    | 晶体、碎片、碎块、脏粉 | None                         |
+| "bloodmagic"    | Bloodmagic  | 碎片、沙砾             | None                         |
+| "embers"        | Embers      | 象征                   | None                         |
+| "thermal"       | Thermal     | 币                     | None                         |
+| "re:avaritia"   | Re:Avaritia | 奇点                   | 不会出现在EEJS的创造物品栏内 |
+
+------
 ## 配方部分 
 ### 配方 
 

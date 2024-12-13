@@ -535,35 +535,35 @@ const EE_MATERIALS = [
 		name: "mana_diamond",
 		type: "gem",
 		baseItem: "gem",
-		processedTypes: ["dust", "gear", "plate", "rod"],
+		processedTypes: ["dust", "gear", "plate", "rod", "re:avaritia"],
 		color: ["#FCFCFC", "#a1fbe8", "#80F0F1", "#00B2C2", "#004A66"],
 	},
 	{
 		name: "manasteel",
 		type: "alloy",
 		baseItem: "ingot",
-		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal", "re:avaritia"],
 		color: ["#66B7EB", "#B3FCF9", "#66B7EB", "#2375da", "#1F20B7"],
 	},
 	{
 		name: "elementium",
 		type: "alloy",
 		baseItem: "ingot",
-		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal", "re:avaritia"],
 		color: ["#FCE7DF", "#DD82A3", "#C342A6", "#791890", "#3E0765"],
 	},
 	{
 		name: "terrasteel",
 		type: "alloy",
 		baseItem: "ingot",
-		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal", "re:avaritia"],
 		color: ["#CAFCB3", "#69E561", "#2AB73A", "#0C7127", "#043B1C"],
 	},
 	{
 		name: "gaia",
 		type: "alloy",
 		baseItem: "ingot",
-		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal"],
+		processedTypes: ["dust", "gear", "nugget", "plate", "rod", "thermal", "re:avaritia"],
 		color: ["#CAFCB3", "#DD82A3", "#66B7EB", "#791890", "#1F20B7"],
 	},
 ];
@@ -616,6 +616,7 @@ let langTemplates = [
 		crushed: (name) => `Crushed ${normalize(name)} Ore`,
 		aspectus: (name) => `${normalize(name)} Aspectus`,
 		coin: (name) => `${normalize(name)} Coin`,
+		Singular: (name) => `${normalize(name)}`,
 		axe: (name) => `${normalize(name)} Axe`,
 		hoe: (name) => `${normalize(name)} Hoe`,
 		pickaxe: (name) => `${normalize(name)} Pickaxe`,
@@ -642,6 +643,7 @@ let langTemplates = [
 		crushed: (name) => `粉碎${normalize(name)}矿石`,
 		aspectus: (name) => `${normalize(name)}之象征`,
 		coin: (name) => `${normalize(name)}币`,
+		Singular: (name) => `${normalize(name)}`,
 		axe: (name) => `${normalize(name)}斧`,
 		hoe: (name) => `${normalize(name)}锄`,
 		pickaxe: (name) => `${normalize(name)}镐`,
@@ -694,6 +696,9 @@ langTemplates.forEach((template) => {
 			}
 			if (type == "thermal") {
 				lang[`item.emendatusenigmatica.${name}_coin`] = template.coin(name);
+			}
+			if (type == "re:avaritia") {
+				lang[`singularity.avaritia.${name}`] = template.Singular(name);
 			}
 		});
 
