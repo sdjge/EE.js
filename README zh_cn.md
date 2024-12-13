@@ -90,8 +90,11 @@ const EE_MATERIALS = [
 ``` 
 ### 自定义材料 
 **添加新的定义在 `EE_MATERIALS` ，它在 `material_def.js`里** 
+
 `*` *代表非必须* 
-[1^]ProcessedTypes
+
+[1^]ProcessedTypes 
+
 ```js 
 { 
 name: "coal", // 命名材料

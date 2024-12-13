@@ -90,8 +90,11 @@ const EE_MATERIALS = [
 ``` 
 ### for custom materials 
 **Add new definition to `EE_MATERIALS` in `material_def.js`.** 
+
 `*` *stands for optional* 
-[1^]ProcessedTypes
+
+[1^]ProcessedTypes 
+
 ```js 
 { 
 name: "coal", // name your material
