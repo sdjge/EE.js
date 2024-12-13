@@ -123,7 +123,7 @@ knockbackResistance: 0 // 击退减免
 ``` 
 
 ---
-[1^]:ProcessedTypes
+[1^]:https://github.com/sdjge/EE.js/blob/main/README%20zh_cn.md#processedtypes
 #### **ProcessedTypes**
 | 种类            | 需求        | 注册种类               | TIPS                         |
 | --------------- | ----------- | ---------------------- | ---------------------------- |

@@ -123,7 +123,7 @@ knockbackResistance: 0 // knockback resistance
 ``` 
 
 ---
-[1^]:ProcessedTypes
+[1^]:https://github.com/sdjge/EE.js?tab=readme-ov-file#processedtypes
 #### **ProcessedTypes**
 | Types           | Require     | Registry Types                       | TIPS                                      |
 | --------------- | ----------- | ------------------------------------ | ----------------------------------------- |
