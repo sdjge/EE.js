@@ -8,7 +8,6 @@
 
 ## [**EN**](https://github.com/sdjge/EE.js/blob/main/README.md)
 
----
 
 ## 需求 
 
@@ -21,26 +20,25 @@
 - `LootJS => any` 
 
 - `KubeJS Mekanism` <font size="1">**如果有Mekanism** </font> 
-  
+
 - `KubeJS Immersive Engineering` <font size="1">**如果有Immersive Enginnering** </font> 
-  
+
 - `KubeJS Create` <font size="1">**如果有Create** </font> 
-  
+
 - `KubeJS Blood Magic` <font size="1">**如果有Blood Magic** </font> 
-  
+
 - `KubeJS Thermal` <font size="1">**如果有Thermal Series** </font> 
 
 - `KubeJS-EnderIO` <font size="1">**如果有Ender IO** </font> 
 
 - `Occultism KubeJS` <font size="1">**如果有Occultism** </font> 
 
-## Features 
+## 功能
 - 可自定义的容矿岩/材料 
 - 便于编辑 
 - 不错的兼容性  
   - 与`Vanilla`, `Create`, `Mekanism`, `Bloodmagic`, `Embers` 或更多情况下兼容性良好 
 
----
 ## 待办 
 - [x] 注册材料与其制品 
 - [ ] 自动匹配大部分配方与删除大部分重复配方 
@@ -57,10 +55,9 @@
   - [x] **Ender IO** 
   - [x] **Occultism** 
   - [ ] **也许更多，快告诉我还有啥!!** 
-- [ ] 世界生成矿物 
+- [ ] 世界生成矿物 [正在制作！！]
   - 我懒了，你可以自己干或者给项目发PR🥺 
 
----
 ## How to use?? 
 
 成为C&V工程师！😋 
@@ -84,7 +81,7 @@ e.g.
 ```js
 let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
 ...
-const EE_MATERIALS = [
+let EE_MATERIALS = [
     ...
 ] 
 ``` 
@@ -147,7 +144,6 @@ knockbackResistance: 0 // 击退减免
 | "thermal"       | Thermal     | 币                     | None                         |
 | "re:avaritia"   | Re:Avaritia | 奇点                   | 不会出现在EEJS的创造物品栏内 |
 
-------
 ## 配方部分 
 ### 配方 
 

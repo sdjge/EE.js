@@ -8,8 +8,6 @@ A kubeJS script that elegantly unifies ores and materials
 
 ## [**中文**](https://github.com/sdjge/EE.js/blob/main/README%20zh_cn.md)
 
----
-
 ## Require 
 
 - `minecraft => 1.20.1` <font size="1"> maybe not only 1.20.1 </font> 
@@ -21,17 +19,17 @@ A kubeJS script that elegantly unifies ores and materials
 - `LootJS => any` 
 
 - `KubeJS Mekanism` <font size="1">**if has Mekanism** </font> 
-  
+
 - `KubeJS Immersive Engineering` <font size="1">**if has Immersive Enginnering** </font> 
-  
+
 - `KubeJS Create` <font size="1">**if has Create** </font> 
-  
+
 - `KubeJS Blood Magic` <font size="1">**if has Blood Magic** </font> 
-  
+
 - `KubeJS Thermal` <font size="1">**if has Thermal Series** </font> 
 
 - `KubeJS-EnderIO` <font size="1">**if has Ender IO** </font>
-   
+
 - `Occultism KubeJS` <font size="1">**if has Occultism** </font> 
 
 ## Features 
@@ -40,7 +38,6 @@ A kubeJS script that elegantly unifies ores and materials
 - Nice compatibility  
   - Compatible with `Vanilla`, `Create`, `Mekanism`, `Bloodmagic`, `Embers`,and more... 
 
----
 ## TODO 
 - [x] Registration of the material with its processed types 
 - [ ] Automatically matches recipes and removes most duplicates 
@@ -57,10 +54,9 @@ A kubeJS script that elegantly unifies ores and materials
   - [x] **Ender IO** 
   - [x] **Occultism** 
   - [ ] **And more, please tell me!!!** 
-- [ ] Worldgen modified to generate ores 
+- [ ] Worldgen modified to generate ores [working in progress!!]
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
----
 ## How to use 
 
 Copy & paste😋 
@@ -84,7 +80,7 @@ e.g.
 ```js
 let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
 ...
-const EE_MATERIALS = [
+let EE_MATERIALS = [
     ...
 ] 
 ``` 
@@ -146,7 +142,6 @@ knockbackResistance: 0 // knockback resistance
 | "thermal"       | Thermal     | Coins                                | None                                      |
 | "re:avaritia"   | Re:Avaritia | Singularities                        | Won't appear within the EEJS CreativeTabs |
 
-------
 ## Recipe part 
 ### for recipes 
 
