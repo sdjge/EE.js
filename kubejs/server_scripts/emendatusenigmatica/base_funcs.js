@@ -5,7 +5,7 @@
  * @param {Internal.TagEntry | string} tag
  * @returns
  */
-const ForgeItem = (item) => {
+let ForgeItem = (item) => {
 	let result = {};
 	if (item.startsWith("#")) {
 		result.tag = item.substring(1);

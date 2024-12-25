@@ -5,6 +5,9 @@ let typeMap = {
 	"forge:storage_blocks/": "emendatusenigmatica:*_block",
 	"forge:dusts/": "emendatusenigmatica:*_dust",
 	"forge:gems/": "emendatusenigmatica:*_gem",
+	"forge:rods/": "emendatusenigmatica:*_rod",
+	"forge:plates/": "emendatusenigmatica:*_plate",
+	"forge:gears/": "emendatusenigmatica:*_gear",
 };
 
 let conversionMap = JsonIO.read("./conversion_map.json") || {};

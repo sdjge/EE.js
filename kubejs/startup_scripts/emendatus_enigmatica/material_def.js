@@ -1,4 +1,22 @@
 // priority: 298
+let dimBiome = {
+	overworld: "#minecraft:is_overworld",
+	nether: "#is_nether",
+	end: "#is_end",
+};
+let typeBiome = {
+	badland: "#is_badlands",
+	beach: "#is_beach",
+	deepocean: "#is_deep_ocean",
+	forest: "#is_forest",
+	hill: "#is_hill",
+	jungle: "#is_jungle",
+	mountain: "#is_mountain",
+	ocean: "#is_ocean",
+	river: "#is_river",
+	savanna: "#is_savanna",
+	taiga: "#is_taiga",
+};
 
 let commonStratas = ["stone", "deepslate", "netherrack", "end_stone", "andesite", "diorite", "granite"];
 let vanillaComplementStratas = ["netherrack", "end_stone", "andesite", "diorite", "granite"];
@@ -6,7 +24,7 @@ let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
 /**
  * @type {EEConfig[]}
  */
-const EE_MATERIALS = [
+let EE_MATERIALS = [
 	// Vanilla
 	// Coal
 	{
@@ -31,6 +49,14 @@ const EE_MATERIALS = [
 			max: 1,
 		},
 		harvestLevel: "stone",
+		genConfig: {
+			size: 9,
+			chance: 0,
+			count: 10,
+			bottom: -24,
+			top: 56,
+			biome: dimBiome.overworld,
+		},
 	},
 	// Copper
 	{
@@ -46,6 +72,16 @@ const EE_MATERIALS = [
 			max: 5,
 		},
 		harvestLevel: "stone",
+		genConfig: {
+			size: 20,
+			chance: 0,
+			count: 16,
+			bottom: -16,
+			top: 112,
+			biome: dimBiome.overworld,
+			disableNether: true,
+			disableEnd: true,
+		},
 	},
 	// Gold
 	{
@@ -61,6 +97,14 @@ const EE_MATERIALS = [
 			max: 1,
 		},
 		harvestLevel: "iron",
+		genConfig: {
+			size: 9,
+			chance: 0,
+			count: 4,
+			bottom: -64,
+			top: 32,
+			biome: dimBiome.overworld,
+		},
 	},
 	// Netherite
 	{
@@ -84,6 +128,14 @@ const EE_MATERIALS = [
 			max: 1,
 		},
 		harvestLevel: "iron",
+		genConfig: {
+			size: 8,
+			chance: 0.5,
+			count: 2,
+			bottom: -64,
+			top: 10,
+			biome: dimBiome.overworld,
+		},
 	},
 	// Emerald
 	{
@@ -99,6 +151,14 @@ const EE_MATERIALS = [
 			max: 1,
 		},
 		harvestLevel: "iron",
+		genConfig: {
+			size: 3,
+			chance: 0,
+			count: 100,
+			bottom: -16,
+			top: 480,
+			biome: typeBiome.hill,
+		},
 	},
 	// Amethyst
 	{

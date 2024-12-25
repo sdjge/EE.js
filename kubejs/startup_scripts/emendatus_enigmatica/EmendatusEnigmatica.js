@@ -1,21 +1,25 @@
 // priority: 299
 
-const singularGen = { Singular: true, count: 1000, times: 240 };
+let oreBlockJsonGenSwich = true;
+let oreGenJsonSwich = true;
 
-const loadedMods = {
+let singularGen = { Singular: true, count: 1000, times: 240 };
+
+let loadedMods = {
 	create: Platform.isLoaded("create"),
 	bloodmagic: Platform.isLoaded("bloodmagic"),
 	mekanism: Platform.isLoaded("mekanism"),
 	embers: Platform.isLoaded("embers"),
 	thermal: Platform.isLoaded("thermal_foundation"),
 };
-console.info(
+/* console.info( // this is just a info for test!
 	`embers${loadedMods.embers},meka${loadedMods.mekanism},blood${loadedMods.bloodmagic},create${loadedMods.create},thermal_f${loadedMods.thermal}`
-);
+); */
+
+// CreateTabsPart
 StartupEvents.registry("creative_mode_tab", (e) => {
 	e.create("emendatusenigmatica", "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
 });
-
 let addToTab = (items) => {
 	if (Array.isArray(items) == false) items = [items];
 	items.forEach((item) => {
@@ -42,21 +46,17 @@ StartupEvents.modifyCreativeTab("kubejs:emendatusenigmatica", (e) => {
 	e.setIcon("emendatusenigmatica:copper_gear");
 });
 
-const paths = {
+let paths = {
 	models: {
 		block: "./kubejs/assets/emendatusenigmatica/models/block/",
 		// item: "./kubejs/assets/emendatusenigmatica/models/item/",
 	},
-	textures: {
-		block: "./kubejs/assets/emendatusenigmatica/textures/block/",
-	},
-	loots: {
-		block: "./kubejs/data/emendatusenigmatica/loot_tables/blocks/",
-	},
+	textures: { block: "./kubejs/assets/emendatusenigmatica/textures/block/" },
+	loots: { block: "./kubejs/data/emendatusenigmatica/loot_tables/blocks/" },
 	avaritia: { singular: "./config/avaritia/singularities/" },
 };
 
-const OreModelJson = (base, overlay) => ({
+let OreModelJson = (base, overlay) => ({
 	parent: "block/block",
 	loader: "forge:composite",
 	children: {
@@ -80,7 +80,7 @@ const OreModelJson = (base, overlay) => ({
 	},
 });
 
-const SingularJson = (base, color) => ({
+let SingularJson = (base, color) => ({
 	name: `singularity.avaritia.${base}`,
 	colors: color,
 	timeRequired: singularGen.times,
@@ -105,6 +105,7 @@ const SingularJson = (base, color) => ({
  * @property {string} [harvestLevel] - Required harvest tool level.
  * @property {number} [gemTemplate] - Gem template index (optional).
  * @property {Object} [texture] - Custom textures (optional).
+ * @property {Object} [genConfig] - feature configs (optional)
  * @property {Object} [texture.item]
  * @property {string} [texture.item.ingot]
  * @property {string} [texture.item.nugget]
@@ -162,7 +163,7 @@ EmendatusEnigmaticaJS.prototype = {
 					removeInTab(`emendatusenigmatica:${name}_ore_${s}`);
 
 					let model = JsonIO.read(`${paths.models.block}${name}_ore_${s}.json`) || {};
-					if (model.parent == undefined) {
+					if (model.parent == undefined && oreBlockJsonGenSwich) {
 						console.log(`No block model found, creating new: ${name}_ore_${s}.json`);
 						JsonIO.write(
 							`${paths.models.block}${name}_ore_${s}.json`,
@@ -171,7 +172,6 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 			}
-
 			if (type == "raw") {
 				StartupEvents.registry("item", (e) => {
 					let builder = e.create(`emendatusenigmatica:raw_${name}`).tag("forge:raw_materials").tag(`forge:raw_materials/${name}`);
@@ -505,11 +505,14 @@ EmendatusEnigmaticaJS.prototype = {
 					addToTab(`emendatusenigmatica:${name}_clump`);
 					addToTab(`emendatusenigmatica:${name}_dirty_dust`);
 				}
-
-				// StartupEvents.registry('mekanism:slurry', e => {
-				//     e.create(`emendatusenigmatica:dirty_${name}`, ChemicalType.SLURRY.serializedName).color(parseInt('0x' + this.color[3].slice(1), 16))
-				//     e.create(`emendatusenigmatica:clean_${name}`, ChemicalType.SLURRY.serializedName).color(parseInt('0x' + this.color[2].slice(1), 16))
-				// })
+				/* StartupEvents.registry("mekanism:slurry", (e) => {
+					e.create(`emendatusenigmatica:dirty_${name}`, ChemicalType.SLURRY.serializedName).color(
+						parseInt("0x" + this.color[3].slice(1), 16)
+					);
+					e.create(`emendatusenigmatica:clean_${name}`, ChemicalType.SLURRY.serializedName).color(
+						parseInt("0x" + this.color[2].slice(1), 16)
+					);
+				}); */
 			}
 			if (type == "bloodmagic") {
 				StartupEvents.registry("item", (e) => {
@@ -518,7 +521,6 @@ EmendatusEnigmaticaJS.prototype = {
 						.tag("bloodmagic:fragments")
 						.tag(`bloodmagic:fragments/${name}`);
 					let gravel = e.create(`emendatusenigmatica:${name}_gravel`).tag("bloodmagic:gravels").tag(`bloodmagic:gravels/${name}`);
-
 					if (this.color) {
 						fragment
 							.texture("layer0", "emendatusenigmatica:item/templates/fragment/00")

@@ -54,7 +54,7 @@ A kubeJS script that elegantly unifies ores and materials
   - [x] **Ender IO** 
   - [x] **Occultism** 
   - [ ] **And more, please tell me!!!** 
-- [ ] Worldgen modified to generate ores [working in progress!!]
+- [ ] Worldgen modified to generate ores [almost complete!]
   - I'm a bit lazy to make worldgen related changes, please make your own changes or send a pull request!🥺 
 
 ## How to use 
@@ -150,4 +150,5 @@ knockbackResistance: 0 // knockback resistance
 ## WorldGen part 
 ### for worldgen part 
 
+feature is done without this markdown!
 **haha WIP😩😩** 

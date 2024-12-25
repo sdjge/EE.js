@@ -1,6 +1,6 @@
 // priority: 99
 
-const RecipeTypeUtils = {
+let RecipeTypeUtils = {
 	/**
 	 * @param {string} itemStr
 	 */
@@ -52,7 +52,7 @@ const RecipeTypeUtils = {
 /**
  * @typedef {{base_ingredient: Internal.JsonElement, count: number}} IEBaseIngredient
  */
-const ImmersiveEngineering = {
+let ImmersiveEngineering = {
 	MOLDS: {
 		PLATE: "immersiveengineering:mold_plate",
 		GEAR: "immersiveengineering:mold_gear",
@@ -213,7 +213,7 @@ const ImmersiveEngineering = {
 	},
 };
 
-const Mekanism = {
+let Mekanism = {
 	crushing: (output, input) => ({
 		type: "mekanism:crushing",
 		output: Item.of(output).toJson(),
@@ -221,7 +221,7 @@ const Mekanism = {
 	}),
 };
 
-const Create = {
+let Create = {
 	/**
 	 *
 	 * @param {[string | Special.Item]} output
@@ -260,7 +260,7 @@ const Create = {
 	},
 };
 
-const Thermal = {
+let Thermal = {
 	_ThermalRecipe: function (type, result, ingredient) {
 		this.ingredients = [];
 		this.result = [];

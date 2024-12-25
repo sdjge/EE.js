@@ -1,6 +1,6 @@
 // priority: 300
 
-const EE_STRATAS = {
+let EE_STRATAS = {
 	stone: {
 		name: "stone",
 		texture: "minecraft:block/stone",
@@ -58,3 +58,5 @@ const EE_STRATAS = {
 		tool: "pickaxe",
 	},
 };
+
+global.EE_STRATAS = EE_STRATAS;
