@@ -103,7 +103,7 @@ burnTime: 1600, //*如果可以烧 / 时间单位是 tick
 strata: vanillaComplementStratas, //*容矿岩种类 -- *如果你加了"ore"类型，你需要有这条*
 drop: {item: "minecraft:raw_iron",min: 1,max: 1,}, //*矿物掉落物
 harvestLevel: "stone", //*挖掘等级
-smallStorageBlock: true,//*我不到这是干啥的 🥺
+smallStorageBlock: true,//*存储方块合成的配方是4*4还是9*9
 gemTemplate: 1, //*纹理模板
 toolProperties: { //*工具属性 *加上了的话下面都要出现，不加就没有*
 damage: 9, // 伤害
@@ -152,5 +152,16 @@ knockbackResistance: 0 // 击退减免
 ## 世界生成部分 
 ### 世界生成 
 
-写的差不多了，但是我还懒得写文档
-**哈哈 也还没做😩😩** 
+**需要`featureJS`**
+
+**你可以修改`server_scripts`中的`feature.js`的`globalOreGenConfig`来定义默认的、不包含`genConfig`设置的矿物的生成！😋** 
+
+```js
+let globalOreGenConfig = {
+	size: 10, // 大小
+	chance: 0, // 和原版的"discard_chance_on_air_exposure"一样
+	count: 20, // 就是原版的count
+	aboveBottom: -60, // 最低生成
+	belowTop: 150, // 最高生成
+};
+``` 

@@ -1,5 +1,11 @@
 // priority: 93
-
+let globalOreGenConfig = {
+	size: 10,
+	chance: 0,
+	count: 20,
+	aboveBottom: -60,
+	belowTop: 150,
+};
 // require featureJS！
 if (Platform.isLoaded("featurejs")) {
 	/**
@@ -50,14 +56,6 @@ if (Platform.isLoaded("featurejs")) {
 			let name = mat.name;
 			let genConfig = mat.genConfig;
 			let EE_STRATAS = global.EE_STRATAS;
-
-			let globalOreGenConfig = {
-				size: 10,
-				chance: 0,
-				count: 20,
-				aboveBottom: -60,
-				belowTop: 150,
-			};
 
 			strata.forEach((s) => {
 				if (genConfig) {

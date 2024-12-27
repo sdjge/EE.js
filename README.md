@@ -102,7 +102,7 @@ burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*
 drop: {item: "minecraft:raw_iron",min: 1,max: 1,}, //*drops of ore block
 harvestLevel: "stone", //*tool levels need
-smallStorageBlock: true,//*I have no idea what it stands for 🥺
+smallStorageBlock: true,//*Is the recipe for storage cubes 4*4 or 9*9
 gemTemplate: 1, //*texure template
 toolProperties: { //*if has tool *If added, the following options are mandatory*
 damage: 9, // sword damage
@@ -150,5 +150,16 @@ knockbackResistance: 0 // knockback resistance
 ## WorldGen part 
 ### for worldgen part 
 
-feature is done without this markdown!
-**haha WIP😩😩** 
+**This requires `featureJS`.** 
+
+**You can modify the `globalOreGenConfig` in `feature.js` in `server_scripts` to define the generation of minerals by default and without the `genConfig` setting!😋** 
+
+```js
+let globalOreGenConfig = {
+	size: 10, // size
+	chance: 0, // same as vanilla "discard_chance_on_air_exposure"
+	count: 20, // count in chunks
+	aboveBottom: -60, // bottom
+	belowTop: 150, // top
+};
+```
