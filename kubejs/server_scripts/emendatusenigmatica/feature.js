@@ -11,7 +11,7 @@ if (Platform.isLoaded("featurejs")) {
 	/**
 	 *
 	 * @todo maybe i need to add more config?
-	 * @todo gen fix [broken/im too lazy to fix!]
+	 * @todo need to fix only vanila ores in end/nether!!
 	 *
 	 */
 	global.EE_MATERIALS.forEach(
@@ -20,34 +20,49 @@ if (Platform.isLoaded("featurejs")) {
 		 */
 		(mat) => {
 			let featureConfigured = (nameF, size, chance, target, state) => {
-				FeatureEvents.configured((event) => {
-					event
-						.create(nameF)
-						.type("minecraft:ore")
-						.oreConfiguration((properties) => {
-							properties.size(size).chance(chance);
-							properties.addTarget(target, state);
-						});
-				});
+				try {
+					FeatureEvents.configured((event) => {
+						event
+							.create(nameF)
+							.type("minecraft:ore")
+							.oreConfiguration((properties) => {
+								properties.size(size).chance(chance);
+								properties.addTarget(target, state);
+							});
+					});
+				} catch (err) {
+					console.error(err);
+					console.error(`feature ${state} ${target} configured err`);
+				}
 			};
 			let featurePlaced = (nameF, feature, count, aboveBottom, belowTop) => {
-				FeatureEvents.placed((event) => {
-					let modifiers = event.getPlacementModifiers();
-					event
-						.create(nameF)
-						.feature(feature)
-						.placement(
-							modifiers.count(count),
-							modifiers.inSquare(),
-							modifiers.heightRangeUniform(VerticalAnchor.aboveBottom(aboveBottom), VerticalAnchor.belowTop(belowTop)),
-							modifiers.biomeFilter()
-						);
-				});
+				try {
+					FeatureEvents.placed((event) => {
+						let modifiers = event.getPlacementModifiers();
+						event
+							.create(nameF)
+							.feature(feature)
+							.placement(
+								modifiers.count(count),
+								modifiers.inSquare(),
+								modifiers.heightRangeUniform(VerticalAnchor.aboveBottom(aboveBottom), VerticalAnchor.belowTop(belowTop)),
+								modifiers.biomeFilter()
+							);
+					});
+				} catch (err) {
+					console.error(err);
+					console.error(`feature ${nameF} ${feature} placed err`);
+				}
 			};
 			let featureModifier = (biome, nameF) => {
-				FeatureEvents.biomeModifier((event) => {
-					event.addFeatures(biome, nameF, "underground_ores");
-				});
+				try {
+					FeatureEvents.biomeModifier((event) => {
+						event.addFeatures(biome, nameF, "underground_ores");
+					});
+				} catch (err) {
+					console.error(err);
+					console.error(`feature ${nameF} ${biome} modifier err`);
+				}
 			};
 
 			let strata = mat.strata;
@@ -75,13 +90,13 @@ if (Platform.isLoaded("featurejs")) {
 					);
 					featureModifier(genConfig.biome, `emendatusenigmatica:${name}_placed_${s}`);
 					// in nether
-					/* if (genConfig.disableNether != true) {
+					if (genConfig.disableNether != true) {
 						featureModifier("#is_nether", `emendatusenigmatica:${name}_placed_${s}`);
 					}
 					// in end
 					if (genConfig.disableEnd != true) {
 						featureModifier("#is_end", `emendatusenigmatica:${name}_placed_${s}`);
-					} */
+					}
 				} else {
 					featureConfigured(
 						`emendatusenigmatica:${name}_configured_${s}`,
@@ -98,8 +113,8 @@ if (Platform.isLoaded("featurejs")) {
 						globalOreGenConfig.belowTop
 					);
 					featureModifier("#minecraft:is_overworld", `emendatusenigmatica:${name}_placed_${s}`);
-					/* featureModifier("#is_nether", `emendatusenigmatica:${name}_placed_${s}`);
-					featureModifier("#is_end", `emendatusenigmatica:${name}_placed_${s}`); */
+					featureModifier("#is_nether", `emendatusenigmatica:${name}_placed_${s}`);
+					featureModifier("#is_end", `emendatusenigmatica:${name}_placed_${s}`);
 				}
 			});
 		}
