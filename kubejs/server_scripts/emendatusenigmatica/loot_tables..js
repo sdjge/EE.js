@@ -19,11 +19,7 @@ LootJS.modifiers((e) => {
 		(material) => {
 			if (material.name && isIngredientExist(`#forge:ores/${material.name}`)) {
 				if (material.drop == undefined) return;
-				console.log(
-					`Modifying loot for ${material.name}: ${
-						Ingredient.of(`#forge:ores/${material.name}`).getItemIds().length
-					} ores`
-				);
+				console.log(`Modifying loot for ${material.name}: ${Ingredient.of(`#forge:ores/${material.name}`).getItemIds().length} ores`);
 				Ingredient.of(`#forge:ores/${material.name}`)
 					.getItemIds()
 					.forEach((item) => {
@@ -45,10 +41,7 @@ LootJS.modifiers((e) => {
 										},
 									});
 								}),
-								LootEntry.of(material.drop.item)
-									.limitCount([material.drop.min, material.drop.max])
-									.applyOreBonus("minecraft:fortune")
-									.simulateExplosionDecay()
+								LootEntry.of(material.drop.item).limitCount([material.drop.min, material.drop.max]).applyOreBonus("minecraft:fortune").simulateExplosionDecay()
 							)
 							.matchMainHand(ItemFilter.hasEnchantment("miniutilities:molten_head"))
 							.smeltLoot();

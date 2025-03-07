@@ -1,20 +1,20 @@
 let typeMap = {
-	"forge:raw_materials/": "emendatusenigmatica:raw_*",
-	"forge:ingots/": "emendatusenigmatica:*_ingot",
-	"forge:nuggets/": "emendatusenigmatica:*_nugget",
-	"forge:storage_blocks/": "emendatusenigmatica:*_block",
-	"forge:dusts/": "emendatusenigmatica:*_dust",
-	"forge:gems/": "emendatusenigmatica:*_gem",
-	"forge:rods/": "emendatusenigmatica:*_rod",
-	"forge:plates/": "emendatusenigmatica:*_plate",
-	"forge:gears/": "emendatusenigmatica:*_gear",
+	"forge:raw_materials/": `${global.EE_PACKID}:raw_*`,
+	"forge:ingots/": `${global.EE_PACKID}:*_ingot`,
+	"forge:nuggets/": `${global.EE_PACKID}:*_nugget`,
+	"forge:storage_blocks/": `${global.EE_PACKID}:*_block`,
+	"forge:dusts/": `${global.EE_PACKID}:*_dust`,
+	"forge:gems/": `${global.EE_PACKID}:*_gem`,
+	"forge:rods/": `${global.EE_PACKID}:*_rod`,
+	"forge:plates/": `${global.EE_PACKID}:*_plate`,
+	"forge:gears/": `${global.EE_PACKID}:*_gear`,
 };
 
 let conversionMap = JsonIO.read("./conversion_map.json") || {};
 
 EntityEvents.spawned("minecraft:item", (e) => {
 	let id = e.entity.nbt.Item.id;
-	if (id.includes("emendatusenigmatica")) return;
+	if (id.includes(`${global.EE_PACKID}`)) return;
 	let count = e.entity.nbt.Item.Count;
 	let tags = Item.of(id).tags.toArray();
 	tags = tags.map((tag) => tag.toString().replace("TagKey[minecraft:item / ", "").replace("]", ""));
@@ -46,7 +46,7 @@ EntityEvents.spawned("minecraft:item", (e) => {
 
 PlayerEvents.inventoryChanged((e) => {
 	if (!e.player.isPlayer() || e.player.isFake()) return;
-	if (e.item.id.includes("emendatusenigmatica")) return;
+	if (e.item.id.includes(`${global.EE_PACKID}`)) return;
 
 	let count = e.item.count;
 	let nbt = e.item.nbt;

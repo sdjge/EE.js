@@ -21,6 +21,9 @@ let typeBiome = {
 let commonStratas = ["stone", "deepslate", "netherrack", "end_stone", "andesite", "diorite", "granite"];
 let vanillaComplementStratas = ["netherrack", "end_stone", "andesite", "diorite", "granite"];
 let glodStratas = ["andesite", "diorite", "granite", "end_stone"];
+
+global.EE_PACKID = "emendatusenigmatica";
+
 /**
  * @type {EEConfig[]}
  */
@@ -206,7 +209,7 @@ let EE_MATERIALS = [
 		color: ["#f2fafc", "#dfedf2", "#c5dbed", "#9da8c9", "#7a80a8"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_aluminum",
+			item: `${global.EE_PACKID}:raw_aluminum`,
 			min: 1,
 			max: 1,
 		},
@@ -222,7 +225,7 @@ let EE_MATERIALS = [
 		color: ["#e6ede9", "#abd1ca", "#83b0bd", "#3d5680", "#2c3766"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_osmium",
+			item: `${global.EE_PACKID}:raw_osmium`,
 			min: 1,
 			max: 1,
 		},
@@ -238,7 +241,7 @@ let EE_MATERIALS = [
 		color: ["#aebcbf", "#707e8a", "#414a6a", "#28254d", "#1f1d47"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_lead",
+			item: `${global.EE_PACKID}:raw_lead`,
 			min: 1,
 			max: 1,
 		},
@@ -254,7 +257,7 @@ let EE_MATERIALS = [
 		color: ["#f6f7f0", "#b0b59f", "#869071", "#5a5c57", "#40423f"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_nickel",
+			item: `${global.EE_PACKID}:raw_nickel`,
 			min: 1,
 			max: 1,
 		},
@@ -270,7 +273,7 @@ let EE_MATERIALS = [
 		color: ["#ffffff", "#d8ecff", "#baccff", "#7b85d9", "#646db4"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_silver",
+			item: `${global.EE_PACKID}:raw_silver`,
 			min: 1,
 			max: 1,
 		},
@@ -286,7 +289,7 @@ let EE_MATERIALS = [
 		color: ["#ebfaf9", "#bcd7e5", "#a1a6d3", "#74609e", "#473b61"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_tin",
+			item: `${global.EE_PACKID}:raw_tin`,
 			min: 1,
 			max: 1,
 		},
@@ -302,7 +305,7 @@ let EE_MATERIALS = [
 		color: ["#ebe06a", "#98b350", "#43692f", "#113817", "#072411"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_uranium",
+			item: `${global.EE_PACKID}:raw_uranium`,
 			min: 1,
 			max: 1,
 		},
@@ -312,26 +315,13 @@ let EE_MATERIALS = [
 		name: "zinc",
 		type: "metal",
 		baseItem: "ingot",
-		processedTypes: [
-			"ore",
-			"raw",
-			"ingot",
-			"nugget",
-			"dust",
-			"plate",
-			"gear",
-			"rod",
-			"storage_block",
-			"mekanism",
-			"bloodmagic",
-			"thermal",
-		],
+		processedTypes: ["ore", "raw", "ingot", "nugget", "dust", "plate", "gear", "rod", "storage_block", "mekanism", "bloodmagic", "thermal"],
 		harvestLevel: "iron",
 		strata: commonStratas,
 		color: ["#efece6", "#d1d1a5", "#9ca67b", "#54714c", "#3c5a3b"],
 		smallStorageBlock: false,
 		drop: {
-			item: "emendatusenigmatica:raw_zinc",
+			item: `${global.EE_PACKID}:raw_zinc`,
 			min: 1,
 			max: 1,
 		},
@@ -347,7 +337,7 @@ let EE_MATERIALS = [
 		strata: commonStratas,
 		color: ["#fff8e5", "#ffea47", "#ded531", "#bdc43b", "#a0ad3b"],
 		drop: {
-			item: "emendatusenigmatica:sulfur_gem",
+			item: `${global.EE_PACKID}:sulfur_gem`,
 			min: 1,
 			max: 1,
 		},
@@ -363,7 +353,7 @@ let EE_MATERIALS = [
 		strata: commonStratas,
 		color: ["#ffffff", "#e0dde4", "#aea5b8", "#8b7f9a", "#716978"],
 		drop: {
-			item: "emendatusenigmatica:niter_gem",
+			item: `${global.EE_PACKID}:niter_gem`,
 			min: 1,
 			max: 1,
 		},
@@ -378,7 +368,7 @@ let EE_MATERIALS = [
 		harvestLevel: "stone",
 		strata: commonStratas,
 		drop: {
-			item: "emendatusenigmatica:fluorite_gem",
+			item: `${global.EE_PACKID}:fluorite_gem`,
 			min: 2,
 			max: 4,
 		},
@@ -409,6 +399,26 @@ let EE_MATERIALS = [
 		baseItem: "dust",
 		processedTypes: ["dust", "storage_block"],
 		color: ["#b8945f", "#987849", "#745a36", "#5f4a2b", "#4c3d26"],
+		/* drop: {
+			item: `${global.EE_PACKID}:raw_zinc`,
+			min: 1,
+			max: 1,
+		}, */
+		/* toolProperties: {
+			damage: 9,
+			durability: 1800,
+			harvestLevel: 4,
+			enchantValue: 24,
+			miningSpeed: 12,
+		}, */
+		/* armorProperties: {
+			durability: 1000,
+			durabilityMultiplier: 70,
+			slotProtections: [4, 7, 9, 4],
+			equipSound: "minecraft:item.armor.equip_iron",
+			toughness: 3.5,
+			knockbackResistance: 0,
+		}, */
 	},
 	// Ender Pearl
 	{
@@ -629,153 +639,3 @@ let EE_MATERIALS = [
 ];
 
 global.EE_MATERIALS = EE_MATERIALS;
-
-EE_MATERIALS.forEach(
-	/**
-	 * @param {EEConfig} material
-	 */
-	(material) => {
-		new EmendatusEnigmaticaJS(material).register();
-	}
-);
-
-/**
- * @param {string} str
- * @returns {string}
- * @example capitalize('hello') => 'Hello'
- */
-let capitalize = (str) => str[0].toUpperCase() + str.substring(1);
-
-/**
- * @param {string} str
- * @returns {string}
- * @example normalize('iron_ingot') => 'Iron Ingot'
- */
-let normalize = (str) => {
-	if (str.includes("_")) {
-		let arr = str.split("_");
-		arr = arr.map((str) => capitalize(str));
-		return arr.join(" ");
-	} else return capitalize(str);
-};
-
-let langTemplates = [
-	{
-		lang: "en_us",
-		ore: (name, strata) => `${normalize(name)} Ore - ${normalize(strata)}`,
-		dustGearGemEtc: (name, type) => `${normalize(name)} ${normalize(type)}`,
-		raw: (name) => `Raw ${normalize(name)}`,
-		rawBlock: (name) => `Block of Raw ${normalize(name)}`,
-		block: (name) => `Block of ${normalize(name)}`,
-		crystal: (name) => `${normalize(name)} Crystal`,
-		shard: (name) => `${normalize(name)} Shard`,
-		clump: (name) => `${normalize(name)} Clump`,
-		dirtyDust: (name) => `Dirty ${normalize(name)} Dust`,
-		fragment: (name) => `${normalize(name)} Fragment`,
-		gravel: (name) => `${normalize(name)} Gravel`,
-		crushed: (name) => `Crushed ${normalize(name)} Ore`,
-		aspectus: (name) => `${normalize(name)} Aspectus`,
-		coin: (name) => `${normalize(name)} Coin`,
-		Singular: (name) => `${normalize(name)}`,
-		axe: (name) => `${normalize(name)} Axe`,
-		hoe: (name) => `${normalize(name)} Hoe`,
-		pickaxe: (name) => `${normalize(name)} Pickaxe`,
-		shovel: (name) => `${normalize(name)} Shovel`,
-		sword: (name) => `${normalize(name)} Sword`,
-		helmet: (name) => `${normalize(name)} Helmet`,
-		chestplate: (name) => `${normalize(name)} Chestplate`,
-		leggings: (name) => `${normalize(name)} Leggings`,
-		boots: (name) => `${normalize(name)} Boots`,
-	},
-	{
-		lang: "zh_cn",
-		ore: (name, strata) => `${normalize(name)}矿石 - ${normalize(strata)}`,
-		dustGearGemEtc: (name, type) => `${normalize(name)}${normalize(type)}`,
-		raw: (name) => `粗${normalize(name)}`,
-		rawBlock: (name) => `粗${normalize(name)}块`,
-		block: (name) => `${normalize(name)}块`,
-		crystal: (name) => `${normalize(name)}晶体`,
-		shard: (name) => `${normalize(name)}碎片`,
-		clump: (name) => `${normalize(name)}碎块`,
-		dirtyDust: (name) => `污浊${normalize(name)}粉`,
-		fragment: (name) => `${normalize(name)}碎片`,
-		gravel: (name) => `${normalize(name)}沙砾`,
-		crushed: (name) => `粉碎${normalize(name)}矿石`,
-		aspectus: (name) => `${normalize(name)}之象征`,
-		coin: (name) => `${normalize(name)}币`,
-		Singular: (name) => `${normalize(name)}`,
-		axe: (name) => `${normalize(name)}斧`,
-		hoe: (name) => `${normalize(name)}锄`,
-		pickaxe: (name) => `${normalize(name)}镐`,
-		shovel: (name) => `${normalize(name)}锹`,
-		sword: (name) => `${normalize(name)}剑`,
-		helmet: (name) => `${normalize(name)}头盔`,
-		chestplate: (name) => `${normalize(name)}胸甲`,
-		leggings: (name) => `${normalize(name)}护腿`,
-		boots: (name) => `${normalize(name)}靴子`,
-	},
-];
-
-langTemplates.forEach((template) => {
-	let lang = JsonIO.read(`./kubejs/assets/emendatusenigmatica/lang/generated_${template.lang}.json`) || {};
-	EE_MATERIALS.forEach((material) => {
-		let name = material.name;
-		material.processedTypes.forEach((type) => {
-			if (type == "ore") {
-				material.strata.forEach((strata) => {
-					lang[`block.emendatusenigmatica.${name}_ore_${strata}`] = template.ore(name, strata);
-				});
-			}
-			if (["dust", "gear", "gem", "ingot", "nugget", "plate", "rod"].includes(type)) {
-				lang[`item.emendatusenigmatica.${name}_${type}`] = template.dustGearGemEtc(name, type);
-			}
-			if (type == "raw") {
-				lang[`item.emendatusenigmatica.raw_${name}`] = template.raw(name);
-				lang[`block.emendatusenigmatica.raw_${name}_block`] = template.rawBlock(name);
-			}
-			if (type == "storage_block") {
-				lang[`block.emendatusenigmatica.${name}_block`] = template.block(name);
-			}
-			if (type == "mekanism") {
-				lang[`item.emendatusenigmatica.${name}_crystal`] = template.crystal(name);
-				lang[`item.emendatusenigmatica.${name}_shard`] = template.shard(name);
-				lang[`item.emendatusenigmatica.${name}_clump`] = template.clump(name);
-				lang[`item.emendatusenigmatica.${name}_dirty_dust`] = template.dirtyDust(name);
-				// lang[`slurry.emendatusenigmatica.dirty_${name}`] = `Dirty ${normalize(name)} Slurry`
-				// lang[`slurry.emendatusenigmatica.clean_${name}`] = `Clean ${normalize(name)} Slurry`
-			}
-			if (type == "bloodmagic") {
-				lang[`item.emendatusenigmatica.${name}_fragment`] = template.fragment(name);
-				lang[`item.emendatusenigmatica.${name}_gravel`] = template.gravel(name);
-			}
-			if (type == "crushed") {
-				lang[`item.emendatusenigmatica.${name}_crushed_ore`] = template.crushed(name);
-			}
-			if (type == "embers") {
-				lang[`item.emendatusenigmatica.${name}_aspectus`] = template.aspectus(name);
-			}
-			if (type == "thermal") {
-				lang[`item.emendatusenigmatica.${name}_coin`] = template.coin(name);
-			}
-			if (type == "re:avaritia") {
-				lang[`singularity.avaritia.${name}`] = template.Singular(name);
-			}
-		});
-
-		if (material.toolProperties) {
-			lang[`item.emendatusenigmatica.${name}_axe`] = template.axe(name);
-			lang[`item.emendatusenigmatica.${name}_hoe`] = template.hoe(name);
-			lang[`item.emendatusenigmatica.${name}_pickaxe`] = template.pickaxe(name);
-			lang[`item.emendatusenigmatica.${name}_shovel`] = template.shovel(name);
-			lang[`item.emendatusenigmatica.${name}_sword`] = template.sword(name);
-		}
-
-		if (material.armorProperties) {
-			lang[`item.emendatusenigmatica.${name}_helmet`] = template.helmet(name);
-			lang[`item.emendatusenigmatica.${name}_chestplate`] = template.chestplate(name);
-			lang[`item.emendatusenigmatica.${name}_leggings`] = template.leggings(name);
-			lang[`item.emendatusenigmatica.${name}_boots`] = template.boots(name);
-		}
-	});
-	JsonIO.write(`./kubejs/assets/emendatusenigmatica/lang/generated_${template.lang}.json`, lang);
-});
