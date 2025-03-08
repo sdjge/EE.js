@@ -1,6 +1,6 @@
 // priority: 91
 
-ServerEvents.recipes((e) => {
+ServerEvents.recipes((event) => {
 	let blacklist = {
 		create: ["iron", "gold", "copper", "zinc", "osmium", "tin", "lead", "uranium"],
 		immersiveengineering: {
@@ -55,6 +55,8 @@ ServerEvents.recipes((e) => {
 		],
 	};
 
+	let { enderio, occultism } = event.recipes;
+
 	global.EE_MATERIALS.forEach(
 		/**
 		 * @param {EEConfig} mat
@@ -85,54 +87,54 @@ ServerEvents.recipes((e) => {
 			if (loadedMods.immersiveengineering) {
 				if (checkedTypes.ore && mat.baseItem == "ingot") {
 					if (!blacklist.immersiveengineering.hammerCrushing.includes(name)) {
-						e.custom(ImmersiveEngineering.hammerCrushing(`#forge:dusts/${name}`, `#forge:ores/${name}`)).id(`${global.EE_PACKID}:immersiveengineering/hammercrushing/${name}_ore`);
+						event.custom(ImmersiveEngineering.hammerCrushing(`#forge:dusts/${name}`, `#forge:ores/${name}`)).id(`${global.EE_PACKID}:immersiveengineering/hammercrushing/${name}_ore`);
 					}
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(ImmersiveEngineering.crusher(`${2 * oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:ores/${name}`, 6000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_ore`);
+						event.custom(ImmersiveEngineering.crusher(`${2 * oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:ores/${name}`, 6000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_ore`);
 					}
 				}
 				if (checkedTypes.raw && mat.baseItem == "ingot") {
 					if (!blacklist.immersiveengineering.hammerCrushing.includes(name)) {
-						e.custom(ImmersiveEngineering.hammerCrushing(`#forge:dusts/${name}`, `#forge:raw_materials/${name}`)).id(`${global.EE_PACKID}:immersiveengineering/hammercrushing/${name}_raw`);
+						event.custom(ImmersiveEngineering.hammerCrushing(`#forge:dusts/${name}`, `#forge:raw_materials/${name}`)).id(`${global.EE_PACKID}:immersiveengineering/hammercrushing/${name}_raw`);
 					}
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(ImmersiveEngineering.crusher(`${oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:raw_materials/${name}`, 6000, [`#forge:dusts/${name} 0.33`])).id(
-							`${global.EE_PACKID}:immersiveengineering/crusher/${name}_raw`
-						);
+						event
+							.custom(ImmersiveEngineering.crusher(`${oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:raw_materials/${name}`, 6000, [`#forge:dusts/${name} 0.33`]))
+							.id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_raw`);
 					}
 				}
 				if (checkedTypes.rawBlock && mat.baseItem == "ingot") {
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(ImmersiveEngineering.crusher(`${12 * oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:storage_blocks/raw_${name}`, 54000)).id(
-							`${global.EE_PACKID}:immersiveengineering/crusher/${name}_raw_block`
-						);
+						event
+							.custom(ImmersiveEngineering.crusher(`${12 * oreToDustMultiplier}x #forge:dusts/${name}`, `#forge:storage_blocks/raw_${name}`, 54000))
+							.id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_raw_block`);
 					}
 				}
 				if (checkedTypes.ingot) {
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(ImmersiveEngineering.crusher(`#forge:dusts/${name}`, `#forge:ingots/${name}`, 3000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_ingot`);
+						event.custom(ImmersiveEngineering.crusher(`#forge:dusts/${name}`, `#forge:ingots/${name}`, 3000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_ingot`);
 					}
 				}
 				if (checkedTypes.gem) {
 					if (!blacklist.immersiveengineering.crusher.includes(name)) {
-						e.custom(ImmersiveEngineering.crusher(`#forge:dusts/${name}`, `#forge:gems/${name}`, 3000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_gem`);
+						event.custom(ImmersiveEngineering.crusher(`#forge:dusts/${name}`, `#forge:gems/${name}`, 3000)).id(`${global.EE_PACKID}:immersiveengineering/crusher/${name}_gem`);
 					}
 				}
 			}
 
 			if (loadedMods.enderio) {
 				if (!blacklist.enderio.sag.includes(name)) {
-					e.recipes.enderio.sag_milling([processedItems.dust], `#forge:${mat.baseItem}s/${name}`).energy(2000).id(`${global.EE_PACKID}:enderio/sag_milling/${name}_${mat.baseItem}`);
+					enderio.sag_milling([processedItems.dust], `#forge:${mat.baseItem}s/${name}`).energy(2000).id(`${global.EE_PACKID}:enderio/sag_milling/${name}_${mat.baseItem}`);
 
 					if (checkedTypes.ore) {
 						if (mat.baseItem == "ingot")
-							e.recipes.enderio
+							enderio
 								.sag_milling([Item.of(processedItems.dust, oreToDustMultiplier), Item.of(processedItems.dust).withChance(0.33), Item.of("minecraft:cobblestone").withChance(0.15)], `#forge:ores/${name}`)
 								.energy(2400)
 								.id(`${global.EE_PACKID}:enderio/sag_milling/${name}_ore`);
 
 						if (mat.baseItem == "gem")
-							e.recipes.enderio
+							enderio
 								.sag_milling(["2x " + processedItems.gem, Item.of(processedItems.gem).withChance(0.25), Item.of("minecraft:cobblestone").withChance(0.15)], `#forge:ores/${name}`)
 								.energy(2400)
 								.id(`${global.EE_PACKID}:enderio/sag_milling/${name}_ore`);
@@ -142,59 +144,65 @@ ServerEvents.recipes((e) => {
 
 			if (loadedMods.mekanism) {
 				if (!blacklist.mekanism.crusher.includes(name))
-					e.custom({
-						type: "mekanism:crushing",
-						input: { ingredient: { tag: `forge:${mat.baseItem}s/${name}` } },
-						output: Item.of(processedItems.dust).toJson(),
-					}).id(`${global.EE_PACKID}:mekanism/crushing/${name}_${mat.baseItem}`);
+					event
+						.custom({
+							type: "mekanism:crushing",
+							input: { ingredient: { tag: `forge:${mat.baseItem}s/${name}` } },
+							output: Item.of(processedItems.dust).toJson(),
+						})
+						.id(`${global.EE_PACKID}:mekanism/crushing/${name}_${mat.baseItem}`);
 			}
 
 			if (loadedMods.thermalfoundation) {
 				if (!blacklist.thermal.pulverizer.includes(name)) {
 					if (checkedTypes.ore && mat.baseItem == "ingot") {
-						e.custom(
-							Thermal.pulverizer([Item.of(processedItems.dust).withChance(2 * oreToDustMultiplier), Item.of("minecraft:gravel").withChance(0.2)], `#forge:ores/${name}`)
-								.xp(0.2)
-								.energy(4000)
-						).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ore`);
+						event
+							.custom(
+								Thermal.pulverizer([Item.of(processedItems.dust).withChance(2 * oreToDustMultiplier), Item.of("minecraft:gravel").withChance(0.2)], `#forge:ores/${name}`)
+									.xp(0.2)
+									.energy(4000)
+							)
+							.id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ore`);
 					}
 					if (checkedTypes.ore && mat.baseItem == "gem" && checkedTypes.gem) {
-						e.custom(
-							Thermal.pulverizer([Item.of(processedItems.gem).withChance(2), Item.of("minecraft:gravel").withChance(0.2)], `#forge:ores/${name}`)
-								.xp(0.2)
-								.energy(4000)
-						).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ore`);
+						event
+							.custom(
+								Thermal.pulverizer([Item.of(processedItems.gem).withChance(2), Item.of("minecraft:gravel").withChance(0.2)], `#forge:ores/${name}`)
+									.xp(0.2)
+									.energy(4000)
+							)
+							.id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ore`);
 					}
 					if (checkedTypes.raw) {
-						e.custom(Thermal.pulverizer(Item.of(processedItems.dust).withChance(1.25), `#forge:raw_materials/${name}`).xp(0.1).energy(4000)).id(`${global.EE_PACKID}:thermal/pulverizer/raw_${name}`);
+						event.custom(Thermal.pulverizer(Item.of(processedItems.dust).withChance(1.25), `#forge:raw_materials/${name}`).xp(0.1).energy(4000)).id(`${global.EE_PACKID}:thermal/pulverizer/raw_${name}`);
 					}
 					if (checkedTypes.ingot) {
-						e.custom(Thermal.pulverizer(processedItems.dust, `#forge:ingots/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ingot`);
+						event.custom(Thermal.pulverizer(processedItems.dust, `#forge:ingots/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_ingot`);
 					}
 					if (checkedTypes.plate) {
-						e.custom(Thermal.pulverizer(processedItems.dust, `#forge:plates/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_plate`);
+						event.custom(Thermal.pulverizer(processedItems.dust, `#forge:plates/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_plate`);
 					}
 					if (checkedTypes.gem) {
-						e.custom(Thermal.pulverizer(processedItems.dust, `#forge:gems/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_gem`);
+						event.custom(Thermal.pulverizer(processedItems.dust, `#forge:gems/${name}`).energy(2000)).id(`${global.EE_PACKID}:thermal/pulverizer/${name}_gem`);
 					}
 				}
 			}
 			if (loadedMods.occultism) {
 				if (blacklist.occultism.includes(name)) return;
 				if (checkedTypes.ingot) {
-					e.recipes.occultism.crushing(processedItems.dust, `#forge:ingots/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_ingot`);
+					occultism.crushing(processedItems.dust, `#forge:ingots/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_ingot`);
 				}
 				if (checkedTypes.gem) {
-					e.recipes.occultism.crushing(processedItems.dust, `#forge:gems/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_gem`);
+					occultism.crushing(processedItems.dust, `#forge:gems/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_gem`);
 				}
 				if (checkedTypes.raw) {
-					e.recipes.occultism.crushing(`2x ${processedItems.dust}`, `#forge:raw_materials/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_raw`);
+					occultism.crushing(`2x ${processedItems.dust}`, `#forge:raw_materials/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_raw`);
 				}
 				if (checkedTypes.rawBlock) {
-					e.recipes.occultism.crushing(`18x ${processedItems.dust}`, `#forge:storage_blocks/raw_${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_raw_block`);
+					occultism.crushing(`18x ${processedItems.dust}`, `#forge:storage_blocks/raw_${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_raw_block`);
 				}
 				if (checkedTypes.ore) {
-					e.recipes.occultism.crushing(`4x ${processedItems.dust}`, `#forge:ores/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_ore`);
+					occultism.crushing(`4x ${processedItems.dust}`, `#forge:ores/${name}`).id(`${global.EE_PACKID}:occultism/crushing/${name}_ore`);
 				}
 			}
 		}

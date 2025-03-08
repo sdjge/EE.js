@@ -41,6 +41,8 @@ let langTemplates = [
 		dirtyDust: (name) => `Dirty ${normalize(name)} Dust`,
 		fragment: (name) => `${normalize(name)} Fragment`,
 		gravel: (name) => `${normalize(name)} Gravel`,
+		dirtyslurry: (name) => `Dirty ${normalize(name)} Slurry`,
+		cleanslurry: (name) => `Clean ${normalize(name)} Slurry`,
 		crushed: (name) => `Crushed ${normalize(name)} Ore`,
 		aspectus: (name) => `${normalize(name)} Aspectus`,
 		coin: (name) => `${normalize(name)} Coin`,
@@ -66,6 +68,8 @@ let langTemplates = [
 		shard: (name) => `${normalize(name)}碎片`,
 		clump: (name) => `${normalize(name)}碎块`,
 		dirtyDust: (name) => `污浊${normalize(name)}粉`,
+		dirtyslurry: (name) => `污浊${normalize(name)}浆液`,
+		cleanslurry: (name) => `纯净${normalize(name)}浆液`,
 		fragment: (name) => `${normalize(name)}碎片`,
 		gravel: (name) => `${normalize(name)}沙砾`,
 		crushed: (name) => `粉碎${normalize(name)}矿石`,
@@ -109,8 +113,8 @@ langTemplates.forEach((template) => {
 				lang[`item.emendatusenigmatica.${name}_shard`] = template.shard(name);
 				lang[`item.emendatusenigmatica.${name}_clump`] = template.clump(name);
 				lang[`item.emendatusenigmatica.${name}_dirty_dust`] = template.dirtyDust(name);
-				// lang[`slurry.emendatusenigmatica.dirty_${name}`] = `Dirty ${normalize(name)} Slurry`
-				// lang[`slurry.emendatusenigmatica.clean_${name}`] = `Clean ${normalize(name)} Slurry`
+				lang[`slurry.emendatusenigmatica.dirty_${name}`] = template.dirtyslurry(name);
+				lang[`slurry.emendatusenigmatica.clean_${name}`] = template.cleanslurry(name);
 			}
 			if (type == "bloodmagic") {
 				lang[`item.emendatusenigmatica.${name}_fragment`] = template.fragment(name);
@@ -146,4 +150,8 @@ langTemplates.forEach((template) => {
 		}
 	});
 	JsonIO.write(`./kubejs/assets/emendatusenigmatica/lang/generated_${template.lang}.json`, lang);
+});
+StartupEvents.modifyCreativeTab(`kubejs:${global.EE_PACKID}`, (event) => {
+	event.remove(Item.of("minecraft:paper", "{display:{Name:'{\"text\":\"Use .content(showRestrictedItems => [\\'kubejs:example\\']) to add more items!\"}'}}"));
+	event.setIcon(`${global.EE_PACKID}:enderium_gear`);
 });

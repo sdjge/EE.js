@@ -14,29 +14,25 @@ let loadedMods = {
 };
 
 // CreateTabsPart
-StartupEvents.registry("creative_mode_tab", (e) => {
-	e.create(`${global.EE_PACKID}`, "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
+StartupEvents.registry("creative_mode_tab", (event) => {
+	event.create(`${global.EE_PACKID}`, "basic").displayName = Text.translatable("tabs.emendatusenigmatica.tab_name");
 });
 let addToTab = (items) => {
 	if (Array.isArray(items) == false) items = [items];
 	items.forEach((item) => {
-		StartupEvents.modifyCreativeTab(`kubejs:${global.EE_PACKID}`, (e) => {
-			e.add(item);
+		StartupEvents.modifyCreativeTab(`kubejs:${global.EE_PACKID}`, (event) => {
+			event.add(item);
 		});
 	});
 };
 let removeInTab = (items) => {
 	if (Array.isArray(items) == false) items = [items];
 	items.forEach((item) => {
-		StartupEvents.modifyCreativeTab("kubejs:tab", (e) => {
-			e.remove(item);
+		StartupEvents.modifyCreativeTab("kubejs:tab", (event) => {
+			event.remove(item);
 		});
 	});
 };
-StartupEvents.modifyCreativeTab(`kubejs:${global.EE_PACKID}`, (e) => {
-	e.remove(Item.of("minecraft:paper", "{display:{Name:'{\"text\":\"Use .content(showRestrictedItems => [\\'kubejs:example\\']) to add more items!\"}'}}"));
-	e.setIcon(`${global.EE_PACKID}:copper_gear`);
-});
 
 let paths = {
 	models: {
@@ -137,8 +133,9 @@ EmendatusEnigmaticaJS.prototype = {
 		this.processedTypes.forEach((type) => {
 			if (type == "ore") {
 				this.strata.forEach((s) => {
-					StartupEvents.registry("block", (e) => {
-						e.create(`${global.EE_PACKID}:${name}_ore_${s}`)
+					StartupEvents.registry("block", (event) => {
+						event
+							.create(`${global.EE_PACKID}:${name}_ore_${s}`)
 							.hardness(EE_STRATAS[s].hardness)
 							.resistance(EE_STRATAS[s].resistance)
 							.soundType(SoundType.STONE)
@@ -161,8 +158,8 @@ EmendatusEnigmaticaJS.prototype = {
 				});
 			}
 			if (type == "raw") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:raw_${name}`).tag("forge:raw_materials").tag(`forge:raw_materials/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:raw_${name}`).tag("forge:raw_materials").tag(`forge:raw_materials/${name}`);
 
 					if (this.color)
 						builder
@@ -177,8 +174,9 @@ EmendatusEnigmaticaJS.prototype = {
 							.color(3, this.color[3])
 							.color(4, this.color[4]);
 				});
-				StartupEvents.registry("block", (e) => {
-					e.create(`${global.EE_PACKID}:raw_${name}_block`)
+				StartupEvents.registry("block", (event) => {
+					event
+						.create(`${global.EE_PACKID}:raw_${name}_block`)
 						.tagBoth("forge:storage_blocks")
 						.tagBoth(`forge:storage_blocks/raw_${name}`)
 						.tagBlock("minecraft:mineable/pickaxe")
@@ -193,8 +191,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:raw_${name}_block`);
 			}
 			if (type == "ingot") {
-				StartupEvents.registry("item", (e) => {
-					let registry = e.create(`${global.EE_PACKID}:${name}_ingot`).tag("forge:ingots").tag(`forge:ingots/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let registry = event.create(`${global.EE_PACKID}:${name}_ingot`).tag("forge:ingots").tag(`forge:ingots/${name}`);
 
 					if (this.burnTime) registry.burnTime(this.burnTime);
 					if (this.color)
@@ -234,8 +232,8 @@ EmendatusEnigmaticaJS.prototype = {
 				}
 			}
 			if (type == "dust") {
-				StartupEvents.registry("item", (e) => {
-					let registry = e.create(`${global.EE_PACKID}:${name}_dust`).tag("forge:dusts").tag(`forge:dusts/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let registry = event.create(`${global.EE_PACKID}:${name}_dust`).tag("forge:dusts").tag(`forge:dusts/${name}`);
 
 					if (this.burnTime) registry.burnTime(this.burnTime);
 					if (this.color) {
@@ -256,8 +254,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:${name}_dust`);
 			}
 			if (type == "gear") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:${name}_gear`).tag("forge:gears").tag(`forge:gears/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}_gear`).tag("forge:gears").tag(`forge:gears/${name}`);
 
 					if (this.color)
 						builder
@@ -276,8 +274,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:${name}_gear`);
 			}
 			if (type == "nugget") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:${name}_nugget`).tag("forge:nuggets").tag(`forge:nuggets/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}_nugget`).tag("forge:nuggets").tag(`forge:nuggets/${name}`);
 
 					if (this.color)
 						builder
@@ -296,8 +294,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:${name}_nugget`);
 			}
 			if (type == "plate") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:${name}_plate`).tag("forge:plates").tag(`forge:plates/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}_plate`).tag("forge:plates").tag(`forge:plates/${name}`);
 
 					if (this.color)
 						builder
@@ -316,8 +314,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:${name}_plate`);
 			}
 			if (type == "rod") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:${name}_rod`).tag("forge:rods").tag(`forge:rods/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}_rod`).tag("forge:rods").tag(`forge:rods/${name}`);
 
 					if (this.color)
 						builder
@@ -336,8 +334,8 @@ EmendatusEnigmaticaJS.prototype = {
 				removeInTab(`${global.EE_PACKID}:${name}_rod`);
 			}
 			if (type == "gem") {
-				StartupEvents.registry("item", (e) => {
-					let registry = e.create(`${global.EE_PACKID}:${name}_gem`).tag("forge:gems").tag(`forge:gems/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let registry = event.create(`${global.EE_PACKID}:${name}_gem`).tag("forge:gems").tag(`forge:gems/${name}`);
 
 					if (this.burnTime) registry.burnTime(this.burnTime);
 
@@ -379,8 +377,8 @@ EmendatusEnigmaticaJS.prototype = {
 				}
 			}
 			if (type == "embers") {
-				StartupEvents.registry("item", (e) => {
-					let registry = e.create(`${global.EE_PACKID}:${name}_aspectus`).tag("embers:aspectus").tag(`embers:aspectus/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let registry = event.create(`${global.EE_PACKID}:${name}_aspectus`).tag("embers:aspectus").tag(`embers:aspectus/${name}`);
 
 					if (this.color) {
 						registry
@@ -402,8 +400,8 @@ EmendatusEnigmaticaJS.prototype = {
 				}
 			}
 			if (type == "thermal") {
-				StartupEvents.registry("item", (e) => {
-					let registry = e.create(`${global.EE_PACKID}:${name}_coin`).tag("forge:coins").tag(`forge:coins/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let registry = event.create(`${global.EE_PACKID}:${name}_coin`).tag("forge:coins").tag(`forge:coins/${name}`);
 					if (this.color) {
 						registry
 							.texture("layer0", "emendatusenigmatica:item/templates/coin/00")
@@ -424,11 +422,11 @@ EmendatusEnigmaticaJS.prototype = {
 				}
 			}
 			if (type == "mekanism") {
-				StartupEvents.registry("item", (e) => {
-					let crystal = e.create(`${global.EE_PACKID}:${name}_crystal`).tag("mekanism:crystals").tag(`mekanism:crystals/${name}`);
-					let shard = e.create(`${global.EE_PACKID}:${name}_shard`).tag("mekanism:shards").tag(`mekanism:shards/${name}`);
-					let clump = e.create(`${global.EE_PACKID}:${name}_clump`).tag("mekanism:clumps").tag(`mekanism:clumps/${name}`);
-					let dirtyDust = e.create(`${global.EE_PACKID}:${name}_dirty_dust`).tag("mekanism:dirty_dusts").tag(`mekanism:dirty_dusts/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let crystal = event.create(`${global.EE_PACKID}:${name}_crystal`).tag("mekanism:crystals").tag(`mekanism:crystals/${name}`);
+					let shard = event.create(`${global.EE_PACKID}:${name}_shard`).tag("mekanism:shards").tag(`mekanism:shards/${name}`);
+					let clump = event.create(`${global.EE_PACKID}:${name}_clump`).tag("mekanism:clumps").tag(`mekanism:clumps/${name}`);
+					let dirtyDust = event.create(`${global.EE_PACKID}:${name}_dirty_dust`).tag("mekanism:dirty_dusts").tag(`mekanism:dirty_dusts/${name}`);
 
 					if (this.color) {
 						crystal
@@ -490,9 +488,9 @@ EmendatusEnigmaticaJS.prototype = {
 					addToTab(`${global.EE_PACKID}:${name}_clump`);
 					addToTab(`${global.EE_PACKID}:${name}_dirty_dust`);
 				}
-				StartupEvents.registry("mekanism:slurry", (e) => {
-					e.create(`${global.EE_PACKID}:dirty_${name}`, "dirty").color(parseInt("0x" + this.color[3].slice(1), 16));
-					e.create(`${global.EE_PACKID}:clean_${name}`, "clean").color(parseInt("0x" + this.color[2].slice(1), 16));
+				StartupEvents.registry("mekanism:slurry", (event) => {
+					event.create(`${global.EE_PACKID}:dirty_${name}`, "dirty").color(parseInt("0x" + this.color[3].slice(1), 16));
+					event.create(`${global.EE_PACKID}:clean_${name}`, "clean").color(parseInt("0x" + this.color[2].slice(1), 16));
 				});
 			}
 			if (type == "bloodmagic") {
@@ -533,8 +531,8 @@ EmendatusEnigmaticaJS.prototype = {
 				}
 			}
 			if (type == "crushed") {
-				StartupEvents.registry("item", (e) => {
-					let builder = e.create(`${global.EE_PACKID}:${name}_crushed_ore`).tag("create:crushed_raw_materials").tag(`create:crushed_raw_materials/${name}`);
+				StartupEvents.registry("item", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}_crushed_ore`).tag("create:crushed_raw_materials").tag(`create:crushed_raw_materials/${name}`);
 
 					if (this.color)
 						builder
@@ -565,8 +563,8 @@ EmendatusEnigmaticaJS.prototype = {
 		if (this.toolProperties) {
 			let repairIngredient = `#forge:${this.baseItem}s/${name}`;
 			let props = this.toolProperties;
-			StartupEvents.registry("item", (e) => {
-				let axe = e.create(`${global.EE_PACKID}:${name}_axe`, "axe").modifyTier((tier) => {
+			StartupEvents.registry("item", (event) => {
+				let axe = event.create(`${global.EE_PACKID}:${name}_axe`, "axe").modifyTier((tier) => {
 					tier.attackDamageBonus = props.damage;
 					tier.level = props.harvestLevel;
 					if (props.miningSpeed != undefined) {
@@ -574,13 +572,13 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 
-				let hoe = e.create(`${global.EE_PACKID}:${name}_hoe`, "hoe").modifyTier((tier) => {
+				let hoe = event.create(`${global.EE_PACKID}:${name}_hoe`, "hoe").modifyTier((tier) => {
 					if (props.miningSpeed != undefined) {
 						tier.speed = props.miningSpeed;
 					}
 				});
 
-				let pickaxe = e.create(`${global.EE_PACKID}:${name}_pickaxe`, "pickaxe").modifyTier((tier) => {
+				let pickaxe = event.create(`${global.EE_PACKID}:${name}_pickaxe`, "pickaxe").modifyTier((tier) => {
 					tier.attackDamageBonus = props.damage;
 					tier.level = props.harvestLevel;
 					if (props.miningSpeed != undefined) {
@@ -588,7 +586,7 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 
-				let shovel = e.create(`${global.EE_PACKID}:${name}_shovel`, "shovel").modifyTier((tier) => {
+				let shovel = event.create(`${global.EE_PACKID}:${name}_shovel`, "shovel").modifyTier((tier) => {
 					tier.attackDamageBonus = props.damage;
 					tier.level = props.harvestLevel;
 					if (props.miningSpeed != undefined) {
@@ -596,7 +594,7 @@ EmendatusEnigmaticaJS.prototype = {
 					}
 				});
 
-				let sword = e.create(`${global.EE_PACKID}:${name}_sword`, "sword").modifyTier((tier) => {
+				let sword = event.create(`${global.EE_PACKID}:${name}_sword`, "sword").modifyTier((tier) => {
 					tier.attackDamageBonus = props.damage;
 					if (props.attackSpeed) {
 						tier.speed = props.attackSpeed;
@@ -639,8 +637,8 @@ EmendatusEnigmaticaJS.prototype = {
 			let repairIngredient = `#forge:${this.baseItem}s/${name}`;
 			let armorTier = `${global.EE_PACKID}:${name}`;
 
-			ItemEvents.armorTierRegistry((e) => {
-				e.add(armorTier, (tier) => {
+			ItemEvents.armorTierRegistry((event) => {
+				event.add(armorTier, (tier) => {
 					tier.durabilityMultiplier = props.durabilityMultiplier;
 					tier.equipSound = props.equipSound;
 					tier.slotProtections = props.slotProtections;
@@ -651,11 +649,11 @@ EmendatusEnigmaticaJS.prototype = {
 				});
 			});
 
-			StartupEvents.registry("item", (e) => {
-				let helmet = e.create(`${global.EE_PACKID}:${name}_helmet`, "helmet");
-				let chestplate = e.create(`${global.EE_PACKID}:${name}_chestplate`, "chestplate");
-				let leggings = e.create(`${global.EE_PACKID}:${name}_leggings`, "leggings");
-				let boots = e.create(`${global.EE_PACKID}:${name}_boots`, "boots");
+			StartupEvents.registry("item", (event) => {
+				let helmet = event.create(`${global.EE_PACKID}:${name}_helmet`, "helmet");
+				let chestplate = event.create(`${global.EE_PACKID}:${name}_chestplate`, "chestplate");
+				let leggings = event.create(`${global.EE_PACKID}:${name}_leggings`, "leggings");
+				let boots = event.create(`${global.EE_PACKID}:${name}_boots`, "boots");
 
 				let armors = [helmet, chestplate, leggings, boots];
 				armors.forEach((armor) => {

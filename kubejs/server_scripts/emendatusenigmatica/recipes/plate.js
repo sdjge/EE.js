@@ -1,6 +1,6 @@
 // priority: 93
 
-ServerEvents.recipes((e) => {
+ServerEvents.recipes((event) => {
 	let blacklist = {
 		thermal: {
 			press: ["iron", "gold", "copper", "netherite", "nickel", "silver", "tin", "lead", "steel", "bronze", "electrum", "invar", "constantan", "signalum", "lumium", "enderium"],
@@ -24,33 +24,37 @@ ServerEvents.recipes((e) => {
 			};
 
 			if (loadedMods.thermalfoundation && blacklist.thermal.press.includes(name) == false && checkedTypes.plate) {
-				e.custom(Thermal.press(processedItems.plate, `#forge:${mat.baseItem}s/${name}`).energy(2400)).id(`${global.EE_PACKID}:thermal/press/${name}_plate`);
+				event.custom(Thermal.press(processedItems.plate, `#forge:${mat.baseItem}s/${name}`).energy(2400)).id(`${global.EE_PACKID}:thermal/press/${name}_plate`);
 			}
 			if (loadedMods.ad_astra && !blacklist.adastra.includes(name) && checkedTypes.plate) {
-				e.custom({
-					type: "ad_astra:compressing",
-					cookingtime: 100,
-					energy: 20,
-					ingredient: {
-						tag: `forge:${mat.baseItem}s/${name}`,
-					},
-					result: {
-						count: 1,
-						id: processedItems.plate,
-					},
-				}).id(`${global.EE_PACKID}:adstra/press/${name}_plate_from_ingots`);
-				e.custom({
-					type: "ad_astra:compressing",
-					cookingtime: 800,
-					energy: 20,
-					ingredient: {
-						tag: `forge:storage_blocks/${name}`,
-					},
-					result: {
-						count: 9,
-						id: processedItems.plate,
-					},
-				}).id(`${global.EE_PACKID}:adstra/press/${name}_plate_from_blocks`);
+				event
+					.custom({
+						type: "ad_astra:compressing",
+						cookingtime: 100,
+						energy: 20,
+						ingredient: {
+							tag: `forge:${mat.baseItem}s/${name}`,
+						},
+						result: {
+							count: 1,
+							id: processedItems.plate,
+						},
+					})
+					.id(`${global.EE_PACKID}:adstra/press/${name}_plate_from_ingots`);
+				event
+					.custom({
+						type: "ad_astra:compressing",
+						cookingtime: 800,
+						energy: 20,
+						ingredient: {
+							tag: `forge:storage_blocks/${name}`,
+						},
+						result: {
+							count: 9,
+							id: processedItems.plate,
+						},
+					})
+					.id(`${global.EE_PACKID}:adstra/press/${name}_plate_from_blocks`);
 			}
 		}
 	);

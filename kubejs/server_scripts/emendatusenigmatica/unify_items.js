@@ -12,13 +12,13 @@ let typeMap = {
 
 let conversionMap = JsonIO.read("./conversion_map.json") || {};
 
-EntityEvents.spawned("minecraft:item", (e) => {
-	let id = e.entity.nbt.Item.id;
+EntityEvents.spawned("minecraft:item", (event) => {
+	let id = event.entity.nbt.Item.id;
 	if (id.includes(`${global.EE_PACKID}`)) return;
-	let count = e.entity.nbt.Item.Count;
+	let count = event.entity.nbt.Item.Count;
 	let tags = Item.of(id).tags.toArray();
 	tags = tags.map((tag) => tag.toString().replace("TagKey[minecraft:item / ", "").replace("]", ""));
-	let nbt = e.entity.nbt;
+	let nbt = event.entity.nbt;
 
 	let foundItem = false;
 	for (let tagIndex in tags) {
@@ -27,14 +27,14 @@ EntityEvents.spawned("minecraft:item", (e) => {
 			let finalTag = tags[tagIndex];
 			if (RegExp(key).test(finalTag)) {
 				if (conversionMap[finalTag] != undefined) {
-					e.entity.nbt.Item.id = conversionMap[finalTag];
+					event.entity.nbt.Item.id = conversionMap[finalTag];
 				} else {
 					let strippedKey = key.replace("*", "");
 					let material = finalTag.replace(strippedKey, "");
 					let targetItem = typeMap[key].replace("*", material);
 					if (Item.of(targetItem).id == "minecraft:air") return;
 					nbt.Item = { id: targetItem, Count: count };
-					e.entity.nbt = nbt;
+					event.entity.nbt = nbt;
 					// conversionMap[finalTag] = targetItem
 				}
 				foundItem = true;
@@ -44,18 +44,18 @@ EntityEvents.spawned("minecraft:item", (e) => {
 	}
 });
 
-PlayerEvents.inventoryChanged((e) => {
-	if (!e.player.isPlayer() || e.player.isFake()) return;
-	if (e.item.id.includes(`${global.EE_PACKID}`)) return;
+PlayerEvents.inventoryChanged((event) => {
+	if (!event.player.isPlayer() || event.player.isFake()) return;
+	if (event.item.id.includes(`${global.EE_PACKID}`)) return;
 
-	let count = e.item.count;
-	let nbt = e.item.nbt;
-	let tags = e.item.tags.toArray().map((tag) => tag.toString().replace("TagKey[minecraft:item / ", "").replace("]", ""));
+	let count = event.item.count;
+	let nbt = event.item.nbt;
+	let tags = event.item.tags.toArray().map((tag) => tag.toString().replace("TagKey[minecraft:item / ", "").replace("]", ""));
 
 	let setItem = (targetItem) => {
-		e.player.inventory.clear(e.item);
-		e.player.give(Item.of(targetItem, count, nbt));
-		e.player.sendInventoryUpdate();
+		event.player.inventory.clear(event.item);
+		event.player.give(Item.of(targetItem, count, nbt));
+		event.player.sendInventoryUpdate();
 	};
 
 	let foundItem = false;
@@ -92,7 +92,7 @@ ServerEvents.tags("item", (event) => {
 	});
 });
 
-PlayerEvents.loggedOut((e) => {
+PlayerEvents.loggedOut((event) => {
 	JsonIO.write("./conversion_map.json", conversionMap);
 });
 

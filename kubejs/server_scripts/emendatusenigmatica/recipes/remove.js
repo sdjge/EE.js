@@ -94,6 +94,7 @@ ServerEvents.recipes((event) => {
 	if (loadedMods.create) {
 		let recipeIdRemove = [
 			["create:crafting/materials/raw_zinc"],
+			["create:crafting/materials/raw_zinc_block"],
 			["create:crafting/materials/zinc_ingot_from_compacting"],
 			["create:crafting/materials/zinc_ingot_from_decompacting"],
 			["create:blasting/zinc_ingot_from_raw_ore"],
@@ -103,6 +104,9 @@ ServerEvents.recipes((event) => {
 			["create:crafting/materials/copper_nugget"],
 			["create:crafting/materials/zinc_nugget_from_decompacting"],
 			["create:crafting/materials/brass_nugget_from_decompacting"],
+			["create:crafting/materials/brass_ingot_from_decompacting"],
+			["create:crafting/materials/brass_ingot_from_compacting"],
+			["create:crafting/materials/brass_block_from_compacting"],
 			["create:pressing/copper_ingot"],
 			["create:pressing/brass_ingot"],
 			["create:pressing/iron_ingot"],

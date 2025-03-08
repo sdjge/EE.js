@@ -1,6 +1,6 @@
 // priority: 92
 
-ServerEvents.recipes((e) => {
+ServerEvents.recipes((event) => {
 	let blacklist = {
 		thermal: {
 			press: ["iron", "gold", "copper", "netherite", "nickel", "silver", "tin", "lead", "steel", "bronze", "electrum", "invar", "constantan", "signalum", "lumium", "enderium"],
@@ -23,7 +23,7 @@ ServerEvents.recipes((e) => {
 			};
 
 			if (loadedMods.thermalfoundation && blacklist.thermal.press.includes(name) == false && checkedTypes.gear) {
-				e.custom(Thermal.press(processedItems.gear, [`4x #forge:${mat.baseItem}s/${name}`, "thermal:press_gear_die"]).energy(2400)).id(`${global.EE_PACKID}:thermal/press/${name}_gear`);
+				event.custom(Thermal.press(processedItems.gear, [`4x #forge:${mat.baseItem}s/${name}`, "thermal:press_gear_die"]).energy(2400)).id(`${global.EE_PACKID}:thermal/press/${name}_gear`);
 			}
 		}
 	);
