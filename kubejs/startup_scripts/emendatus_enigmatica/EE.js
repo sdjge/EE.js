@@ -487,11 +487,11 @@ EmendatusEnigmaticaJS.prototype = {
 					addToTab(`${global.EE_PACKID}:${name}_shard`);
 					addToTab(`${global.EE_PACKID}:${name}_clump`);
 					addToTab(`${global.EE_PACKID}:${name}_dirty_dust`);
+					StartupEvents.registry("mekanism:slurry", (event) => {
+						event.create(`${global.EE_PACKID}:dirty_${name}`, "dirty").color(parseInt("0x" + this.color[3].slice(1), 16));
+						event.create(`${global.EE_PACKID}:clean_${name}`, "clean").color(parseInt("0x" + this.color[2].slice(1), 16));
+					});
 				}
-				StartupEvents.registry("mekanism:slurry", (event) => {
-					event.create(`${global.EE_PACKID}:dirty_${name}`, "dirty").color(parseInt("0x" + this.color[3].slice(1), 16));
-					event.create(`${global.EE_PACKID}:clean_${name}`, "clean").color(parseInt("0x" + this.color[2].slice(1), 16));
-				});
 			}
 			if (type == "bloodmagic") {
 				StartupEvents.registry("item", (e) => {
