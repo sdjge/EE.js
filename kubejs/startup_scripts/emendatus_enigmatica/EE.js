@@ -37,6 +37,7 @@ let removeInTab = (items) => {
 let paths = {
 	models: {
 		block: "./kubejs/assets/emendatusenigmatica/models/block/",
+		fluid: "./kubejs/assets/emendatusenigmatica/models/block/fluid/",
 	},
 	textures: { block: "./kubejs/assets/emendatusenigmatica/textures/block/" },
 	loots: { block: "./kubejs/data/emendatusenigmatica/loot_tables/blocks/" },
@@ -106,6 +107,7 @@ let SingularJson = (base, color) => ({
  * @property {string} [texture.block.parent]
  * @property {string} [texture.block.ore]
  * @property {string} [texture.block.storage_block]
+ * @property {string} [texture.fluid.textures]
  */
 
 /**
@@ -125,6 +127,7 @@ function EmendatusEnigmaticaJS(config) {
 	this.toolProperties = config.toolProperties;
 	this.baseItem = config.baseItem;
 	this.armorProperties = config.armorProperties;
+	this.fluidTexturesType = config.fluidType || undefined;
 }
 
 EmendatusEnigmaticaJS.prototype = {
@@ -230,6 +233,28 @@ EmendatusEnigmaticaJS.prototype = {
 					addToTab(`${global.EE_PACKID}:${name}_block`);
 					removeInTab(`${global.EE_PACKID}:${name}_block`);
 				}
+			}
+			if (type == "fluid") {
+				StartupEvents.registry("fluid", (event) => {
+					let builder = event.create(`${global.EE_PACKID}:${name}`);
+					if (this.fluidTexturesType == "thin") {
+						if (this.color) {
+							builder.thinTexture(this.color[0]).bucketColor(this.color[0]);
+						}
+					} else if (this.fluidTexturesType == "thick") {
+						if (this.color) {
+							builder.thickTexture(this.color[0]).bucketColor(this.color[0]);
+						}
+					} else if (this.fluidTexturesType == "custom") {
+						builder.stillTexture(`emendatusenigmatica:block/fluid/${name}_still`).flowingTexture(`emendatusenigmatica:block/fluid/${name}_flowing`);
+						if (this.color) {
+							builder.bucketColor(this.color[0]);
+							if (this.color[1]) {
+								builder.color(this.color[1]);
+							}
+						}
+					}
+				});
 			}
 			if (type == "dust") {
 				StartupEvents.registry("item", (event) => {

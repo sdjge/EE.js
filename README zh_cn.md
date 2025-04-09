@@ -97,10 +97,15 @@ let EE_MATERIALS = [
 name: "coal", // 命名材料
 type: "dust", // 你的材料分类 -- ("dust","metal","gem")
 baseItem: "dust", //*基础类型是？
-processedTypes: ["dust"], //*处理物种类在下面的表格
+processedTypes: ["dust","fluid"], //*处理物种类在下面的表格
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*你需要5种颜色才能正常生成材质
 burnTime: 1600, //*如果可以烧 / 时间单位是 tick
 strata: vanillaComplementStratas, //*容矿岩种类 -- *如果你加了"ore"类型，你需要有这条*
+fluidType:"thin" 
+//*types: "thin","thick" and "custom", if it's thin or thick it will use first color(color[0]), 
+// but custom has more configs! that need another color to color the fluid if you want, 
+// first color is the bucket color, and you need more textures named to "${name}_still" and "${name}_flowing" like vanilla.
+// 我懒得写一遍中文教程了，简单来说就是写了这个只会最多用2种颜色，三种type，只有custom会用第二种颜色然后作为材质第二次上色的颜色，第二种不写也没问题😁
 drop: {item: "minecraft:raw_iron",min: 1,max: 1,}, //*矿物掉落物
 harvestLevel: "stone", //*挖掘等级
 smallStorageBlock: true,//*存储方块合成的配方是4*4还是9*9
@@ -129,6 +134,7 @@ knockbackResistance: 0 // 击退减免
 | --------------- | ----------- | ---------------------- | ---------------------------- |
 | "ore"           | None        | 矿石方块               | None                         |
 | "raw"           | None        | 原矿、原矿块           | None                         |
+| "fluid"         | None        | Fluid                  | None                         |
 | "gem"           | None        | 宝石                   | None                         |
 | "ingot"         | None        | 锭                     | None                         |
 | "nugget"        | None        | 粒                     | None                         |

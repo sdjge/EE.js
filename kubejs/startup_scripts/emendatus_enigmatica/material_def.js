@@ -28,6 +28,32 @@ global.EE_PACKID = "emendatusenigmatica";
  * @type {EEConfig[]}
  */
 let EE_MATERIALS = [
+	// fluid
+	{
+		name: "creosote_oil",
+		type: "fluid",
+		baseItem: "fluid",
+		processedTypes: ["fluid"],
+		fluidType: "thin",
+		color: ["#fcfad2"],
+	},
+
+	{
+		name: "crude_oil",
+		type: "fluid",
+		baseItem: "fluid",
+		processedTypes: ["fluid"],
+		fluidType: "thick",
+		color: ["#1c1c1e"],
+	},
+	{
+		name: "honey",
+		type: "fluid",
+		baseItemL: "fluid",
+		processedTypes: ["fluid"],
+		fluidType: "custom",
+		color: ["#dc9613", "#dc9613"],
+	},
 	// Vanilla
 	// Coal
 	{

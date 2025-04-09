@@ -96,10 +96,13 @@ let EE_MATERIALS = [
 name: "coal", // name your material
 type: "dust", // your material type -- ("dust","metal","gem")
 baseItem: "dust", //*base item is
-processedTypes: ["dust"], //*processed types in the table below 
+processedTypes: ["dust","fluid"], //*processed types in the table below 
 color: ["#393e46", "#2e2e2e", "#261e24", "#1f1721", "#1c1c1e"], //*need 5 colors
 burnTime: 1600, //*if can burn / time is tick
 strata: vanillaComplementStratas, //*type of strata -- *Required if “ore” is present in the processing type*
+fluidType:"thin" //*types: "thin","thick" and "custom", if it's thin or thick it will use first color(color[0]), 
+// but custom has more configs! that need another color to color the fluid if you want, 
+// first color is the bucket color, and you need more textures named to "${name}_still" and "${name}_flowing" like vanilla.
 drop: {item: "minecraft:raw_iron",min: 1,max: 1,}, //*drops of ore block
 harvestLevel: "stone", //*tool levels need
 smallStorageBlock: true,//*Is the recipe for storage cubes 4*4 or 9*9
@@ -128,6 +131,7 @@ knockbackResistance: 0 // knockback resistance
 | --------------- | ----------- | ------------------------------------ | ----------------------------------------- |
 | "ore"           | None        | OreBlocks                            | None                                      |
 | "raw"           | None        | RawOres, OreBlocks                   | None                                      |
+| "fluid"         | None        | Fluid                                | None                                      |
 | "ingot"         | None        | Ingots                               | None                                      |
 | "nugget"        | None        | Niggets                              | None                                      |
 | "dust"          | None        | Dusts                                | None                                      |
