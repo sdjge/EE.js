@@ -156,7 +156,10 @@ EmendatusEnigmaticaJS.prototype = {
 					let model = JsonIO.read(`${paths.models.block}${name}_ore_${s}.json`) || {};
 					if (model.parent == undefined && oreBlockJsonGenSwich) {
 						console.log(`No block model found, creating new: ${name}_ore_${s}.json`);
-						JsonIO.write(`${paths.models.block}${name}_ore_${s}.json`, OreModelJson(EE_STRATAS[s].texture, `${global.EE_PACKID}:block/overlays/${name}`));
+						JsonIO.write(
+							`${paths.models.block}${name}_ore_${s}.json`,
+							OreModelJson(EE_STRATAS[s].texture, `${global.EE_PACKID}:block/overlays/${name}`)
+						);
 					}
 				});
 			}
@@ -255,6 +258,8 @@ EmendatusEnigmaticaJS.prototype = {
 						}
 					}
 				});
+				addToTab(`${global.EE_PACKID}:${name}_bucket`);
+				removeInTab(`${global.EE_PACKID}:${name}_bucket`);
 			}
 			if (type == "dust") {
 				StartupEvents.registry("item", (event) => {
@@ -557,7 +562,10 @@ EmendatusEnigmaticaJS.prototype = {
 			}
 			if (type == "crushed") {
 				StartupEvents.registry("item", (event) => {
-					let builder = event.create(`${global.EE_PACKID}:${name}_crushed_ore`).tag("create:crushed_raw_materials").tag(`create:crushed_raw_materials/${name}`);
+					let builder = event
+						.create(`${global.EE_PACKID}:${name}_crushed_ore`)
+						.tag("create:crushed_raw_materials")
+						.tag(`create:crushed_raw_materials/${name}`);
 
 					if (this.color)
 						builder
@@ -581,7 +589,10 @@ EmendatusEnigmaticaJS.prototype = {
 				let singularGener = JsonIO.read(`${paths.avaritia.singular}${name}.json`) || {};
 				if (singularGener.parent == undefined) {
 					console.log(`No singular found, creating new: ${name}.json`);
-					JsonIO.write(`${paths.avaritia.singular}${name}.json`, SingularJson(name, [this.color[2].replace("#", "").toLowerCase().trim(), this.color[3].replace("#", "").toLowerCase().trim()]));
+					JsonIO.write(
+						`${paths.avaritia.singular}${name}.json`,
+						SingularJson(name, [this.color[2].replace("#", "").toLowerCase().trim(), this.color[3].replace("#", "").toLowerCase().trim()])
+					);
 				}
 			}
 		});
